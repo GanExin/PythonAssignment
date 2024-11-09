@@ -37,7 +37,7 @@ def register_driver():
                 continue
         break
 
-    print("Successfully Registered Account! Email: " + email + "Password" + password)
+    print("Successfully Registered Account! Email: " + email + " Password: " + password)
 
 
     # password = input("Please enter password: ")
