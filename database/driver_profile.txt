@@ -1,1 +1,2 @@
-fred@gmail.com | Frederick | Beargrilz | 0123456789 | California | Available | 090807655443 | Healthy
+Fred@gmail.com | Frederick | Kim | 098765432 | California | available | 0989890 | fit to drive
+Tim@gmail.com | Timothee | Chalamet | 089876543 | New York | available | 12343212 | not fit to drive
