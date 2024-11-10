@@ -3,25 +3,23 @@ from PythonAssignment.driver.homepage import driver_homepage
 from PythonAssignment.customer.homepage import customer_homepage
 from PythonAssignment.database import read_users
 
-
 def login():
-    user_db = read_users()
-    email = str(input("Please enter email: "))
-    password = input("Please enter password: ")
-    if email in user_db and user_db[email]['password'] == password:
-        db = user_db[email]
-        role = db['role']
-        session = {
-            "email": email,
-            "role": role,
-        }
-        if role == 'customer':
-            customer_homepage(session)
-        elif role == 'driver':
-            driver_homepage(session)
-        elif role == 'admin':
-            admin_homepage(session)
-        else:
-            print("Invalid role.")
-    else:
-        print("Login Failed")
+    users = read_users()
+    email_input = str(input("Please enter email: "))
+    password_input = input("Please enter password: ")
+    for user in users:
+        email = user[0]
+        password = user[1]
+        if email_input == email and password_input == password:
+            role = user[2]
+            session = [email, role]
+            if role == 'customer':
+                customer_homepage(session)
+                return True
+            if role == 'driver':
+                driver_homepage(session)
+                return True
+            if role == 'admin':
+                admin_homepage(session)
+                return True
+    return False
