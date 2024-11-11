@@ -36,7 +36,7 @@ def read_driver_details(driver_email):
 
 def create_user(user):
     filename = "./database/user.txt"
-    new_user = '\n' + user[0] + ' | '+ user[1] + ' | ' + user[2] + '\n'
+    new_user = '\n' + user[0] + ' | '+ user[1] + ' | ' + user[2]
 
     with open(filename, 'a') as file:
         file.write(new_user)
