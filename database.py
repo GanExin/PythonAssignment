@@ -36,7 +36,7 @@ def read_driver_details(driver_email):
 
 def create_user(user):
     filename = "./database/user.txt"
-    new_user = user[0] + ' | '+ user[1] + ' | ' + user[2] + '\n'
+    new_user = '\n' + user[0] + ' | '+ user[1] + ' | ' + user[2] + '\n'
 
     with open(filename, 'a') as file:
         file.write(new_user)
@@ -45,6 +45,7 @@ def create_user(user):
 def create_driver(driver_detail):
     filename = "./database/driver_profile.txt"
     new_driver = (
+            '\n' +
             driver_detail[0] + ' | '+
             driver_detail[1] +' | '+
             driver_detail[2]+' | '+
@@ -52,7 +53,8 @@ def create_driver(driver_detail):
             driver_detail[4]+' | '+
             driver_detail[5]+' | '+
             driver_detail[6]+' | '+
-            driver_detail[7]+'\n')
+            driver_detail[7]+
+            '\n')
 
     with open(filename, 'a') as file:
         file.write(new_driver)

@@ -93,7 +93,7 @@ def register_driver():
 
     user = [email, password, role]
     create_user(user)
-    
+
     driver_detail = [email, first_name, last_name, phone_number, address, availability_status, driver_license, health_report]
     create_driver(driver_detail)
 
