@@ -71,7 +71,7 @@ def register_driver():
             else:
                 continue
         if availability_status is None:
-            availability_status_input = str(input("Please enter either 'available' or 'not available': ")).lower()
+            availability_status_input = str(input("Are you available to drive? Please enter either 'available' or 'not available': ")).lower()
             if validate_driver_availability_status(availability_status_input):
                 availability_status = availability_status_input
             else:
@@ -83,7 +83,7 @@ def register_driver():
             else:
                 continue
         if health_report is None:
-            health_report_input = input("Please select the following option: [1]Fit to drive, [2]Not fit to drive: ")
+            health_report_input = input("Are you fit to drive? Please select the following option: [1]Fit to drive, [2]Not fit to drive: ")
             if validate_driver_health_report(health_report_input):
                 health_report = get_health_report_value(health_report_input)
             else:
