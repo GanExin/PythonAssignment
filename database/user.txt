@@ -1,2 +1,7 @@
 Fred@gmail.com | FreddyBear234 | driver
 Tim@gmail.com | Tiimoothee666 | driver
+<<<<<<< Updated upstream
+=======
+Drake@gmail.com | IBrfaig918374 | driver
+Will@gmail.com | Willowy123 | driver
+>>>>>>> Stashed changes

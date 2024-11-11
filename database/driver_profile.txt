@@ -1,2 +1,7 @@
 Fred@gmail.com | Frederick | Kim | 098765432 | California | available | 0989890 | fit to drive
 Tim@gmail.com | Timothee | Chalamet | 089876543 | New York | available | 12343212 | not fit to drive
+<<<<<<< Updated upstream
+=======
+Drake@gmail.com | Drake | Tim | 0986381 | New York | available | 3801977153 | not fit to drive
+Will@gmail.com | William | Smith | 31977136 | Utah | available | 396184193 | fit to drive
+>>>>>>> Stashed changes
