@@ -69,4 +69,43 @@ def update_password_to_db(users):
             file.write(new_user)
     return
 
+# def update_driver_profile()
+def update_first_name_to_db(driver):
+    filename = "./database/driver_profile.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == driver[0]:
+                driver_detail[1] = driver[1]
+                lines[i] = ' | '.join(driver_detail) + '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+
+    return
+
+def update_last_name_to_db(driver):
+    filename = "./database/driver_profile.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == driver[0]:
+                driver_detail[2] = driver[2]
+                lines[i] = ' | '.join(driver_detail) + '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+
+    return
+
+
+
 # def delete_user()
