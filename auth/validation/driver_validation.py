@@ -77,8 +77,8 @@ def validate_driver_phone_number(phone_number):
     if not all (char.isdigit() for char in phone_number):
         print("Phone number should only contain numbers")
         return False
-    if '-' in phone_number:
-        print("Phone number must not contain '-'")
+    if '-' not in phone_number:
+        print("Phone number must contain '-'")
         return False
     if '|' in phone_number:
         print("Phone number must not contain '|'")
@@ -99,8 +99,8 @@ def validate_driver_address(address):
 
 
 def validate_driver_availability_status(availability_status):
-    if availability_status not in ['available', 'not available']:
-        print("Please enter either 'available' or 'not available': ")
+    if availability_status not in ['available', 'unavailable']:
+        print("Please enter either 'available' or 'unavailable': ")
         return False
 
     return True

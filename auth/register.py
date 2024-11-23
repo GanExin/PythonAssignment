@@ -71,7 +71,7 @@ def register_driver():
             else:
                 continue
         if availability_status is None:
-            availability_status_input = str(input("Are you available to drive? Please enter either 'available' or 'not available': ")).lower()
+            availability_status_input = str(input("Are you available to drive? Please enter either 'available' or 'unavailable': ")).lower()
             if validate_driver_availability_status(availability_status_input):
                 availability_status = availability_status_input
             else:
