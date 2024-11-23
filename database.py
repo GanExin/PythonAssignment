@@ -1,5 +1,3 @@
-from fileinput import filename
-
 
 def read_users():
     users = []
@@ -72,7 +70,7 @@ def update_password_to_db(users):
     return
 
 # def update_driver_profile()
-def update_first_name_to_db(driver):
+def update_driver_first_name_to_db(driver):
     filename = "./database/driver_profile.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
@@ -90,7 +88,7 @@ def update_first_name_to_db(driver):
 
     return
 
-def update_last_name_to_db(driver):
+def update_driver_last_name_to_db(driver):
     filename = "./database/driver_profile.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
@@ -108,7 +106,7 @@ def update_last_name_to_db(driver):
 
     return
 
-def update_phone_number_to_db(driver):
+def update_driver_phone_number_to_db(driver):
     filename = "./database/driver_profile.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
@@ -124,7 +122,7 @@ def update_phone_number_to_db(driver):
         file.writelines(lines)
         file.truncate()
 
-def update_address_to_db(driver):
+def update_driver_address_to_db(driver):
     filename = "./database/driver_profile.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
@@ -140,7 +138,7 @@ def update_address_to_db(driver):
         file.writelines(lines)
         file.truncate()
 
-def update_availability_status_to_db(driver):
+def update_driver_availability_status_to_db(driver):
     filename = "./database/driver_profile.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
