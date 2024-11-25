@@ -1,6 +1,7 @@
 from PythonAssignment.auth.login import login
 from PythonAssignment.auth.register import register
 
+
 def main():
     while True:
         choice = input("Welcome to Ship2Go, please select the following option: [1] Login, [2] Register, [3] Exit: ")
