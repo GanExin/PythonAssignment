@@ -1,5 +1,3 @@
-from PythonAssignment.auth.validation.driver_validation import validate_driver_password
-from PythonAssignment.database import read_users, update_password_to_db
 
 
 def update_password(session):
