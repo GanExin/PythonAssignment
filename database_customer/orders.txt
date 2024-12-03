@@ -1,0 +1,40 @@
+Order ID: 1
+Product Name: Baby Oil
+Quantity: 1000
+Customer Name: Did He?
+Address: Los Angeles, California, USA
+Phone Number: 016-9696969
+Payment Method: Credit Card
+Vehicle: Truck
+Special Request: roll it into a ball and flick it onto my doorstep
+----------------------------------------
+Order ID: 2
+Product Name: Bing Chilling
+Quantity: 1
+Customer Name: John Cena
+Address: Miami, Florida, USA
+Phone Number: 014-5205200
+Payment Method: Debit Card
+Vehicle: Van
+Special Request: None
+----------------------------------------
+Order ID: 3
+Product Name: Nutella
+Quantity: 1
+Customer Name: Cherry Berry
+Address: Narnia
+Phone Number: 014-3920393
+Payment Method: Cash on Delivery
+Vehicle: Van
+Special Request: Please gently put my nutella in ur ass :)
+----------------------------------------
+Order ID: 4
+Product Name: Bus
+Quantity: 1
+Customer Name: Gallahang
+Address: Starbucks's office
+Phone Number: 017-3930903
+Payment Method: Credit Card
+Vehicle: Specialized Carrier
+Special Request: None
+----------------------------------------
