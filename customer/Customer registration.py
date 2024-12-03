@@ -87,7 +87,7 @@ def registration_details_validity():
 # customer_info = registration_details_validity()
 
 def save_to_file(customer_info_file):
-    with open("customer_data.txt", "a") as file:
+    with open("customer_profile.txt", "a") as file:
         file.write(f"{customer_info_file['full_name']} | {customer_info_file['email']} | "
                    f"{customer_info_file['phone_num']} | {customer_info_file['address']}\n")
     print("\n⭐You have successfully registered⭐")

@@ -1,5 +1,6 @@
 # how to import user_order_management
-def rate_review():
+
+def rate_review(session):
     print("---------------------Ratings & Reviews---------------------")
     # asks users if they had placed and order or not
     order_made = input("Have you made an order? (y/n): ").lower()
@@ -56,5 +57,4 @@ def display_reviews():
     except FileNotFoundError:
         print("No reviews found. Please rate and review first.")
 
-rate_review()
 
