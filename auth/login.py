@@ -1,7 +1,8 @@
 from PythonAssignment.admin.homepage import admin_homepage
-from PythonAssignment.driver.homepage import driver_homepage
 from PythonAssignment.customer.homepage import customer_homepage
 from PythonAssignment.database import read_users
+from PythonAssignment.driver.homepage import driver_homepage
+
 
 def login():
     users = read_users()

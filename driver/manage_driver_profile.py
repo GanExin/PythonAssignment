@@ -1,6 +1,6 @@
 from PythonAssignment.auth.validation.driver_validation import validate_driver_password, validate_driver_first_name, \
-    validate_driver_last_name, validate_driver_phone_number, validate_driver_address, validate_driver_license, \
-    validate_driver_availability_status, validate_driver_health_report, get_health_report_value
+    validate_driver_last_name, validate_driver_phone_number, validate_driver_address, \
+    validate_driver_availability_status, validate_driver_license, validate_driver_health_report, get_health_report_value
 from PythonAssignment.database import read_users, update_password_to_db, read_driver_details, \
     update_driver_first_name_to_db, update_driver_last_name_to_db, update_driver_phone_number_to_db, \
     update_driver_address_to_db, update_driver_availability_status_to_db, update_driver_license_to_db, \

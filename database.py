@@ -1,3 +1,6 @@
+#function to read user.txt
+from fileinput import filename
+
 
 def read_users():
     users = []
@@ -13,6 +16,7 @@ def read_users():
 
     return users
 
+#function to read driver_profile.txt
 def read_driver_details(driver_email):
     profile = []
     filename = "./database/driver_profile.txt"
@@ -33,7 +37,23 @@ def read_driver_details(driver_email):
 
     return profile
 
+def read_customer_details(customer_email):
+    profile = []
+    filename = "./database_customer/customer_profile.txt"
+    with open(filename, 'r') as customers:
+        for customer in customers:
+            col = customer.strip().split(" | ")
+            email = col[0]
+            if customer_email == email:
+                profile.append(col[0])
+                profile.append(col[1])
+                profile.append(col[2])
+                profile.append(col[3])
+                return profile
+        return profile
 
+
+                #create user.txt
 def create_user(user):
     filename = "./database/user.txt"
     new_user = user[0] + ' | '+ user[1] + ' | ' + user[2] + '\n'
@@ -41,7 +61,7 @@ def create_user(user):
     with open(filename, 'a') as file:
         file.write(new_user)
 
-
+#create_driver
 def create_driver(driver_detail):
     filename = "./database/driver_profile.txt"
     new_driver = (
@@ -58,6 +78,73 @@ def create_driver(driver_detail):
         file.write(new_driver)
 
     print("Success")
+    return
+
+#create_customer
+def create_customer(customer_detail):
+    filename = "./database_customer/customer_profile.txt"
+    new_customer = (
+            customer_detail[0] + ' | '+
+            customer_detail[1] +' | '+
+            customer_detail[2] +' | '+
+            customer_detail[3] + '\n')
+
+    with open(filename, 'a') as file:
+        file.write(new_customer)
+
+    print("⭐You have successfully registered⭐")
+    return
+
+# makes sure orderID continues from last orderID number
+def next_order_id():
+    try:
+        with open("./database_customer/orders.txt", "r") as file:
+            max_id = 0
+            for line in file:
+                # Check if the line starts with "Order ID:"
+                line = line.strip()
+                if line.startswith("Order ID:"):
+                    try:
+                        order_id = int(line.split(":")[1].strip())
+                        max_id = max(max_id, order_id)
+                    except ValueError:
+                        pass  # Ignore lines that are invalid
+            return max_id + 1  # Return the next Order ID
+    except FileNotFoundError:
+        return 1  # Start with OrderID 1 if the file doesn't exist
+
+#function to save order details into order.txt
+def create_order(order_details):
+    filename = "./database_customer/orders.txt"
+    new_order = (
+        f"Order ID: {order_details[0]}\n"
+        f"Product Name: {order_details[1]}\n"
+        f"Quantity: {order_details[2]}\n"
+        f"Customer Name: {order_details[3]}\n"
+        f"Address: {order_details[4]}\n"
+        f"Phone Number: {order_details[5]}\n"
+        f"Payment Method: {order_details[6]}\n"
+        f"Vehicle: {order_details[7]}\n"
+        f"Special Request: {order_details[8]}\n"
+        + "-" * 40 + "\n"
+    )
+
+    with open(filename, 'a') as file:
+        file.write(new_order)
+    return
+
+#Save and store review to user_rate_review.txt
+def store_rate_review(review):
+    filename = "./database_customer/user_rate_review"
+    new_review = (
+        f"Name: {review[0]}\n"
+        f"Rating: {review[1]}\n"
+        f"Review: {review[2]}\n"
+        + "_" * 40 + "\n"
+    )
+
+    with open(filename, 'a') as file:
+        file.write(new_review)
     return
 
 # def update_user()
