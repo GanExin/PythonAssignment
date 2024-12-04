@@ -9,9 +9,9 @@ def main():
             success = login()
             if not success:
                 print("Login Failed: Invalid Credentials")
-        elif choice == "2":
+        if choice == "2":
             register()
-        elif choice == "3":
+        if choice == "3":
             print("Thank you for using X App, see you again!")
             break
         else:

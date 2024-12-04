@@ -38,3 +38,13 @@ Payment Method: Credit Card
 Vehicle: Specialized Carrier
 Special Request: None
 ----------------------------------------
+Order ID: 5
+Product Name: Tariffs
+Quantity: 25
+Customer Name: Donald John Trump
+Address: Whitehouse, Washington DC
+Phone Number: 367501614
+Payment Method: Cash on Delivery
+Vehicle: Truck
+Special Request: Make China pay for it. Im broke, ykwim?
+----------------------------------------

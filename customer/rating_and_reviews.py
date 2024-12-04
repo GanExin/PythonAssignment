@@ -1,4 +1,6 @@
 # how to import user_order_management
+from PythonAssignment.database import store_rate_review
+
 
 def rate_review(session):
     print("---------------------Ratings & Reviews---------------------")
@@ -28,7 +30,9 @@ def rate_review(session):
             print("Review complete.") # let users know their review is completed
             print("Thank you for rating and reviewing.")
 
-            store_rate_review(user, rating, review) # store the details in .txt file
+            review_from_user = [user, rating, review]
+            store_rate_review(review_from_user)
+            # store the details in .txt file
 
             display_reviews() # displays the reviews other users have made
 
@@ -36,13 +40,6 @@ def rate_review(session):
         else:
             print("Invalid choice. Please try again.")
             order_made = input("Have you made an order? (y/n): ").lower()
-
-def store_rate_review(user, rating, review):
-    with open("user_rate_review.txt", "a") as file:
-        file.write(f"Name: {user}\n")
-        file.write(f"Rating: {rating}\n")
-        file.write(f"Review: {review}\n")
-        file.write("-" * 40 + "\n")
 
 # function that displays the other reviews
 def display_reviews():

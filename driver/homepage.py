@@ -13,3 +13,5 @@ def driver_homepage(session):
         update_password(session)
     if choice == "2":
         update_profile(session)
+    else:
+        print("Invalid input")
