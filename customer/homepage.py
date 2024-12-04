@@ -9,7 +9,7 @@ def customer_homepage(session):
 
     while True:
         if user_choice == 1:
-            order_management()
+            pass #order_management()
         elif user_choice == 2:
             pass #rate_review()
         else:

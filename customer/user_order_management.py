@@ -194,29 +194,29 @@ def reorder():
 
 
 # Features user chose
-while True:
-    order = order_management()
-    # If customer chooses feature 1 (Place Order)
-    if order == "1":
-        place_order()
-    # If customer chooses feature 2 (Track Order)
-    elif order == "2":
-        track_order()
-    # If customer chooses feature 3 (Monitor Order)
-    elif order == "3":
-        monitor_order()
-    # If customer chooses feature 4 (Cancel Order)
-    elif order == "4":
-        pass
-    # If customer chooses feature 5 (Reorder)
-    elif order == "5":
-        reorder()
-    # If customer chooses feature 6 (Order History)
-    elif order == "6":
-        pass
-    # If customer chooses feature 7 (Exit Program)
-    elif order == "7":
-        print("Thank you for using Ship2Go.")
-        break
-    else:
-        print("Invalid choice. Please try again.")
+# while True:
+#     order = order_management()
+#     # If customer chooses feature 1 (Place Order)
+#     if order == "1":
+#         place_order()
+#     # If customer chooses feature 2 (Track Order)
+#     elif order == "2":
+#         track_order()
+#     # If customer chooses feature 3 (Monitor Order)
+#     elif order == "3":
+#         monitor_order()
+#     # If customer chooses feature 4 (Cancel Order)
+#     elif order == "4":
+#         pass
+#     # If customer chooses feature 5 (Reorder)
+#     elif order == "5":
+#         reorder()
+#     # If customer chooses feature 6 (Order History)
+#     elif order == "6":
+#         pass
+#     # If customer chooses feature 7 (Exit Program)
+#     elif order == "7":
+#         print("Thank you for using Ship2Go.")
+#         break
+#     else:
+#         print("Invalid choice. Please try again.")

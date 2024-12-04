@@ -33,7 +33,7 @@ def read_driver_details(driver_email):
 
     return profile
 
-
+#create_user
 def create_user(user):
     filename = "./database/user.txt"
     new_user = user[0] + ' | '+ user[1] + ' | ' + user[2] + '\n'
@@ -41,7 +41,7 @@ def create_user(user):
     with open(filename, 'a') as file:
         file.write(new_user)
 
-
+#create_driver
 def create_driver(driver_detail):
     filename = "./database/driver_profile.txt"
     new_driver = (
@@ -58,6 +58,21 @@ def create_driver(driver_detail):
         file.write(new_driver)
 
     print("Success")
+    return
+
+#create_customer
+def create_customer(customer_detail):
+    filename = "./database_customer/customer_profile.txt"
+    new_customer = (
+            customer_detail[0] + ' | '+
+            customer_detail[1] +' | '+
+            customer_detail[2] +' | '+
+            customer_detail[3] + '\n')
+
+    with open(filename, 'a') as file:
+        file.write(new_customer)
+
+    print("⭐You have successfully registered⭐")
     return
 
 # def update_user()

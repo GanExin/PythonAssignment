@@ -77,9 +77,6 @@ def validate_driver_phone_number(phone_number):
     if not all (char.isdigit() for char in phone_number):
         print("Phone number should only contain numbers")
         return False
-    if '-' not in phone_number:
-        print("Phone number must contain '-'")
-        return False
     if '|' in phone_number:
         print("Phone number must not contain '|'")
         return False
