@@ -47,14 +47,16 @@ def place_order(session):
     # a list of payment methods users can choose from
     payment_method = ["Cash on Delivery", "Debit Card", "Credit Card", "Bank Transfer"]
     # user inputs the payment method they prefer
-    user_payment_choice = input("Please enter a payment method\n (Cash on Delivery \nDebit Card \n"
-                                "Credit Card \nBank Transfer) :")
-    # user's payment method will be rejected if the method is not mentioned in the payment_method list.
-    if user_payment_choice not in payment_method:
-        print("Invalid choice. Please try again.")
-        return
-    # clarify/shows users the payment method they have chosen.
-    print(f"You have chosen {user_payment_choice}")
+    while True:
+        user_payment_choice = input("Please enter a payment method\n (Cash on Delivery \nDebit Card \n"
+                                    "Credit Card \nBank Transfer) :")
+        # user's payment method will be rejected if the method is not mentioned in the payment_method list.
+        if user_payment_choice not in payment_method:
+            print("Invalid choice. Please try again.")
+        # clarify/shows users the payment method they have chosen.
+        else:
+            print(f"You have chosen {user_payment_choice}")
+            break
 
     # a list of consignment sizes
     consignment_sizes = ["small parcel", "bulk order", "special cargo"]
@@ -62,29 +64,33 @@ def place_order(session):
     vehicle_choices = ["Van", "Truck", "Specialized Carrier"]
     vehicle = "" # set vehicle to blank
     # user inputs their consignment size
-    user_consignment_sizes = input("Enter the consignment size of your delivery"
-                                   " (small parcel/bulk order/special cargo): ").strip().lower()
-    if user_consignment_sizes not in consignment_sizes:
-        print("Invalid Choice. Please try again.")
-    elif user_consignment_sizes == "small parcel":
-        vehicle = vehicle_choices[0] # assign van when user inputs small parcel
-    elif user_consignment_sizes == "bulk order":
-        vehicle = vehicle_choices[1] # assign truck when user inputs bulk order
-    else:
-        vehicle = vehicle_choices[2] # assign specialized carrier when user inputs special cargo
-    print(f"Your assigned vehicle is: {vehicle}") # show user their assigned vehicle
+    while True:
+        user_consignment_sizes = input("Enter the consignment size of your delivery"
+                                       " (small parcel/bulk order/special cargo): ").strip().lower()
+        if user_consignment_sizes not in consignment_sizes:
+            print("Invalid Choice. Please try again.")
+        else:
+            if user_consignment_sizes == "small parcel":
+                vehicle = vehicle_choices[0]
+            elif user_consignment_sizes == "bulk order":
+                vehicle = vehicle_choices[1]
+            else:
+                vehicle = vehicle_choices[2]
+            break
+    print(f"Your assigned vehicle is: {vehicle}")
 
-    user_special_request = "None" # set user_special_request to None
-    # asks user if they have any special requests
-    special_requests = input("Would you like to make any special requests for your order? (y/n): ").lower()
-    if special_requests == "n":
-        print("No special requests made.")
-    elif special_requests == "y":
-        user_special_request = input("What is your special request?: ")
-        print("Special requests made.")
-    else:
-        print("Invalid choice. Please try again.")
-
+    user_special_request = None
+    while True:
+        special_requests = input("Would you like to make any special requests for your order? (y/n): ")
+        if special_requests == "n":
+            print("No special requests made.")
+            break
+        elif special_requests == "y":
+            user_special_request = input("What is your special request?: ")
+            print("Special requests made.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
     # shows users their orderID
     print(f"Order successful, your OrderID is {order_id}.")
 
@@ -188,6 +194,3 @@ def reorder(session):
         print("No previous orders found. Please ensure you have placed an order.")
 
 # View order history
-
-
-# Features user chose
