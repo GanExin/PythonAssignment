@@ -33,6 +33,7 @@ def read_driver_details(driver_email):
                 profile.append(col[5])
                 profile.append(col[6])
                 profile.append(col[7])
+                profile.append(col[8])
                 return profile
 
     return profile
@@ -72,12 +73,14 @@ def create_driver(driver_detail):
             driver_detail[4]+' | '+
             driver_detail[5]+' | '+
             driver_detail[6]+' | '+
-            driver_detail[7] + '\n')
+            driver_detail[7] +' | '+
+            driver_detail[8] + '\n')
 
     with open(filename, 'a') as file:
         file.write(new_driver)
 
-    print("Success")
+    print("⭐You have successfully registered⭐")
+    print(display_driver_details(driver_detail))
     return
 
 #create_customer
@@ -273,7 +276,41 @@ def update_driver_health_report_to_db(driver):
         file.writelines(lines)
         file.truncate()
 
+def update_driver_dependencies_to_db(driver):
+    filename = "./database/driver_profile.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == driver[0]:
+                driver_detail[8] = driver[8]
+                lines[i] = ' | '.join(driver_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
     return
+
+def display_driver_details(driver):
+    filename = "./database/driver_profile.txt"
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+
+        for line in lines:
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == driver[0]:
+                detail = (f"Email: {driver[0]} \n"
+                          f"First Name: {driver[1]} \n"
+                          f"Last Name: {driver[2]} \n"
+                          f"Phone Number: {driver[3]} \n"
+                          f"Address: {driver[4]} \n"
+                          f"Availability Status: {driver[5]} \n"
+                          f"Driver License: {driver[6]} \n"
+                          f"Health Report: {driver[7]} \n"
+                          f"Number of Family Dependencies: {driver[8]}")
+                return detail
 
 
 

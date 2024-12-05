@@ -48,8 +48,8 @@ def place_order(session):
     payment_method = ["Cash on Delivery", "Debit Card", "Credit Card", "Bank Transfer"]
     # user inputs the payment method they prefer
     while True:
-        user_payment_choice = input("Please enter a payment method\n (Cash on Delivery \nDebit Card \n"
-                                    "Credit Card \nBank Transfer) :")
+        user_payment_choice = input("Please enter a payment method\n [Cash on Delivery] \n[Debit Card] \n"
+                                    "[Credit Card] \n[Bank Transfer] :")
         # user's payment method will be rejected if the method is not mentioned in the payment_method list.
         if user_payment_choice not in payment_method:
             print("Invalid choice. Please try again.")

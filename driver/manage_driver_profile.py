@@ -1,10 +1,11 @@
 from PythonAssignment.auth.validation.driver_validation import validate_driver_password, validate_driver_first_name, \
     validate_driver_last_name, validate_driver_phone_number, validate_driver_address, \
-    validate_driver_availability_status, validate_driver_license, validate_driver_health_report, get_health_report_value
+    validate_driver_availability_status, validate_driver_license, validate_driver_health_report, \
+    get_health_report_value, validate_driver_family_dependencies
 from PythonAssignment.database import read_users, update_password_to_db, read_driver_details, \
     update_driver_first_name_to_db, update_driver_last_name_to_db, update_driver_phone_number_to_db, \
     update_driver_address_to_db, update_driver_availability_status_to_db, update_driver_license_to_db, \
-    update_driver_health_report_to_db
+    update_driver_health_report_to_db, update_driver_dependencies_to_db
 
 
 def update_password(session):
@@ -36,8 +37,9 @@ def update_profile(session):
         if current_user == db_email:
             while True:
                 choice = input("Please select a number to update? "
-                                "[1]first name [2]last name [3]phone number [4]address "
-                                "[5]availability status [6]driver license [7]health report or [8]exit]: ")
+                                "[1]first name \n[2]last name \n[3]phone number \n[4]address "
+                                "\n[5]availability status \n[6]driver license \n[7]health report "
+                               "\n[8]Number of family dependencies \n[9]exit]: ")
 
                 if choice == '1':
                     update_driver_first_name = input(f"Your current first name is {driver[1]}. Please enter new first name: ").capitalize()
@@ -96,6 +98,14 @@ def update_profile(session):
                         return
 
                 if choice == '8':
+                    update_driver_dependencies = input(f"Your current number of dependencies is/are {driver[8]}. Please enter new number: ")
+                    if validate_driver_family_dependencies(update_driver_dependencies):
+                        driver[8] = update_driver_dependencies
+                        update_driver_dependencies_to_db(driver)
+                        print(f"{driver[8]} successfully updated to email: {user[0]} !")
+                        return
+
+                if choice == '9':
                     break
 
                 else:
