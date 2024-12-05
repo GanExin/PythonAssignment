@@ -1,3 +1,5 @@
+from lib2to3.btm_utils import reduce_tree
+
 from PythonAssignment.database import read_users
 
 
@@ -125,3 +127,13 @@ def get_health_report_value(health_report):
         return "fit to drive"
     if health_report == '2':
         return "not fit to drive"
+
+
+def validate_driver_family_dependencies(family_dependencies):
+    if not any (char.isdigit() for char in family_dependencies):
+        print("Please enter only numbers")
+        return False
+    if ' | ' in family_dependencies:
+        print("Input cannot contain "|" ")
+        return False
+    return True
