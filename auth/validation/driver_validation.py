@@ -1,3 +1,5 @@
+from lib2to3.btm_utils import reduce_tree
+
 from PythonAssignment.database import read_users
 
 
@@ -77,9 +79,6 @@ def validate_driver_phone_number(phone_number):
     if not all (char.isdigit() for char in phone_number):
         print("Phone number should only contain numbers")
         return False
-    if '-' in phone_number:
-        print("Phone number must not contain '-'")
-        return False
     if '|' in phone_number:
         print("Phone number must not contain '|'")
         return False
@@ -99,8 +98,8 @@ def validate_driver_address(address):
 
 
 def validate_driver_availability_status(availability_status):
-    if availability_status not in ['available', 'not available']:
-        print("Please enter either 'available' or 'not available': ")
+    if availability_status not in ['available', 'unavailable']:
+        print("Please enter either 'available' or 'unavailable': ")
         return False
 
     return True
@@ -128,3 +127,13 @@ def get_health_report_value(health_report):
         return "fit to drive"
     if health_report == '2':
         return "not fit to drive"
+
+
+def validate_driver_family_dependencies(family_dependencies):
+    if not any (char.isdigit() for char in family_dependencies):
+        print("Please enter only numbers")
+        return False
+    if ' | ' in family_dependencies:
+        print("Input cannot contain "|" ")
+        return False
+    return True

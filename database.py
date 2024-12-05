@@ -1,3 +1,6 @@
+#function to read user.txt
+from fileinput import filename
+
 
 def read_users():
     users = []
@@ -13,6 +16,7 @@ def read_users():
 
     return users
 
+#function to read driver_profile.txt
 def read_driver_details(driver_email):
     profile = []
     filename = "./database/driver_profile.txt"
@@ -29,11 +33,28 @@ def read_driver_details(driver_email):
                 profile.append(col[5])
                 profile.append(col[6])
                 profile.append(col[7])
+                profile.append(col[8])
                 return profile
 
     return profile
 
+def read_customer_details(customer_email):
+    profile = []
+    filename = "./database_customer/customer_profile.txt"
+    with open(filename, 'r') as customers:
+        for customer in customers:
+            col = customer.strip().split(" | ")
+            email = col[0]
+            if customer_email == email:
+                profile.append(col[0])
+                profile.append(col[1])
+                profile.append(col[2])
+                profile.append(col[3])
+                return profile
+        return profile
 
+
+                #create user.txt
 def create_user(user):
     filename = "./database/user.txt"
     new_user = user[0] + ' | '+ user[1] + ' | ' + user[2] + '\n'
@@ -41,7 +62,7 @@ def create_user(user):
     with open(filename, 'a') as file:
         file.write(new_user)
 
-
+#create_driver
 def create_driver(driver_detail):
     filename = "./database/driver_profile.txt"
     new_driver = (
@@ -52,12 +73,81 @@ def create_driver(driver_detail):
             driver_detail[4]+' | '+
             driver_detail[5]+' | '+
             driver_detail[6]+' | '+
-            driver_detail[7] + '\n')
+            driver_detail[7] +' | '+
+            driver_detail[8] + '\n')
 
     with open(filename, 'a') as file:
         file.write(new_driver)
 
-    print("Success")
+    print("⭐You have successfully registered⭐")
+    print(display_driver_details(driver_detail))
+    return
+
+#create_customer
+def create_customer(customer_detail):
+    filename = "./database_customer/customer_profile.txt"
+    new_customer = (
+            customer_detail[0] + ' | '+
+            customer_detail[1] +' | '+
+            customer_detail[2] +' | '+
+            customer_detail[3] + '\n')
+
+    with open(filename, 'a') as file:
+        file.write(new_customer)
+
+    print("⭐You have successfully registered⭐")
+    return
+
+# makes sure orderID continues from last orderID number
+def next_order_id():
+    try:
+        with open("./database_customer/orders.txt", "r") as file:
+            max_id = 0
+            for line in file:
+                # Check if the line starts with "Order ID:"
+                line = line.strip()
+                if line.startswith("Order ID:"):
+                    try:
+                        order_id = int(line.split(":")[1].strip())
+                        max_id = max(max_id, order_id)
+                    except ValueError:
+                        pass  # Ignore lines that are invalid
+            return max_id + 1  # Return the next Order ID
+    except FileNotFoundError:
+        return 1  # Start with OrderID 1 if the file doesn't exist
+
+#function to save order details into order.txt
+def create_order(order_details):
+    filename = "./database_customer/orders.txt"
+    new_order = (
+        f"Order ID: {order_details[0]}\n"
+        f"Product Name: {order_details[1]}\n"
+        f"Quantity: {order_details[2]}\n"
+        f"Customer Name: {order_details[3]}\n"
+        f"Address: {order_details[4]}\n"
+        f"Phone Number: {order_details[5]}\n"
+        f"Payment Method: {order_details[6]}\n"
+        f"Vehicle: {order_details[7]}\n"
+        f"Special Request: {order_details[8]}\n"
+        + "-" * 40 + "\n"
+    )
+
+    with open(filename, 'a') as file:
+        file.write(new_order)
+    return
+
+#Save and store review to user_rate_review.txt
+def store_rate_review(review):
+    filename = "./database_customer/user_rate_review"
+    new_review = (
+        f"Name: {review[0]}\n"
+        f"Rating: {review[1]}\n"
+        f"Review: {review[2]}\n"
+        + "_" * 40 + "\n"
+    )
+
+    with open(filename, 'a') as file:
+        file.write(new_review)
     return
 
 # def update_user()
@@ -68,5 +158,160 @@ def update_password_to_db(users):
             new_user = user[0]+" | " + user[1] + " | " + user[2] + '\n'
             file.write(new_user)
     return
+
+# def update_driver_profile()
+def update_driver_first_name_to_db(driver):
+    filename = "./database/driver_profile.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == driver[0]:
+                driver_detail[1] = driver[1]
+                lines[i] = ' | '.join(driver_detail) + '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+
+    return
+
+def update_driver_last_name_to_db(driver):
+    filename = "./database/driver_profile.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == driver[0]:
+                driver_detail[2] = driver[2]
+                lines[i] = ' | '.join(driver_detail) + '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+
+    return
+
+def update_driver_phone_number_to_db(driver):
+    filename = "./database/driver_profile.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == driver[0]:
+                driver_detail[3] = driver[3]
+                lines[i] = ' | '.join(driver_detail) + '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+
+def update_driver_address_to_db(driver):
+    filename = "./database/driver_profile.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == driver[0]:
+                driver_detail[4] = driver[4]
+                lines[i] = ' | '.join(driver_detail) + '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+
+def update_driver_availability_status_to_db(driver):
+    filename = "./database/driver_profile.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == driver[0]:
+                driver_detail[5] = driver[5]
+                lines[i] = ' | '.join(driver_detail) + '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+
+def update_driver_license_to_db(driver):
+    filename = "./database/driver_profile.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == driver[0]:
+                driver_detail[6] = driver[6]
+                lines[i] = ' | '.join(driver_detail) + '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+
+def update_driver_health_report_to_db(driver):
+    filename = "./database/driver_profile.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == driver[0]:
+                driver_detail[7] = driver[7]
+                lines[i] = ' | '.join(driver_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+
+def update_driver_dependencies_to_db(driver):
+    filename = "./database/driver_profile.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == driver[0]:
+                driver_detail[8] = driver[8]
+                lines[i] = ' | '.join(driver_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
+def display_driver_details(driver):
+    filename = "./database/driver_profile.txt"
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+
+        for line in lines:
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == driver[0]:
+                detail = (f"Email: {driver[0]} \n"
+                          f"First Name: {driver[1]} \n"
+                          f"Last Name: {driver[2]} \n"
+                          f"Phone Number: {driver[3]} \n"
+                          f"Address: {driver[4]} \n"
+                          f"Availability Status: {driver[5]} \n"
+                          f"Driver License: {driver[6]} \n"
+                          f"Health Report: {driver[7]} \n"
+                          f"Number of Family Dependencies: {driver[8]}")
+                return detail
+
+
 
 # def delete_user()
