@@ -15,4 +15,4 @@ def customer_homepage(session):
             rate_review(session)
         else:
             print("Invalid choice. Please choose either [1] or [2]")
-            user_choice = input("[1] Manage orders \n[2] Rate and Review \nWhat would you like to do?: ")
+            continue

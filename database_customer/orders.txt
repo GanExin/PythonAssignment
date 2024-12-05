@@ -48,3 +48,13 @@ Payment Method: Cash on Delivery
 Vehicle: Truck
 Special Request: Make China pay for it. Im broke, ykwim?
 ----------------------------------------
+Order ID: 6
+Product Name: Bombs
+Quantity: 100
+Customer Name: Joe Biden
+Address: Whitehouse basement, Washington DC
+Phone Number: 095368907
+Payment Method: Credit Card
+Vehicle: Truck
+Special Request: Im broke, let my boy Donny pay hehe >//<
+----------------------------------------
