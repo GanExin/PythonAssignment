@@ -9,7 +9,7 @@ def driver_homepage(session):
     print("Welcome back! " + profile[1] + "!")
 
     while True:
-        choice = input("What would you like to do?(Please select number) [1] update password \n[2] update driver profile \n[3] Exit: ")
+        choice = input("What would you like to do?(Please select number) \n[1] update password \n[2] update driver profile \n[3] Exit: ")
         if choice == "1":
             update_password(session)
         if choice == "2":
@@ -18,5 +18,3 @@ def driver_homepage(session):
             return
         else:
             print("Invalid input")
-            continue
-
