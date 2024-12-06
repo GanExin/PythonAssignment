@@ -1,8 +1,7 @@
-
 from PythonAssignment.database import read_users
 
 
-def validate_driver_email(email):
+def validate_email(email):
     if '@' not in email and not email.count('@') == 1:
         print("Invalid email format! Please include a '@' in your email")
         return False
@@ -23,7 +22,7 @@ def validate_driver_email(email):
     return True
 
 
-def validate_driver_password(password):
+def validate_password(password):
     if len(password) < 3:
         print("Password must be longer than 3 characters")
         return False
@@ -40,7 +39,7 @@ def validate_driver_password(password):
     return True
 
 
-def validate_driver_first_name(first_name):
+def validate_first_name(first_name):
     if not any(char.isalpha() for char in first_name):
         print("First name must contain letters")
         return False
@@ -57,7 +56,7 @@ def validate_driver_first_name(first_name):
     return True
 
 
-def validate_driver_last_name(last_name):
+def validate_last_name(last_name):
     if not any(char.isalpha() for char in last_name):
         print("Last name must contain letters")
         return False
@@ -74,9 +73,12 @@ def validate_driver_last_name(last_name):
     return True
 
 
-def validate_driver_phone_number(phone_number):
+def validate_phone_number(phone_number):
     if not all (char.isdigit() for char in phone_number):
         print("Phone number should only contain numbers")
+        return False
+    if phone_number == "":
+        print("Phone number must not be empty")
         return False
     if '|' in phone_number:
         print("Phone number must not contain '|'")
@@ -85,9 +87,12 @@ def validate_driver_phone_number(phone_number):
     return True
 
 
-def validate_driver_address(address):
+def validate_address(address):
     if not any (char.isalpha() for char in address):
         print("Address should contain letters")
+        return False
+    if address == "":
+        print("Address must not be empty")
         return False
     if '|' in address:
         print("Address should not contain '|'")

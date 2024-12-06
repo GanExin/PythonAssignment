@@ -1,7 +1,3 @@
-#function to read user.txt
-from fileinput import filename
-
-
 def read_users():
     users = []
     filename = "./database/user.txt"
@@ -62,6 +58,25 @@ def create_user(user):
     with open(filename, 'a') as file:
         file.write(new_user)
 
+
+#create_admin
+def create_admin(admin_detail):
+    filename = "./database_admin/admin_profile.txt"
+    new_admin = (
+            admin_detail[0] + ' | '+
+            admin_detail[1] +' | '+
+            admin_detail[2]+' | '+
+            admin_detail[3]+' | '+
+            admin_detail[4]+' | '+
+            admin_detail[5]+ '\n')
+
+    with open(filename, 'a') as file:
+        file.write(new_admin)
+
+    print("⭐You have successfully registered⭐ \n")
+    print(display_admin_detail(admin_detail))
+    return
+
 #create_driver
 def create_driver(driver_detail):
     filename = "./database/driver_profile.txt"
@@ -79,7 +94,7 @@ def create_driver(driver_detail):
     with open(filename, 'a') as file:
         file.write(new_driver)
 
-    print("⭐You have successfully registered⭐")
+    print("⭐You have successfully registered⭐ \n")
     print(display_driver_details(driver_detail))
     return
 
@@ -95,7 +110,8 @@ def create_customer(customer_detail):
     with open(filename, 'a') as file:
         file.write(new_customer)
 
-    print("⭐You have successfully registered⭐")
+    print("⭐You have successfully registered⭐ \n")
+    print(display_customer_detail(customer_detail))
     return
 
 # makes sure orderID continues from last orderID number
@@ -301,7 +317,8 @@ def display_driver_details(driver):
         for line in lines:
             driver_detail = line.strip().split(' | ')
             if driver_detail[0] == driver[0]:
-                detail = (f"Email: {driver[0]} \n"
+                detail = (f"Role: Driver \n"
+                          f"Email: {driver[0]} \n"
                           f"First Name: {driver[1]} \n"
                           f"Last Name: {driver[2]} \n"
                           f"Phone Number: {driver[3]} \n"
@@ -312,6 +329,37 @@ def display_driver_details(driver):
                           f"Number of Family Dependencies: {driver[8]}")
                 return detail
 
+def display_admin_detail(admin):
+    filename = "./database_admin/admin_profile.txt"
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+
+        for line in lines:
+            admin_detail = line.strip().split(' | ')
+            if admin_detail[0] == admin[0]:
+                detail = (f"Role: Admin \n"
+                          f"Email: {admin[0]} \n"
+                          f"First Name: {admin[1]} \n"
+                          f"Last Name: {admin[2]} \n"
+                          f"Date of birth: {admin[3]} \n"
+                          f"Phone Number: {admin[4]} \n"
+                          f"Address: {admin[5]}")
+                return detail
+
+def display_customer_detail(customer):
+    filename = "./database_customer/customer_profile.txt"
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+
+        for line in lines:
+            customer_detail = line.strip().split(' | ')
+            if customer_detail[0] == customer[0]:
+                detail = (f"Role: Customer \n"
+                          f"Email: {customer[0]} \n"
+                          f"Full Name: {customer[1]} \n"
+                          f"Phone Number: {customer[2]} \n"
+                          f"Address: {customer[3]}")
+                return detail
 
 
 # def delete_user()
