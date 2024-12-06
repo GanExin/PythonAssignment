@@ -1,4 +1,3 @@
-from lib2to3.btm_utils import reduce_tree
 
 from PythonAssignment.database import read_users
 
