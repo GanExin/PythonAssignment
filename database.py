@@ -54,7 +54,7 @@ def read_customer_details(customer_email):
         return profile
 
 
-                #create user.txt
+#create user.txt
 def create_user(user):
     filename = "./database/user.txt"
     new_user = user[0] + ' | '+ user[1] + ' | ' + user[2] + '\n'

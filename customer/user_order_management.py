@@ -13,22 +13,21 @@ def order_management(session):
                        "\nPlease choose a feature (1/2/3/4/5/6/7): ")
         if choice == '1':
             place_order(session)
-        if choice == '2':
+        elif choice == '2':
             track_order(session)
-        if choice == '3':
+        elif choice == '3':
             monitor_order(session)
-        if choice == '4':
+        elif choice == '4':
             pass #cancel_order(session)
-        if choice == '5':
+        elif choice == '5':
             reorder(session)
-        if choice == '6':
+        elif choice == '6':
             pass #view_order_history
-        if choice == '7':
+        elif choice == '7':
             print("Thank you for using Ship2Go.")
             break
         else:
             print("Invalid input")
-            continue
 
 
 # Place order
@@ -48,7 +47,7 @@ def place_order(session):
     payment_method = ["Cash on Delivery", "Debit Card", "Credit Card", "Bank Transfer"]
     # user inputs the payment method they prefer
     while True:
-        user_payment_choice = input("Please enter a payment method\n [Cash on Delivery] \n[Debit Card] \n"
+        user_payment_choice = input("Please enter a payment method\n[Cash on Delivery] \n[Debit Card] \n"
                                     "[Credit Card] \n[Bank Transfer] :")
         # user's payment method will be rejected if the method is not mentioned in the payment_method list.
         if user_payment_choice not in payment_method:
@@ -115,7 +114,7 @@ def track_order(session):
     order_id = input("Please enter your Order ID: ")
 
     try:
-        with open("orders.txt", "r") as file:
+        with open("database_customer/orders.txt", "r") as file:
             found = False
             order_details = ""
             for line in file:
@@ -143,7 +142,7 @@ def monitor_order(session):
     user_orderid = int(input("Please enter your Order ID: ")) # user enters orderID
 
     try:
-        with open("orders.txt", "r") as file: # reads orders.txt file for the orderID
+        with open("database_customer/orders.txt", "r") as file: # reads orders.txt file for the orderID
             lines = file.readlines()
         current_order_id = None
         order_found = False
@@ -179,7 +178,7 @@ def reorder(session):
     order_id = int(input("Please enter your Order ID: "))
 
     try:
-        with open("orders.txt", "r") as file:
+        with open("database_customer/orders.txt", "r") as file:
             lines = file.readlines()
         current_order_id = None
         for line in lines:

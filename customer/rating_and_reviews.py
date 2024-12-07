@@ -44,7 +44,7 @@ def rate_review(session):
 # function that displays the other reviews
 def display_reviews():
     try:
-        with open("user_rate_review.txt", "r") as file:
+        with open("./database_customer/user_rate_review", "r") as file:
             content = file.read()
             if content:
                 print("\n---------------------All Ratings & Reviews---------------------")
@@ -52,6 +52,6 @@ def display_reviews():
             else:
                 print("\nNo reviews available yet.")
     except FileNotFoundError:
-        print("No reviews found. Please rate and review first.")
+        print("No reviews found.")
 
 
