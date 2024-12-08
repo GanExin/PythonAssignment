@@ -10,7 +10,7 @@ from PythonAssignment.database import read_users, update_password_to_db, read_dr
 
 def update_password(session):
     users = read_users()
-    current_user = session[0]
+    current_user = session[0] #check if current user match email aka session[0]
 
     for user in users:
         db_email = user[0]

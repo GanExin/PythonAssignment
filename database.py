@@ -1,6 +1,7 @@
+#read user details from user.txt
 def read_users():
     users = []
-    filename = "./database/user.txt"
+    filename = "./database_driver/user.txt"
     with open(filename, 'r') as file:
         for line in file:
             user = []
@@ -12,10 +13,10 @@ def read_users():
 
     return users
 
-#function to read driver_profile.txt
+#read driver details from driver_profile.txt
 def read_driver_details(driver_email):
     profile = []
-    filename = "./database/driver_profile.txt"
+    filename = "./database_driver/driver_profile.txt"
     with open(filename, 'r') as drivers:
         for driver in drivers:
             col = driver.strip().split(" | ")
@@ -34,6 +35,7 @@ def read_driver_details(driver_email):
 
     return profile
 
+#read customer details from customer_profile.txt
 def read_customer_details(customer_email):
     profile = []
     filename = "./database_customer/customer_profile.txt"
@@ -50,16 +52,16 @@ def read_customer_details(customer_email):
         return profile
 
 
-#create user.txt
+#create user to user.txt
 def create_user(user):
-    filename = "./database/user.txt"
+    filename = "./database_driver/user.txt"
     new_user = user[0] + ' | '+ user[1] + ' | ' + user[2] + '\n'
 
     with open(filename, 'a') as file:
         file.write(new_user)
 
 
-#create_admin
+#create admin details to admin_profile.txt
 def create_admin(admin_detail):
     filename = "./database_admin/admin_profile.txt"
     new_admin = (
@@ -77,9 +79,9 @@ def create_admin(admin_detail):
     print(display_admin_detail(admin_detail))
     return
 
-#create_driver
+#create driveer details to driver_profile.txt
 def create_driver(driver_detail):
-    filename = "./database/driver_profile.txt"
+    filename = "./database_driver/driver_profile.txt"
     new_driver = (
             driver_detail[0] + ' | '+
             driver_detail[1] +' | '+
@@ -98,7 +100,7 @@ def create_driver(driver_detail):
     print(display_driver_details(driver_detail))
     return
 
-#create_customer
+#create customer profile to customer_profile.txt
 def create_customer(customer_detail):
     filename = "./database_customer/customer_profile.txt"
     new_customer = (
@@ -132,7 +134,7 @@ def next_order_id():
     except FileNotFoundError:
         return 1  # Start with OrderID 1 if the file doesn't exist
 
-#function to save order details into order.txt
+#create order details into orders.txt
 def create_order(order_details):
     filename = "./database_customer/orders.txt"
     new_order = (
@@ -152,9 +154,9 @@ def create_order(order_details):
         file.write(new_order)
     return
 
-#Save and store review to user_rate_review.txt.txt
+#Create review to user_rate_review.txt.txt
 def store_rate_review(review):
-    filename = "database_customer/user_rate_review.txt"
+    filename = "./database_customer/user_rate_review.txt"
     new_review = (
         f"Name: {review[0]}\n"
         f"Rating: {review[1]}\n"
@@ -166,18 +168,18 @@ def store_rate_review(review):
         file.write(new_review)
     return
 
-# def update_user()
+#update new password to user.txt
 def update_password_to_db(users):
-    filename = "./database/user.txt"
+    filename = "./database_driver/user.txt"
     with open(filename, 'w') as file:
         for user in users:
             new_user = user[0]+" | " + user[1] + " | " + user[2] + '\n'
             file.write(new_user)
     return
 
-# def update_driver_profile()
+# def new first name to driver_profile.txt
 def update_driver_first_name_to_db(driver):
-    filename = "./database/driver_profile.txt"
+    filename = "./database_driver/driver_profile.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
 
@@ -194,8 +196,9 @@ def update_driver_first_name_to_db(driver):
 
     return
 
+#update new last name to driver_profile.txt
 def update_driver_last_name_to_db(driver):
-    filename = "./database/driver_profile.txt"
+    filename = "./database_driver/driver_profile.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
 
@@ -212,8 +215,9 @@ def update_driver_last_name_to_db(driver):
 
     return
 
+#update new phone number to driver_profile.txt
 def update_driver_phone_number_to_db(driver):
-    filename = "./database/driver_profile.txt"
+    filename = "./database_driver/driver_profile.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
 
@@ -228,8 +232,9 @@ def update_driver_phone_number_to_db(driver):
         file.writelines(lines)
         file.truncate()
 
+#update new address to driver_profile.txt
 def update_driver_address_to_db(driver):
-    filename = "./database/driver_profile.txt"
+    filename = "./database_driver/driver_profile.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
 
@@ -244,8 +249,9 @@ def update_driver_address_to_db(driver):
         file.writelines(lines)
         file.truncate()
 
+#update new status to driver_profile.txt
 def update_driver_availability_status_to_db(driver):
-    filename = "./database/driver_profile.txt"
+    filename = "./database_driver/driver_profile.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
 
@@ -260,8 +266,9 @@ def update_driver_availability_status_to_db(driver):
         file.writelines(lines)
         file.truncate()
 
+#update new liscense to driver_profile.txt
 def update_driver_license_to_db(driver):
-    filename = "./database/driver_profile.txt"
+    filename = "./database_driver/driver_profile.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
 
@@ -276,8 +283,9 @@ def update_driver_license_to_db(driver):
         file.writelines(lines)
         file.truncate()
 
+#update new report to driver_profile.txt
 def update_driver_health_report_to_db(driver):
-    filename = "./database/driver_profile.txt"
+    filename = "./database_driver/driver_profile.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
 
@@ -292,8 +300,9 @@ def update_driver_health_report_to_db(driver):
         file.writelines(lines)
         file.truncate()
 
+#update new family to driver_profile.txt
 def update_driver_dependencies_to_db(driver):
-    filename = "./database/driver_profile.txt"
+    filename = "./database_driver/driver_profile.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
 
@@ -309,8 +318,9 @@ def update_driver_dependencies_to_db(driver):
         file.truncate()
     return
 
+#display all driver details from driver_profile.txt
 def display_driver_details(driver):
-    filename = "./database/driver_profile.txt"
+    filename = "./database_driver/driver_profile.txt"
     with open(filename, 'r') as file:
         lines = file.readlines()
 
@@ -329,6 +339,7 @@ def display_driver_details(driver):
                           f"Number of Family Dependencies: {driver[8]}")
                 return detail
 
+#display all admin details from admin_profile.txt
 def display_admin_detail(admin):
     filename = "./database_admin/admin_profile.txt"
     with open(filename, 'r') as file:
@@ -346,6 +357,7 @@ def display_admin_detail(admin):
                           f"Address: {admin[5]}")
                 return detail
 
+#display all customer details from customer_profile.txt
 def display_customer_detail(customer):
     filename = "./database_customer/customer_profile.txt"
     with open(filename, 'r') as file:
@@ -361,5 +373,31 @@ def display_customer_detail(customer):
                           f"Address: {customer[3]}")
                 return detail
 
+#display order details from orders.txt
+def display_order():
+    orders = []
+    filename = "./database_customer/orders.txt"
+    with open(filename, 'r') as file:
+        current_order = {}
+        for line in file:
+            line = line.strip()
+            if line == "----------------------------------------":
+                if current_order:  # Add the completed order to the list
+                    orders.append(current_order)
+                current_order = {}
+            elif ": " in line:  # Split lines into key-value pairs
+                key, value = line.split(": ", 1)
+                current_order[key] = value
+        # Add the last order if the file doesn't end with a divider
+        if current_order:
+            orders.append(current_order)
+    return orders
+
+#find order details by matching IDs
+def find_order_by_id(order_id, orders):
+    for order in orders:
+        if order.get("Order ID") == str(order_id):  # Match Order ID as string
+            return order
+    return None
 
 # def delete_user()

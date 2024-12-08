@@ -5,7 +5,7 @@ from PythonAssignment.auth.validation.driver_validation import validate_driver_a
     validate_first_name, validate_last_name, validate_phone_number, validate_address
 from PythonAssignment.database import create_user, create_driver, create_customer, create_admin
 
-
+#register users as their selected roles
 def register():
     while True:
         choice = input("Which role would you like to register as? [customer/admin/driver] or [exit]: ").lower()
@@ -66,10 +66,10 @@ def register_customer():
         break
 
     user = [email, password, role]
-    create_user(user)
+    create_user(user) #store new details into txt file
 
     customer_detail = [email, fullname, phone_number, address]
-    create_customer(customer_detail)
+    create_customer(customer_detail) #store new details into txt file
 
 
 def register_driver():
@@ -153,10 +153,10 @@ def register_driver():
 
 
     user = [email, password, role]
-    create_user(user)
+    create_user(user) #store new details into txt file
 
     driver_detail = [email, first_name, last_name, phone_number, address, availability_status, driver_license, health_report, family_dependencies]
-    create_driver(driver_detail)
+    create_driver(driver_detail) #store new details into txt file
 
 
 def register_admin():
@@ -218,7 +218,7 @@ def register_admin():
         break
 
     user = [email, password, role]
-    create_user(user)
+    create_user(user) #store new details into txt file
 
     admin_detail = [email, first_name, last_name, date_of_birth, phone_number, address]
-    create_admin(admin_detail)
+    create_admin(admin_detail) #store new details into txt file
