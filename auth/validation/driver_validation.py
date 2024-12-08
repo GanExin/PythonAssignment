@@ -77,9 +77,6 @@ def validate_phone_number(phone_number):
     if not all (char.isdigit() for char in phone_number):
         print("Phone number should only contain numbers")
         return False
-    if phone_number == "":
-        print("Phone number must not be empty")
-        return False
     if '|' in phone_number:
         print("Phone number must not contain '|'")
         return False
@@ -90,9 +87,6 @@ def validate_phone_number(phone_number):
 def validate_address(address):
     if not any (char.isalpha() for char in address):
         print("Address should contain letters")
-        return False
-    if address == "":
-        print("Address must not be empty")
         return False
     if '|' in address:
         print("Address should not contain '|'")
