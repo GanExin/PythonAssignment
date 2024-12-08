@@ -11,9 +11,9 @@ def login():
     for user in users:
         email = user[0]
         password = user[1]
-        if email_input == email and password_input == password:
-            role = user[2]
-            session = [email, role]
+        if email_input == email and password_input == password: #ensure password and email match
+            role = user[2] #find role of user
+            session = [email, role] #identify existing user based on email and role
             if role == 'customer':
                 customer_homepage(session)
                 return True
