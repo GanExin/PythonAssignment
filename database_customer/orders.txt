@@ -58,3 +58,23 @@ Payment Method: Credit Card
 Vehicle: Truck
 Special Request: Im broke, let my boy Donny pay hehe >//<
 ----------------------------------------
+Order ID: 7
+Product Name: Sun Tan
+Quantity: 1
+Customer Name: Donald Trump
+Address: Whitehouse, Washington DC
+Phone Number: 367501614
+Payment Method: Bank Transfer
+Vehicle: Van
+Special Request: None
+----------------------------------------
+Order ID: 8
+Product Name: Chocolate Chip Cookies
+Quantity: 1
+Customer Name: Sasha
+Address: Wonderland, Animal Crossing
+Phone Number: 0129293388
+Payment Method: Cash on Delivery
+Vehicle: Van
+Special Request: None
+----------------------------------------
