@@ -152,9 +152,9 @@ def create_order(order_details):
         file.write(new_order)
     return
 
-#Save and store review to user_rate_review.txt
+#Save and store review to user_rate_review.txt.txt
 def store_rate_review(review):
-    filename = "./database_customer/user_rate_review"
+    filename = "database_customer/user_rate_review.txt"
     new_review = (
         f"Name: {review[0]}\n"
         f"Rating: {review[1]}\n"

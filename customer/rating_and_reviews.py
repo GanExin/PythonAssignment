@@ -44,7 +44,7 @@ def rate_review(session):
 # function that displays the other reviews
 def display_reviews():
     try:
-        with open("./database_customer/user_rate_review", "r") as file:
+        with open("./database_customer/user_rate_review.txt", "r") as file:
             content = file.read()
             if content:
                 print("\n---------------------All Ratings & Reviews---------------------")
