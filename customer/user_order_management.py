@@ -114,7 +114,7 @@ def track_order(session):
     order_id = input("Please enter your Order ID: ")
 
     try:
-        with open("database_customer/orders.txt", "r") as file:
+        with open("./database_customer/orders.txt", "r") as file:
             found = False
             order_details = ""
             for line in file:
@@ -142,7 +142,7 @@ def monitor_order(session):
     user_orderid = int(input("Please enter your Order ID: ")) # user enters orderID
 
     try:
-        with open("database_customer/orders.txt", "r") as file: # reads orders.txt file for the orderID
+        with open("./database_customer/orders.txt", "r") as file: # reads orders.txt file for the orderID
             lines = file.readlines()
         current_order_id = None
         order_found = False
@@ -178,7 +178,7 @@ def reorder(session):
     order_id = int(input("Please enter your Order ID: "))
 
     try:
-        with open("database_customer/orders.txt", "r") as file:
+        with open("./database_customer/orders.txt", "r") as file:
             lines = file.readlines()
         current_order_id = None
         for line in lines:
