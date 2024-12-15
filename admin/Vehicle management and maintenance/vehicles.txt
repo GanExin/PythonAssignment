@@ -1,0 +1,7 @@
+VehicleID,Model,LastInspection,Performance,MaintenanceHistory
+1 | Toyota Camry | 2024-01-01 | Good | 2023-12-01:Oil Change;2023-11-01:Tire Rotation
+2 | Honda Civic | 2024-03-15 | Excellent | 2023-12-10:Battery Check;2023-10-01:Brake Pads
+3 | Ford F-150 | 2023-12-20 | Average | 2023-09-01:Coolant Flush;2023-06-01:Engine Check
+4 | Chevrolet Malibu | 2023-12-05 | Good | 2023-11-15:Oil Change;2023-10-01:Transmission Fluid Check
+5 | Nissan Altima | 2023-12-12 | Poor | 2023-11-20:Brake Fluid Change;2023-09-10:Oil Change;2023-07-15:Battery Replacement
+6 | BMW 3 Series | 2024-01-10 | Excellent | 2023-12-25:Tire Check;2023-11-12:Oil Change
