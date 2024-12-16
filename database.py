@@ -79,7 +79,7 @@ def create_admin(admin_detail):
     print(display_admin_detail(admin_detail))
     return
 
-#create driveer details to driver_profile.txt
+#create driver details to driver_profile.txt
 def create_driver(driver_detail):
     filename = "./database_driver/driver_profile.txt"
     new_driver = (
