@@ -38,3 +38,7 @@ Name: Donald Trump
 Rating: 1
 Review: I know u guys are just a shipping company or whatever but the sun tan lotion i ordered was too orange >:[
 ________________________________________
+Name: Donald Trump
+Rating: 4
+Review: delivered to the wrong location dude
+________________________________________
