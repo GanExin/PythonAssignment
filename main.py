@@ -14,8 +14,5 @@ def main():
         if choice == "3":
             print("Thank you for using Ship2Go, see you again!") #Code ends
             break
-        else:
-            print("Invalid option, please choose between [1], [2], or [3].") #Prompt user to input valid option
-            continue
 
 main()

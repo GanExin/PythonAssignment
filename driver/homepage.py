@@ -18,4 +18,4 @@ def driver_homepage(session):
         if choice == "3":
             prompt_for_order_id(session)
         if choice == "4":
-            return
+            break
