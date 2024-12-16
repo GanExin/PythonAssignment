@@ -1,13 +1,13 @@
-#validate DOB
-def validate_date_of_birth(date_of_birth):
-    if len(date_of_birth) != 10 or date_of_birth[2] != '/' or date_of_birth[5] != '/': #ensure '/' between date,month,year
+#validate date
+def validate_date(date):
+    if len(date) != 10 or date[2] != '/' or date[5] != '/': #ensure '/' between date,month,year
         print("Invalid date format. Please use 'dd/mm/yyyy'.")
         return False
-    if any(char.isalpha() for char in date_of_birth): #ensure no letters are entered
-        print("Date of birth cannot contain letters")
+    if any(char.isalpha() for char in date): #ensure no letters are entered
+        print("Date cannot contain letters")
         return False
 
-    day, month, year = date_of_birth[:2], date_of_birth[3:5], date_of_birth[6:] #clarify which is dd,mm,yyyy
+    day, month, year = date[:2], date[3:5], date[6:] #clarify which is dd,mm,yyyy
 
     if not (day.isdigit() and month.isdigit() and year.isdigit()): #ensure dd,mm,yyyy are numbers
         return "Invalid date format. Day, month, and year must be numbers."
