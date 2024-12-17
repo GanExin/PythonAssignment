@@ -36,7 +36,12 @@ def place_order(session):
     print("-----------------------Place Order-----------------------")
     print("Please enter the following details.") # user enters the following details for the order
     product_name = input("Product Name: ")
-    product_quantity = int(input("Quantity: "))
+    while True:
+        try:
+            product_quantity = int(input("Quantity: "))
+            break
+        except ValueError:
+            print("Invalid input. Please enter an integer.")
     customer_name = input("Full Name: ")
     customer_address = input("Address: ")
     customer_phone_num = input("Phone Number: ")
