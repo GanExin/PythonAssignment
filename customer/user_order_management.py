@@ -8,22 +8,20 @@ def order_management(session):
     # user enters a number (1-7) to choose what feature they want
     while True:
         choice = input("[1] Place Order \n[2] Track Order "
-                       "\n[3] Monitor Order \n[4] Cancel Order \n[5] Reorder \n[6] View Order History"
-                       "\n[7] Exit"
-                       "\nPlease choose a feature (1/2/3/4/5/6/7): ")
+                       "\n[3] Cancel Order \n[4] Reorder \n[5] View Order History"
+                       "\n[6] Exit"
+                       "\nPlease choose a feature (1/2/3/4/5/6): ")
         if choice == '1':
             place_order(session)
         elif choice == '2':
             track_order(session)
         elif choice == '3':
-            monitor_order(session)
-        elif choice == '4':
             pass #cancel_order(session)
-        elif choice == '5':
+        elif choice == '4':
             reorder(session)
-        elif choice == '6':
+        elif choice == '5':
             pass #view_order_history
-        elif choice == '7':
+        elif choice == '6':
             print("Thank you for using Ship2Go.")
             break
         else:
@@ -135,39 +133,6 @@ def track_order(session):
                 print(order_details) # displays the order details of the specific orderID entered by user
             else:
                 print("Order not found. Please check your Order ID.")
-    except FileNotFoundError:
-        print("No orders found. Please ensure you have placed an order.")
-
-# Monitor order
-def monitor_order(session):
-    print("-----------------------Monitor Order-----------------------")
-    user_orderid = int(input("Please enter your Order ID: ")) # user enters orderID
-
-    try:
-        with open("./database_customer/orders.txt", "r") as file: # reads orders.txt file for the orderID
-            lines = file.readlines()
-        current_order_id = None
-        order_found = False
-        for line in lines:
-            line = line.strip()
-            if line.startswith("Order ID:"):
-                current_order_id = int(line.split(":")[1].strip())
-                if current_order_id == user_orderid:
-                    order_found = True
-                    break
-        if order_found:
-            while True:
-                user_package_received = input("Have you received your order? (y/n): ").lower()
-                if user_package_received == "y":
-                    print("You have received your package. Thank you for using Ship2Go!")
-                    break
-                elif user_package_received == "n":
-                    pass
-                    break
-                else:
-                    print("Invalid Choice. Please try again.")
-        else:
-            print("Order ID not found. Please try again.")
     except FileNotFoundError:
         print("No orders found. Please ensure you have placed an order.")
 
