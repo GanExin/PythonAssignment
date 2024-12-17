@@ -16,7 +16,7 @@ Quantity: 1
 Customer Name: John Cena
 Address: Miami, Florida, USA
 Phone Number: 014-5205200
-Payment Method: Debit CardS
+Payment Method: Debit Card
 Vehicle: Van
 Special Request: None
 Delivery status: Delivered
