@@ -116,7 +116,13 @@ def place_order(session):
 def track_order(session):
     print("-----------------------Track Order-----------------------")
     # User enters their orderID to track that specific order
-    order_id = input("Please enter your Order ID: ")
+    while True:
+        try:
+            order_id = int(input("Please enter your Order ID: "))
+            break
+        except ValueError:
+            print("Invalid input. Please enter an integer.")
+
     try:
         with open("./database_customer/orders.txt", "r") as file:
             found = False
@@ -144,7 +150,13 @@ def track_order(session):
 # Cancel order
 def cancel_order(session):
     print("-----------------------Cancel Order-----------------------")
-    order_id = int(input("Please enter your Order ID: "))
+    while True:
+        try:
+            order_id = int(input("Please enter your Order ID: "))
+            break
+        except ValueError:
+            print("Invalid input. Please enter an integer.")
+
     try:
         with open("./database_customer/orders.txt", "r") as file:
             found = False
@@ -212,7 +224,13 @@ def order_cancellation(order_id):
 # Reorder
 def reorder(session):
     print("-----------------------Reorder-----------------------")
-    order_id = int(input("Please enter your Order ID: "))
+    while True:
+        try:
+            order_id = int(input("Please enter your Order ID: "))
+            break
+        except ValueError:
+            print("Invalid input. Please enter an integer.")
+
     try:
         with open("./database_customer/orders.txt", "r") as file:
             lines = file.readlines()
@@ -227,17 +245,23 @@ def reorder(session):
                 order_details.append(line)
             if line == '----------------------------------------' and current_order_id == order_id:
                 break
+
         if order_details:
             # Get the next order ID using the next_order_id function
             new_order_id = next_order_id()
-            # Open the file in append mode to add the new order
             with open("./database_customer/orders.txt", "a") as file:
                 for i, detail in enumerate(order_details):
                     if detail.startswith("Order ID:"):
                         order_details[i] = f"Order ID: {new_order_id}"
-                file.writelines("\n".join(order_details))
+                    elif detail.startswith("Delivery status:"):
+                        order_details[i] = f"Delivery status: Undelivered"
+                    elif detail.startswith("Status update date:"):
+                        order_details[i] = f"Status update date: NIL"
+                # Append the modified order details to the file
+                file.writelines("\n".join(order_details) + "\n")
+
             print(f"Order found. Reordering Successful. Your new Order ID is: {new_order_id}")
-            print("\nReorder Details:" )
+            print("\nReorder Details:")
             print("\n".join(order_details))
         else:
             print("Order ID not found. Reorder unsuccessful.")
@@ -246,6 +270,16 @@ def reorder(session):
 
 
 # View order history
+def view_order_history(session):
+    print("-----------------------View Order History-----------------------")
+    while True:
+        customer_name = input("Enter your name: ").strip()
+        if customer_name == "":
+            print("Name cannot be empty. Please enter a name.")
+            continue
+        if search_orders_by_name("orders.txt", customer_name):
+            break
+
 def search_orders_by_name(file_path, customer_name):
     try:
         with open("./database_customer/orders.txt", "r") as file:
@@ -261,14 +295,8 @@ def search_orders_by_name(file_path, customer_name):
                 found = True
         if not found:
             print(f"No orders found for Customer Name: {customer_name}.")
+            return False
+        return True
     except FileNotFoundError:
         print("Please ensure you have placed an order.")
-
-def view_order_history(session):
-    print("-----------------------View Order History-----------------------")
-    while True:
-        customer_name = input("Enter your name: ").strip()
-        if search_orders_by_name("./database_customer/orders.txt", customer_name):
-            break
-        else:
-            pass
+        return False
