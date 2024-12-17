@@ -16,11 +16,11 @@ def order_management(session):
         elif choice == '2':
             track_order(session)
         elif choice == '3':
-            pass #cancel_order(session)
+            cancel_order(session)
         elif choice == '4':
             reorder(session)
         elif choice == '5':
-            pass #view_order_history
+            view_order_history(session)
         elif choice == '6':
             print("Thank you for using Ship2Go.")
             break
@@ -112,7 +112,6 @@ def track_order(session):
     print("-----------------------Track Order-----------------------")
     # User enters their orderID to track that specific order
     order_id = input("Please enter your Order ID: ")
-
     try:
         with open("./database_customer/orders.txt", "r") as file:
             found = False
@@ -136,27 +135,135 @@ def track_order(session):
     except FileNotFoundError:
         print("No orders found. Please ensure you have placed an order.")
 
+
 # Cancel order
+def cancel_order(session):
+    print("-----------------------Cancel Order-----------------------")
+    order_id = int(input("Please enter your Order ID: "))
+    try:
+        with open("./database_customer/orders.txt", "r") as file:
+            found = False
+            order_details = ""
+            for line in file:
+                # Check if the current line contains the entered Order ID
+                if line.strip() == f"Order ID: {order_id}":
+                    found = True
+                    order_details += line
+                    while True:
+                        line = file.readline()
+                        if not line or line.startswith("-" * 40):
+                            break
+                        order_details += line
+                    break
+            if found:
+                delivery_status = ""
+                for detail_line in order_details.split("\n"):
+                    if "Delivery status:" in detail_line:
+                        delivery_status = detail_line.split("Delivery status:")[1].strip()
+                        print(f"Delivery Status: {delivery_status}")
+                        break
+                if delivery_status == "Delivered":
+                    print("Cannot cancel delivered orders. Cancellation unsuccessful.")
+                elif delivery_status in ["En route", "Undelivered"]:
+                    cancel_confirmation = input("Order cancellation confirmed? (y/n): ").lower()
+                    while True:
+                        if cancel_confirmation == "":
+                            print("Please enter yes or no (y/n).")
+                            cancel_confirmation = input("Order cancellation confirmed? (y/n): ").lower()
+                        elif cancel_confirmation == "y":
+                            order_cancellation(order_id)
+                            break
+                        else:
+                            print("Order cancellation unsuccessful.")
+                            break
+            else:
+                print("Order not found. Please check your Order ID.")
+    except FileNotFoundError:
+        print("No orders found. Please ensure you have placed an order.")
+
+def order_cancellation(order_id):
+    try:
+        with open("./database_customer/orders.txt", "r") as file:
+            orders = file.read()
+        # Split the file into blocks of orders
+        order_blocks = orders.split("----------------------------------------\n")
+        updated_orders = []
+        found = False
+        for block in order_blocks:
+            if block.strip() and f"Order ID: {order_id}" in block:
+                found = True
+            else:
+                updated_orders.append(block)
+        if found:
+            with open("./database_customer/orders.txt", "w") as file:
+                file.write("----------------------------------------\n".join(updated_orders).strip() + "\n")
+            print("Order cancellation complete.")
+        else:
+            print("Order not found. Please check your Order ID.")
+    except FileNotFoundError:
+        print("Orders file not found. Please ensure the file exists.")
 
 
 # Reorder
 def reorder(session):
     print("-----------------------Reorder-----------------------")
     order_id = int(input("Please enter your Order ID: "))
-
     try:
         with open("./database_customer/orders.txt", "r") as file:
             lines = file.readlines()
         current_order_id = None
+        order_details = []
+        # Search for the order details
         for line in lines:
             line = line.strip()
             if line.startswith("Order ID:"):
                 current_order_id = int(line.split(":")[1].strip())
-                if current_order_id == order_id:
-                    print(f"Order found. Reordering Successful")
-                    return
-        print("Order ID not found. Reorder unsuccessful.")
+            if current_order_id == order_id:
+                order_details.append(line)
+            if line == '----------------------------------------' and current_order_id == order_id:
+                break
+        if order_details:
+            # Get the next order ID using the next_order_id function
+            new_order_id = next_order_id()
+            # Open the file in append mode to add the new order
+            with open("./database_customer/orders.txt", "a") as file:
+                for i, detail in enumerate(order_details):
+                    if detail.startswith("Order ID:"):
+                        order_details[i] = f"Order ID: {new_order_id}"
+                file.writelines("\n".join(order_details))
+            print(f"Order found. Reordering Successful. Your new Order ID is: {new_order_id}")
+            print("\nReorder Details:" )
+            print("\n".join(order_details))
+        else:
+            print("Order ID not found. Reorder unsuccessful.")
     except FileNotFoundError:
         print("No previous orders found. Please ensure you have placed an order.")
 
+
 # View order history
+def search_orders_by_name(file_path, customer_name):
+    try:
+        with open("./database_customer/orders.txt", "r") as file:
+            content = file.read()  # Read the entire file content
+        orders = content.split("\n----------------------------------------\n")
+        found = False
+        # Loops through each order and check if the customer's name matches
+        for order in orders:
+            if f"Customer Name: {customer_name}" in order:
+                print("\nMatching Order:")
+                print(order.strip())  # Print the full order
+                print("-" * 40)
+                found = True
+        if not found:
+            print(f"No orders found for Customer Name: {customer_name}.")
+    except FileNotFoundError:
+        print("Please ensure you have placed an order.")
+
+def view_order_history(session):
+    print("-----------------------View Order History-----------------------")
+    while True:
+        customer_name = input("Enter your name: ").strip()
+        if search_orders_by_name("./database_customer/orders.txt", customer_name):
+            break
+        else:
+            pass
