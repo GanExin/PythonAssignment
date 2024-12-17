@@ -332,8 +332,8 @@ def update_delivery_status_and_date(order_id, new_status, new_date):
                 for details in range(orders, len(lines)):
                     if "Delivery status: " in lines[details]:
                         lines[details] = f"Delivery status: {new_status}\n"
-                    if "Delivered date: " in lines[details]:
-                         lines[details] = f"Delivered date: {new_date}\n"
+                    if "Status update date: " in lines[details]:
+                         lines[details] = f"Status update date: {new_date}\n"
                     if "----------------------------------------" in lines[details]:
                         updated = True
                         break
@@ -436,10 +436,11 @@ def display_order(order_id):
                               f"Vehicle: {order.get('Vehicle')}\n"
                               f"Special Request: {order.get('Special Request')}\n"
                               f"Delivery status: {order.get('Delivery status')}\n"
-                              f"Deliver date: {order.get('Delivered date')}")
+                              f"Status update date: {order.get('Status update date')}")
                     return detail
 
-        print(f"Order ID {order_id} not found.")
+        print(f"Order ID {order_id} not found. "
+              f"\nPossible reasons: \nCustomer cancelled order/Order ID does not exist.")
         return None
 
 # def delete_user()

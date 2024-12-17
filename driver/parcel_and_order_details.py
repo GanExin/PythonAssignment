@@ -2,22 +2,6 @@ from PythonAssignment.auth.validation.admin_validation import validate_date
 from PythonAssignment.database import display_order, update_delivery_status_and_date
 
 
-def prompt_for_order_id(session):
-    current_user = session[0]
-    #display all order details
-    while True:
-        try:
-            order_id_input = int(input("Enter Order ID: "))
-            order_found = display_order(order_id_input) #check if order found, if found, display order details
-            if order_found:
-                print("\n---------------------Order found---------------------")
-                print(order_found)
-                break  # Exit the  loop if the order is found
-            else:
-                print("Order ID not found. Please try again.")
-        except ValueError:
-            print("Invalid input. Please enter a valid Order ID.")
-
 def update_parcel_status(session):
     current_user = session[0] #display all order details
 
@@ -30,7 +14,7 @@ def update_parcel_status(session):
                 print("\n---------------------Order found---------------------")
                 print(order_found)
 
-                choice_to_update = input("Would you like to update Delivery status and date? (y/n): ").lower()
+                choice_to_update = input("\nWould you like to update Delivery status and date? (y/n): ").lower()
                 if choice_to_update == "y":
                     new_status = input("Enter new delivery status [Undelivered/En route/Delivered]: ").capitalize()
                     if new_status not in delivery_status_available:
