@@ -1,4 +1,4 @@
-from PythonAssignment.auth.validation.admin_validation import validate_date_of_birth
+from PythonAssignment.auth.validation.admin_validation import validate_date
 from PythonAssignment.auth.validation.customer_validation import validate_customer_fullname
 from PythonAssignment.auth.validation.driver_validation import validate_driver_availability_status, validate_driver_license, validate_driver_health_report, \
     get_health_report_value, validate_driver_family_dependencies, validate_email, validate_password, \
@@ -198,7 +198,7 @@ def register_admin():
                 continue
         if date_of_birth is None:
             date_of_birth_input = input("Please enter your date of birth (dd/mm/yyy): ")
-            if validate_date_of_birth(date_of_birth_input):
+            if validate_date(date_of_birth_input):
                 date_of_birth = date_of_birth_input
             else:
                 continue

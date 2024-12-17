@@ -147,6 +147,8 @@ def create_order(order_details):
         f"Payment Method: {order_details[6]}\n"
         f"Vehicle: {order_details[7]}\n"
         f"Special Request: {order_details[8]}\n"
+        f"Delivery status: {order_details[9]}\n"
+        f"Delivered date: {order_details[10]}\n"
         + "-" * 40 + "\n"
     )
 
@@ -318,6 +320,35 @@ def update_driver_dependencies_to_db(driver):
         file.truncate()
     return
 
+#update delivery status and date to orders.txt
+def update_delivery_status_and_date(order_id, new_status, new_date):
+    filename = "./database_customer/orders.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+        updated = False
+
+        for orders in range(len(lines)):
+            if f"Order ID: {order_id}" in lines[orders]:
+                for details in range(orders, len(lines)):
+                    if "Delivery status: " in lines[details]:
+                        lines[details] = f"Delivery status: {new_status}\n"
+                    if "Status update date: " in lines[details]:
+                         lines[details] = f"Status update date: {new_date}\n"
+                    if "----------------------------------------" in lines[details]:
+                        updated = True
+                        break
+            if updated:
+                break
+
+        if updated:
+            file.seek(0)
+            file.writelines(lines)
+            file.truncate()
+            print(f"Order ID {order_id} has been updated!\n")
+        else:
+            print(f"Order ID {order_id} not found.")
+    return
+
 #display all driver details from driver_profile.txt
 def display_driver_details(driver):
     filename = "./database_driver/driver_profile.txt"
@@ -374,30 +405,42 @@ def display_customer_detail(customer):
                 return detail
 
 #display order details from orders.txt
-def display_order():
-    orders = []
+def display_order(order_id):
     filename = "./database_customer/orders.txt"
     with open(filename, 'r') as file:
+        lines = file.readlines()
+        orders = [] #list to store all orders
         current_order = {}
-        for line in file:
+
+        for line in lines:
             line = line.strip()
             if line == "----------------------------------------":
-                if current_order:  # Add the completed order to the list
+                if current_order:
                     orders.append(current_order)
                 current_order = {}
-            elif ": " in line:  # Split lines into key-value pairs
+            elif ": " in line:
                 key, value = line.split(": ", 1)
                 current_order[key] = value
-        # Add the last order if the file doesn't end with a divider
         if current_order:
             orders.append(current_order)
-    return orders
 
-#find order details by matching IDs
-def find_order_by_id(order_id, orders):
-    for order in orders:
-        if order.get("Order ID") == str(order_id):  # Match Order ID as string
-            return order
-    return None
+        for order in orders:
+            if order.get("Order ID") == str(order_id):
+                    detail = (f"Order ID: {order.get('Order ID')}\n"
+                              f"Product Name: {order.get('Product Name')}\n"
+                              f"Quantity: {order.get('Quantity')}\n"
+                              f"Customer Name: {order.get('Customer Name')}\n"
+                              f"Address: {order.get('Address')}\n"
+                              f"Phone Number: {order.get('Phone Number')}\n"
+                              f"Payment Method: {order.get('Payment Method')}\n"
+                              f"Vehicle: {order.get('Vehicle')}\n"
+                              f"Special Request: {order.get('Special Request')}\n"
+                              f"Delivery status: {order.get('Delivery status')}\n"
+                              f"Status update date: {order.get('Status update date')}")
+                    return detail
+
+        print(f"Order ID {order_id} not found. "
+              f"\nPossible reasons: \nCustomer cancelled order/Order ID does not exist.")
+        return None
 
 # def delete_user()

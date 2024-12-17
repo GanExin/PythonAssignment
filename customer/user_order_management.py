@@ -42,6 +42,8 @@ def place_order(session):
     customer_name = input("Full Name: ")
     customer_address = input("Address: ")
     customer_phone_num = input("Phone Number: ")
+    delivery_status = "Undelivered"
+    status_update_date = "NIL"
 
     # a list of payment methods users can choose from
     payment_method = ["Cash on Delivery", "Debit Card", "Credit Card", "Bank Transfer"]
@@ -96,7 +98,7 @@ def place_order(session):
 
     # Save order details in .txt
     save_order = [order_id, product_name, product_quantity, customer_name, customer_address,
-                   customer_phone_num, user_payment_choice, vehicle, user_special_request]
+                   customer_phone_num, user_payment_choice, vehicle, user_special_request, delivery_status, status_update_date]
     create_order(save_order)
 
     # asks users if they want to place another order
