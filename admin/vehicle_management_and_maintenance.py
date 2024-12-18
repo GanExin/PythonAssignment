@@ -24,7 +24,7 @@ def vehicle_management_and_maintenance(session):
             print("Invalid input. Please enter a valid choice.")
 
 
-def view_vehicle_detail():
+def view_vehicle_detail(session):
     print("---------------View Vehicle Detail---------------")
     vehicle_id = input("Please enter the vehicle ID:")
 
@@ -49,7 +49,7 @@ def view_vehicle_detail():
         print(f"An unexpected error occurred: {e}")
 
 
-def schedule_inspection():
+def schedule_inspection(session):
     print("---------------Schedule Vehicle Inspection---------------")
     vehicle_id = input("Please enter the vehicle ID: ")
     new_inspection_date = input("Please enter the new inspection date (YYYY-MM-DD): ")
@@ -84,7 +84,7 @@ def schedule_inspection():
         print(f"An unexpected error occurred: {e}")
 
 
-def check_maintenance_alerts():
+def check_maintenance_alerts(session):
     user_input_date = input("Enter the date to check maintenance alerts (YYYY-MM-DD): ")
 
     try:
@@ -112,7 +112,7 @@ def check_maintenance_alerts():
     except Exception as e:
         return f"An error occurred: {e}"
 
-def update_maintenance_record():
+def update_maintenance_record(session):
     vehicle_id = input("Enter the Vehicle ID: ")
     new_maintenance_date = input("Enter the new maintenance date (YYYY-MM-DD): ")
     new_maintenance_action = input("Enter the new maintenance action (e.g., 'Oil Change', 'Tire Rotation', etc.): ")

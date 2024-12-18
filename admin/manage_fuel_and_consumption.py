@@ -21,7 +21,7 @@ def manage_fuel_and_consumption(session):
         else:
             print("Invalid input. Please enter a valid choice.")
 
-def view_fuel_data():
+def view_fuel_data(session):
     print("---------------View Fuel Data---------------")
     vehicle_id = input("Please enter the vehicle ID:")
 
@@ -45,7 +45,7 @@ def view_fuel_data():
         print(f"An unexpected error occurred: {e}")
 
 
-def update_fuel_data():
+def update_fuel_data(session):
     print("---------------Update Vehicle Fuel Data---------------")
     vehicle_id = input("Please enter the vehicle ID to update fuel data: ")
 
@@ -85,7 +85,7 @@ def update_fuel_data():
         print(f"An error occurred: {e}")
 
 
-def track_fuel_consumption():
+def track_fuel_consumption(session):
     print("---------------Track Fuel Consumption Patterns---------------")
 
     try:
@@ -114,7 +114,7 @@ def track_fuel_consumption():
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
-def check_low_fuel_alerts():
+def check_low_fuel_alerts(session):
     try:
         fuel_threshold = float(input("Enter the fuel level threshold (in %): "))
 

@@ -20,7 +20,7 @@ def driver_management(session):
             print("Invalid input. Please choose a valid option.")
 
 
-def view_driver_details():
+def view_driver_details(session):
     print("---------------View Driver Details---------------")
     driver_email = input("Please enter the driver's email: ")
 
@@ -43,7 +43,7 @@ def view_driver_details():
         print(f"An unexpected error occurred: {e}")
 
 
-def add_comment_to_driver():
+def add_comment_to_driver(session):
     print("---------------Add Comment to Driver---------------")
     driver_email = input("Please enter the driver's email: ")
     comment = input("Please enter your comment: ")
@@ -76,7 +76,7 @@ def add_comment_to_driver():
         print(f"An unexpected error occurred: {e}")
 
 
-def view_comment_for_drivers():
+def view_comment_for_drivers(session):
     try:
         with open("./database_admin/driver_comments.txt", "r") as file:
             content = file.read()
