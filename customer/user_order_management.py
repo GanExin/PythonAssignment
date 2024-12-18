@@ -258,7 +258,7 @@ def reorder(session):
             order_id = int(input("Please enter an Order ID from the above to reorder: "))
             break
         except ValueError:
-            print("Invalid input. Please enter an integer.")
+            print("Invalid input. Please enter an Order ID from the above to reorder: ")
 
     try:
         with open("./database_customer/orders.txt", "r") as file:
