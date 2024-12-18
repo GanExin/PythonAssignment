@@ -1,6 +1,0 @@
-Fred@gmail.com | name: Frederick Kim | status: available | vehicle: V001 | location: Warehouse
-Tim@gmail.com | name: Timothy Chalamet | status: available | vehicle: V002 | location: Highway
-Drake@gmail.com | name: Drako Belzubub | status: available | vehicle: V003 | location: Warehouse
-Will@gmail.com | name: Will Smith | status: available | vehicle: V004 | location: Depot
-Yula@gmail.com | name: Yuliana Grey | status: available | vehicle: V005 | location: Depot
-MKJ@gmail.com | name: Michael Jackson | status: unavailable | vehicle: V006 | location: Highway
