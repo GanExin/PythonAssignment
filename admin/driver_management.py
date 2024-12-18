@@ -63,7 +63,7 @@ def add_comment_to_driver(session):
                 print("Driver not found. Please check the email and try again.")
                 return
 
-        with open("./database_admin/driver_comments.txt", "a") as file:
+        with open("./database_admin/driver_comment.txt", "a") as file:
             file.write(f"Name: {driver_name}\n")
             file.write(f"Email: {driver_email}\n")
             file.write(f"Comment: {comment}\n\n")
@@ -78,7 +78,7 @@ def add_comment_to_driver(session):
 
 def view_comment_for_drivers(session):
     try:
-        with open("./database_admin/driver_comments.txt", "r") as file:
+        with open("./database_admin/driver_comment.txt", "r") as file:
             content = file.read()
             if content:
                 print("\n---------------All Driver Comments---------------")

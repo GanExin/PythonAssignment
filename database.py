@@ -428,7 +428,7 @@ def display_vehicle_data(vehicle_data):
 
 
 def store_driver_comment(driver_email, comment):
-    filename = "./database_admin/driver_comments.txt"
+    filename = "./database_admin/driver_comment.txt"
     new_comment = f"Email: {driver_email}\nComment: {comment}\n\n"
 
     with open(filename, "a") as file:
