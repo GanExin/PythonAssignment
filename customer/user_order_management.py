@@ -2,7 +2,6 @@
 
 from PythonAssignment.database import next_order_id, create_order
 
-
 def order_management(session):
     print("---------------------Order Management---------------------")
     # user enters a number (1-7) to choose what feature they want
@@ -44,7 +43,12 @@ def place_order(session):
             print("Invalid input. Please enter an integer.")
     customer_name = input("Full Name: ")
     customer_address = input("Address: ")
-    customer_phone_num = input("Phone Number: ")
+    while True:
+        customer_phone_num = input("Phone Number: ")
+        if customer_phone_num.isdigit():
+            break
+        else:
+            print("Invalid input. Please enter your phone number.")
     delivery_status = "Undelivered"
     status_update_date = "NIL"
 
@@ -98,10 +102,27 @@ def place_order(session):
     # shows users their orderID
     print(f"Order successful, your OrderID is {order_id}.")
 
-
     # Save order details in .txt
     save_order = [order_id, product_name, product_quantity, customer_name, customer_address,
                    customer_phone_num, user_payment_choice, vehicle, user_special_request, delivery_status, status_update_date]
+
+    #shows user their input orders
+    print("\nOrder Details:")
+    print("Order ID:", order_id)
+    print("Product Name:", product_name)
+    print("Quantity:", product_quantity)
+    print("Customer Name:", customer_name)
+    print("Customer Address:", customer_address)
+    print("Phone Number:", customer_phone_num)
+    print("Payment Method:", user_payment_choice)
+    print("Vehicle:", vehicle)
+    if user_special_request:
+        print("Special Request:", user_special_request)
+    else:
+        print("Special Request: None")
+    print("Delivery Status:", delivery_status)
+    print("Status Update Date:", status_update_date)
+
     create_order(save_order)
 
     # asks users if they want to place another order
@@ -225,8 +246,16 @@ def order_cancellation(order_id):
 def reorder(session):
     print("-----------------------Reorder-----------------------")
     while True:
+        customer_name = input("Enter your name: ").strip()
+        if customer_name == "":
+            print("Name cannot be empty. Please enter a name.")
+            continue
+        if search_orders_by_name("orders.txt", customer_name):
+            break
+
+    while True:
         try:
-            order_id = int(input("Please enter your Order ID: "))
+            order_id = int(input("Please enter an Order ID from the above to reorder: "))
             break
         except ValueError:
             print("Invalid input. Please enter an integer.")
@@ -267,7 +296,6 @@ def reorder(session):
             print("Order ID not found. Reorder unsuccessful.")
     except FileNotFoundError:
         print("No previous orders found. Please ensure you have placed an order.")
-
 
 # View order history
 def view_order_history(session):

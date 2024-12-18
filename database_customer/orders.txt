@@ -106,3 +106,27 @@ Special Request: None
 Delivery status: Undelivered
 Delivered date: NIL
 ----------------------------------------
+Order ID: 10
+Product Name: Boots
+Quantity: 1
+Customer Name: Fiyero
+Address: Winkie Country
+Phone Number: 0192092022
+Payment Method: Credit Card
+Vehicle: Specialized Carrier
+Special Request: None
+Delivery status: Undelivered
+Delivered date: NIL
+----------------------------------------
+Order ID: 11
+Product Name: Boots
+Quantity: 1
+Customer Name: Fiyero
+Address: Winkie Country
+Phone Number: 0192092022
+Payment Method: Credit Card
+Vehicle: Specialized Carrier
+Special Request: None
+Delivery status: Undelivered
+Delivered date: NIL
+----------------------------------------
