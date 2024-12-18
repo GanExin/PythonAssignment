@@ -43,7 +43,7 @@ def view_vehicle_detail():
             if not found:
                 print("Vehicle not found. Please check the ID and try again.")
     except FileNotFoundError:
-        print("No vehicle data found. Please ensure the vehicle data file exist.")
+        print("No vehicle data found. Please ensure the vehicle data file exists.")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
@@ -57,26 +57,25 @@ def schedule_inspection():
         with open("./database_admin/vehicle_data.txt", "r") as file:
             lines = file.readlines()
 
-            found = False
-            for i, line in enumerate(lines):
-                vehicle_data = line.strip().split(" | ")
+        found = False
+        for i, line in enumerate(lines):
+            vehicle_detail = line.strip().split(" | ")
 
-                if vehicle_data[0] == vehicle_id:
-                    found = True
-                    # Update the vehicle's inspection date
-                    vehicle_data[2] = new_inspection_date
-                    updated_line = " | ".join(vehicle_data) + "\n"
-                    lines[i] = updated_line
+            if vehicle_detail[0] == vehicle_id:
+                found = True
 
-                    # After updating, write the changes back to the file
-                    with open("./database_admin/vehicle_data.txt", "w") as file:
-                        file.writelines(lines)
+                vehicle_detail[3] = new_inspection_date
+                updated_line = " | ".join(vehicle_detail) + "\n"
+                lines[i] = updated_line
+                break
 
-                    print(f"Inspection date for Vehicle ID {vehicle_id} was successfully updated to {new_inspection_date}.")
-                    break
+        if found:
+            with open("./database_admin/vehicle_data.txt", "w") as file:
+                file.writelines(lines)
 
-            if not found:
-                print("Vehicle not found. Please check the ID and try again.")
+            print(f"Inspection date for Vehicle ID {vehicle_id} was successfully updated to {new_inspection_date}.")
+        else:
+            print("Vehicle not found. Please check the ID and try again.")
 
     except FileNotFoundError:
         print("No vehicle data found. Please ensure the vehicle data file exists.")
@@ -88,9 +87,6 @@ def check_maintenance_alerts():
     user_input_date = input("Enter the date to check maintenance alerts (YYYY-MM-DD): ")
 
     try:
-        # Convert the user input date to a datetime object
-        user_date = datetime.strptime(user_input_date, "%Y-%m-%d").date()
-
         with open("./database_admin/vehicle_data.txt", 'r') as file:
             lines = file.readlines()
 
@@ -100,9 +96,8 @@ def check_maintenance_alerts():
             if len(vehicle_detail) > 3:
                 next_inspection_date = vehicle_detail[3]
                 if next_inspection_date:
-                    # Convert the inspection date to datetime and compare it with user input
-                    inspection_date = datetime.strptime(next_inspection_date, "%Y-%m-%d").date()
-                    if inspection_date <= user_date:
+
+                    if next_inspection_date <= user_input_date:
                         alerts.append(
                             f"Vehicle ID: {vehicle_detail[0]} needs maintenance inspection by {next_inspection_date}.")
 
@@ -113,13 +108,11 @@ def check_maintenance_alerts():
 
     except FileNotFoundError:
         return "Vehicle data file not found."
-    except ValueError:
-        return "Invalid date format. Please enter the date in YYYY-MM-DD format."
     except Exception as e:
         return f"An error occurred: {e}"
 
-
 def update_maintenance_record():
+    vehicle_id = input("Enter the Vehicle ID: ")
     new_maintenance_date = input("Enter the new maintenance date (YYYY-MM-DD): ")
     new_maintenance_action = input("Enter the new maintenance action (e.g., 'Oil Change', 'Tire Rotation', etc.): ")
 
@@ -133,26 +126,28 @@ def update_maintenance_record():
 
             if vehicle_detail[0] == vehicle_id:
                 updated = True
-                # Find and replace the existing maintenance record with the new one
-                maintenance_history = vehicle_detail[4].split('|')
+
+                if len(vehicle_detail) > 5:
+                    maintenance_history = vehicle_detail[5].split('|')
+                else:
+                    maintenance_history = []
+
                 for j, record in enumerate(maintenance_history):
                     record_date, _ = record.split(':')
                     if record_date == new_maintenance_date:
                         maintenance_history[j] = f"{new_maintenance_date}:{new_maintenance_action}"
                         break
                 else:
-                    # If no existing record for the date, add a new maintenance record
                     maintenance_history.append(f"{new_maintenance_date}:{new_maintenance_action}")
 
-                vehicle_detail[4] = "|".join(maintenance_history)
+                vehicle_detail[5] = "|".join(maintenance_history)
                 lines[i] = " | ".join(vehicle_detail) + "\n"
                 break
 
         if updated:
-            with open(filename, 'w') as file:
+            with open("./database_admin/vehicle_data.txt", 'w') as file:
                 file.writelines(lines)
-            print(
-                f"Maintenance record for Vehicle ID {vehicle_id} updated with action: {new_maintenance_action} on {new_maintenance_date}.")
+            print(f"Maintenance record for Vehicle ID {vehicle_id} updated with action: {new_maintenance_action} on {new_maintenance_date}.")
         else:
             print("Vehicle ID not found.")
 

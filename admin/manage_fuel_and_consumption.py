@@ -64,7 +64,6 @@ def update_fuel_data():
                 last_fuel_check = input(f"Enter new fuel check (current: {vehicle_data[4]}): ")
                 fuel_consumed = input(f"Enter new Fuel Consumed: (current: {vehicle_data[5]})")
 
-                # Update the data
                 vehicle_data[2] = fuel_level
                 vehicle_data[3] = mileage
                 vehicle_data[4] = last_fuel_check
@@ -74,7 +73,7 @@ def update_fuel_data():
                 break
 
         if updated:
-            with open(filename, 'w') as file:
+            with open("./database_admin/fuel_data.txt", 'w') as file:
                 file.writelines(lines)
             print(f"Fuel data for Vehicle ID {vehicle_id} updated successfully.")
         else:
@@ -102,7 +101,6 @@ def track_fuel_consumption():
         fuel_efficiency_km_per_l = distance_traveled / fuel_used
         fuel_efficiency_l_per_100km = (fuel_used / distance_traveled) * 100
 
-        # Display the results
         print("\n---------------Fuel Consumption Report---------------")
         print(f"Vehicle ID: {vehicle_id}")
         print(f"Route Used: {route_used}")
@@ -127,7 +125,7 @@ def check_low_fuel_alerts():
         for line in lines:
             vehicle_detail = line.strip().split(' | ')
             if len(vehicle_detail) > 2:
-                fuel_level = float(vehicle_detail[3])
+                fuel_level = float(vehicle_detail[2])
                 if fuel_level <= fuel_threshold:
                     alerts.append(
                         f"Vehicle ID: {vehicle_detail[0]} (Model: {vehicle_detail[1]}) has low fuel: {fuel_level}%.")

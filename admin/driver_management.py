@@ -49,7 +49,7 @@ def add_comment_to_driver():
     comment = input("Please enter your comment: ")
 
     try:
-        # Find driver name by email
+
         with open("./database_driver/driver_profile.txt", "r") as file:
             driver_found = False
             for line in file:
@@ -63,7 +63,6 @@ def add_comment_to_driver():
                 print("Driver not found. Please check the email and try again.")
                 return
 
-        # Save the comment to driver_comments.txt
         with open("./database_admin/driver_comments.txt", "a") as file:
             file.write(f"Name: {driver_name}\n")
             file.write(f"Email: {driver_email}\n")

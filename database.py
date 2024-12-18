@@ -409,8 +409,8 @@ def display_vehicle_data(vehicle_data):
 
         for line in lines:
             vehicle_detail = line.strip().split(' | ')
-            if vehicle_detail[0] == vehicle_data[0]:
 
+            if vehicle_detail[0] == vehicle_data[0]:
                 if len(vehicle_detail) > 5:
                     maintenance_history = vehicle_detail[5].split('|')
                     maintenance_details = "\n".join([f"  - {item}" for item in maintenance_history])
@@ -427,7 +427,7 @@ def display_vehicle_data(vehicle_data):
     return "Vehicle not found in the database."
 
 
-def store_driver_comment(comment):
+def store_driver_comment(driver_email, comment):
     filename = "./database_admin/driver_comments.txt"
     new_comment = f"Email: {driver_email}\nComment: {comment}\n\n"
 
@@ -447,7 +447,7 @@ def display_fuel_data(vehicle):
                 if vehicle_detail[0] == vehicle[0]:
                     detail = (f"Vehicle ID: {vehicle_detail[0]} \n"
                               f"Vehicle Model: {vehicle_detail[1]} \n"
-                              f"Fuel Level: {vehicle_data[2]} \n"
+                              f"Fuel Level: {vehicle_detail[2]} \n"
                               f"Mileage: {vehicle_detail[3]} km\n"
                               f"Last Fuel Check: {vehicle_detail[4]} \n"
                               f"Fuel Consumed: {vehicle_detail[5]} litres")
