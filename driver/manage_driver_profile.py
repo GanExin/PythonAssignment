@@ -16,7 +16,7 @@ def update_password(session):
         db_email = user[0]
         if current_user == db_email:
             while True:
-                new_password = input("Please input new password: ")
+                new_password = input(f"Your current password is {user[1]}. Please input new password: ")
 
                 if validate_password(new_password):
                     user[1] = new_password
