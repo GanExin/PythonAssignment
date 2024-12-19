@@ -1,7 +1,7 @@
 from PythonAssignment.database import display_fuel_data
 
 def manage_fuel_and_consumption(session):
-    print("------------------Manage Fuel and Consumption------------------")
+    print("------------------Manage Fuel and Vehicle Consumption------------------")
     while True:
         choice = input("[1] View Fuel Data \n[2] Update Fuel Data"
                        "\n[3] Track Fuel Consumption \n[4] Check Low Fuel Alert"
@@ -16,7 +16,7 @@ def manage_fuel_and_consumption(session):
         elif choice == '4':
             check_low_fuel_alerts(session)
         elif choice == '5':
-            print("Exiting Vehicle Management and Maintenance.")
+            print("Exiting Manage Fuel and Vehicle Consumption.")
             break
         else:
             print("Invalid input. Please enter a valid choice.")
@@ -109,7 +109,7 @@ def track_fuel_consumption(session):
         print("\n---------------Fuel Consumption Report---------------")
         print(f"Vehicle ID: {vehicle_id}")
         print(f"Route Used: {route_used}")
-        print(f"Distance Traveled: {distance_traveled:.2f} km")
+        print(f"Distance Traveled: {distance_traveled:.2f} km") # ensures the number is formatted to 2 decimal places
         print(f"Fuel Consumed: {fuel_used:.2f} liters")
         print(f"Fuel Efficiency: {fuel_efficiency_km_per_l:.2f} km/l")
         print(f"Fuel Consumption: {fuel_efficiency_l_per_100km:.2f} liters/100 km")
@@ -131,15 +131,15 @@ def check_low_fuel_alerts(session):
             vehicle_detail = line.strip().split(' | ')
 
             try:
-                fuel_level_str = vehicle_detail[2].split(":")[1].strip()
-                fuel_level = float(fuel_level_str.strip('%'))
-            except (IndexError, ValueError):
-                print(f"Error parsing fuel level for line: {line}")
+                fuel_level_str = vehicle_detail[2].split(":")[1].strip() # Extract and clean the fuel level string
+                fuel_level = float(fuel_level_str.strip('%')) # Remove the '%' and convert the fuel level to a float
+            except (IndexError, ValueError) as e:
+                print(f"Error parsing fuel level for line: {line}. Error: {e}")
                 continue
 
             if fuel_level <= fuel_threshold:
-                    alerts.append(
-                        f"Vehicle ID: {vehicle_detail[0]} (Model: {vehicle_detail[1]}) has low fuel: {fuel_level}%.")
+                alerts.append(
+                    f"Vehicle ID: {vehicle_detail[0]} (Model: {vehicle_detail[1]}) has low fuel: {fuel_level}%.")
 
         if alerts:
             return "\n".join(alerts)
