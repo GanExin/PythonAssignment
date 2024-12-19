@@ -67,6 +67,7 @@ def add_comment_to_driver(session):
             file.write(f"Name: {driver_name}\n")
             file.write(f"Email: {driver_email}\n")
             file.write(f"Comment: {comment}\n\n")
+            file.write("----------------------------------------\n")
 
         print("Comment added successfully!")
 

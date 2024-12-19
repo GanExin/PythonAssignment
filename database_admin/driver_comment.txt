@@ -2,22 +2,29 @@ Email: Fred@gmail.com
 Name: Frederick Kim
 Comment: Great driving skills, would recommend!
 
+----------------------------------------
 Email: Tim@gmail.com
 Name: Timothy Chalamet
 Comment: Excellent driver, always on time.
 
+----------------------------------------
 Email: Will@gmail.com
 Name: Will Smith
 Comment: Needs to improve on communication and time management.
 
+----------------------------------------
 Email: Yula@gmail.com
 Name: Yuliana Grey
 Comment: Unavailable for work currently, but always professional when available.
 
+----------------------------------------
 Email: MKJ@gmail.com
 Name: Michael Jackson
 Comment: Very polite and safe driver.
 
+----------------------------------------
 Email: hawktim@gmail.com
 Name: Hawk Tim
 Comment: Very reliable and punctual!
+
+----------------------------------------
