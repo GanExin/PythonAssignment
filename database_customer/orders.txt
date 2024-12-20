@@ -113,20 +113,10 @@ Customer Name: Fiyero
 Address: Winkie Country
 Phone Number: 0192092022
 Payment Method: Credit Card
-Vehicle: Specialized Carrier
-Special Request: None
-Delivery status: Undelivered
-Delivered date: NIL
-----------------------------------------
-Order ID: 11
-Product Name: Boots
-Quantity: 1
-Customer Name: Fiyero
-Address: Winkie Country
-Phone Number: 0192092022
-Payment Method: Credit Card
-Vehicle: Specialized Carrier
-Special Request: None
+Vehicle: Van
+Special Request: Do not wear my special boots. My feet must be the first to touch it >:[
+Route: Route 1
+Route Price: RM35
 Delivery status: Undelivered
 Delivered date: NIL
 ----------------------------------------

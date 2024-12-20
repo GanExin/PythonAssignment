@@ -99,12 +99,37 @@ def place_order(session):
             break
         else:
             print("Invalid choice. Please try again.")
+
+    route_prices = {"Route 1": 35, "Route 2": 20}
+    route_descriptions = {
+        "Route 1": "Johor ➜ Kuala Lumpur ➜ Butterworth ➜ Kedah ➜ Perlis",
+        "Route 2": "Johor ➜ Kuala Lumpur ➜ Terengganu ➜ Kelantan"}
+    while True:
+        print("Available Routes:")
+        for route, description in route_descriptions.items():
+            print(f"{route}: {description} (Price: RM{route_prices[route]})")
+
+        user_route_choice = input("Please choose a route (1 or 2): ").strip()
+        if user_route_choice == "1":
+            route_choice = "Route 1"
+            route_price = route_prices[route_choice]
+            break
+        elif user_route_choice == "2":
+            route_choice = "Route 2"
+            route_price = route_prices[route_choice]
+            break
+        else:
+            print("Invalid choice. Please select a valid route.")
+
+    print(f"You chose {route_choice}. Price: RM{route_price}.")
+
     # shows users their orderID
     print(f"Order successful, your OrderID is {order_id}.")
 
     # Save order details in .txt
     save_order = [order_id, product_name, product_quantity, customer_name, customer_address,
-                   customer_phone_num, user_payment_choice, vehicle, user_special_request, delivery_status, status_update_date]
+                    customer_phone_num, user_payment_choice, vehicle, user_special_request,
+                  route_choice, route_price, delivery_status, status_update_date]
 
     #shows user their input orders
     print("\nOrder Details:")
@@ -120,6 +145,8 @@ def place_order(session):
         print("Special Request:", user_special_request)
     else:
         print("Special Request: None")
+    print("Route:", route_choice)
+    print("Route Price: RM", route_price)
     print("Delivery Status:", delivery_status)
     print("Status Update Date:", status_update_date)
 
@@ -209,7 +236,7 @@ def cancel_order(session):
                             print("Please enter yes or no (y/n).")
                             cancel_confirmation = input("Order cancellation confirmed? (y/n): ").lower()
                         elif cancel_confirmation == "y":
-                            order_cancellation(order_id)
+                            order_cancellation(order_id, order_details)
                             break
                         else:
                             print("Order cancellation unsuccessful.")
@@ -219,7 +246,7 @@ def cancel_order(session):
     except FileNotFoundError:
         print("No orders found. Please ensure you have placed an order.")
 
-def order_cancellation(order_id):
+def order_cancellation(order_id, order_details):
     try:
         with open("./database_customer/orders.txt", "r") as file:
             orders = file.read()
@@ -230,16 +257,21 @@ def order_cancellation(order_id):
         for block in order_blocks:
             if block.strip() and f"Order ID: {order_id}" in block:
                 found = True
+                # Copy the canceled order to "cancelled_orders.txt"
+                with open("./database_customer/cancelled_orders.txt", "a") as cancelled_file:
+                    cancelled_file.write(block.strip() + "\n")
+                    cancelled_file.write("----------------------------------------\n")
             else:
                 updated_orders.append(block)
         if found:
+            # Write updated orders back to the file
             with open("./database_customer/orders.txt", "w") as file:
                 file.write("----------------------------------------\n".join(updated_orders).strip() + "\n")
             print("Order cancellation complete.")
         else:
             print("Order not found. Please check your Order ID.")
     except FileNotFoundError:
-        print("Orders file not found. Please ensure the file exists.")
+        print("Order not found. Please ensure you have made an order.")
 
 
 # Reorder
