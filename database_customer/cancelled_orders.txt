@@ -8,5 +8,6 @@ Payment Method: Credit Card
 Vehicle: Specialized Carrier
 Special Request: None
 Delivery status: Undelivered
-Delivered date: NIL
+Status update date: NIL
+Driver: NIL
 ----------------------------------------

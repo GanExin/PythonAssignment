@@ -51,6 +51,7 @@ def place_order(session):
             print("Invalid input. Please enter your phone number.")
     delivery_status = "Undelivered"
     status_update_date = "NIL"
+    driver_email = "NIL"
 
     # a list of payment methods users can choose from
     payment_method = ["Cash on Delivery", "Debit Card", "Credit Card", "Bank Transfer"]
@@ -129,7 +130,7 @@ def place_order(session):
     # Save order details in .txt
     save_order = [order_id, product_name, product_quantity, customer_name, customer_address,
                     customer_phone_num, user_payment_choice, vehicle, user_special_request,
-                  route_choice, route_price, delivery_status, status_update_date]
+                  route_choice, route_price, delivery_status, status_update_date, driver_email]
 
     #shows user their input orders
     print("\nOrder Details:")
@@ -149,6 +150,7 @@ def place_order(session):
     print("Route Price: RM", route_price)
     print("Delivery Status:", delivery_status)
     print("Status Update Date:", status_update_date)
+    print("Driver: ", driver_email)
 
     create_order(save_order)
 
@@ -318,6 +320,8 @@ def reorder(session):
                         order_details[i] = f"Delivery status: Undelivered"
                     elif detail.startswith("Status update date:"):
                         order_details[i] = f"Status update date: NIL"
+                    elif detail.startswith("Driver:"):
+                        order_details[i] = f"Driver: NIL"
                 # Append the modified order details to the file
                 file.writelines("\n".join(order_details) + "\n")
 

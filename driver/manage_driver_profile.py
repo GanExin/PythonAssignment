@@ -16,6 +16,7 @@ def update_password(session):
         db_email = user[0]
         if current_user == db_email:
             while True:
+                print("\n---------------------Update New Password---------------------\n")
                 new_password = input(f"Your current password is {user[1]}. Please input new password: ")
 
                 if validate_password(new_password):
@@ -36,6 +37,7 @@ def update_profile(session):
         db_email = user[0]
         if current_user == db_email:
             while True:
+                print("\n---------------------Update New Profile---------------------\n")
                 choice = input("Please select a number to update? "
                                 "\n[1]first name \n[2]last name \n[3]phone number \n[4]address "
                                 "\n[5]availability status \n[6]driver license \n[7]health report "

@@ -13,8 +13,9 @@ def driver_homepage(session):
         choice = input("\nWhat would you like to do?(Please select number) "
                        "\n[1] update password "
                        "\n[2] update driver profile "
-                       "\n[3] View/update Order status"
-                       "\n[4] Exit: ")
+                       "\n[3] View available jobs/parcels"
+                       "\n[4] Update delivery details"
+                       "\n[5] Exit: ")
         if choice == "1":
             update_password(session)
         if choice == "2":
@@ -22,4 +23,6 @@ def driver_homepage(session):
         if choice == "3":
             update_parcel_status(session)
         if choice == "4":
+            pass #update_delivery_details(session)
+        if choice == "5":
             break

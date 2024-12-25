@@ -51,6 +51,46 @@ def read_customer_details(customer_email):
                 return profile
         return profile
 
+#read delivery details from driver_update_for_admin.txt
+def read_delivery_details(driver_email):
+    details = []
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r') as delivery:
+        col = delivery.strip().split( " | ")
+        email = col[0]
+        if driver_email == email:
+            details.append(col[0])
+            details.append(col[1])
+            details.append(col[2])
+            details.append(col[3])
+            details.append(col[4])
+            details.append(col[5])
+            details.append(col[6])
+            details.append(col[7])
+            details.append(col[8])
+            details.append(col[9])
+            return details
+        return details
+
+#create delivery_details
+def create_delivery_details(delivery_detail):
+    filename="./database_driver/delivery_details_for_admin_report.txt"
+    new_details = (
+            delivery_detail[0]+ ' | ' +
+            delivery_detail[1]+ ' | ' +
+            delivery_detail[2]+ ' | ' +
+            delivery_detail[3]+ ' | ' +
+            delivery_detail[4]+ ' | ' +
+            delivery_detail[5]+ ' | ' +
+            delivery_detail[6]+ ' | ' +
+            delivery_detail[7]+ ' | ' +
+            delivery_detail[8]+ ' | ' +
+            delivery_detail[9]+  '\n')
+
+    with open(filename, 'a') as file:
+        file.write(new_details)
+    print("⭐Details created successfully⭐ \n")
+    return
 
 #create user to user.txt
 def create_user(user):
@@ -59,7 +99,6 @@ def create_user(user):
 
     with open(filename, 'a') as file:
         file.write(new_user)
-
 
 #create admin details to admin_profile.txt
 def create_admin(admin_detail):
@@ -150,7 +189,8 @@ def create_order(order_details):
         f"Route: {order_details[9]}\n"
         f"Route Price: RM{order_details[10]}\n"
         f"Delivery status: {order_details[11]}\n"
-        f"Delivered date: {order_details[12]}\n"
+        f"Status update date: {order_details[12]}\n"
+        f"Driver: {order_details[13]}\n"
         + "-" * 40 + "\n"
     )
 
@@ -323,7 +363,7 @@ def update_driver_dependencies_to_db(driver):
     return
 
 #update delivery status and date to orders.txt
-def update_delivery_status_and_date(order_id, new_status, new_date):
+def update_parcel_details(order_id, new_status, new_date, new_driver):
     filename = "./database_customer/orders.txt"
     with open(filename, 'r+') as file:
         lines = file.readlines()
@@ -335,7 +375,9 @@ def update_delivery_status_and_date(order_id, new_status, new_date):
                     if "Delivery status: " in lines[details]:
                         lines[details] = f"Delivery status: {new_status}\n"
                     if "Status update date: " in lines[details]:
-                         lines[details] = f"Status update date: {new_date}\n"
+                        lines[details] = f"Status update date: {new_date}\n"
+                    if "Driver: " in lines[details]:
+                        lines[details] = f"Driver: {new_driver}\n"
                     if "----------------------------------------" in lines[details]:
                         updated = True
                         break
@@ -438,12 +480,66 @@ def display_order(order_id):
                               f"Vehicle: {order.get('Vehicle')}\n"
                               f"Special Request: {order.get('Special Request')}\n"
                               f"Delivery status: {order.get('Delivery status')}\n"
-                              f"Status update date: {order.get('Status update date')}")
+                              f"Status update date: {order.get('Status update date')}\n"
+                              f"Driver: {order.get('Driver')}")
                     return detail
 
         print(f"Order ID {order_id} not found. "
               f"\nPossible reasons: \nCustomer cancelled order/Order ID does not exist.")
-        return None
+        return
+
+def display_available_order():
+    filename = "./database_customer/orders.txt"
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+        orders = [] #list to store all orders
+        current_order = {}
+
+        for line in lines:
+            line = line.strip()
+            if line == "----------------------------------------":
+                if current_order:
+                    orders.append(current_order)
+                current_order = {}
+            elif ": " in line:
+                key, value = line.split(": ", 1)
+                current_order[key] = value
+        if current_order:
+            orders.append(current_order)
+
+        #check is order is available
+        match_delivery_status = "Undelivered"
+        match_status_update_date= "NIL"
+        match_driver = "NIL"
+
+        available_jobs = [
+            order for order in orders
+            if order.get("Delivery status") == match_delivery_status and
+               order.get("Status update date") == match_status_update_date and
+               order.get("Driver") == match_driver
+        ]
+
+        print_jobs_available = ""
+        for order in available_jobs:
+            detail = (f"Order ID: {order.get('Order ID')}\n"
+                      f"Product Name: {order.get('Product Name')}\n"
+                      f"Quantity: {order.get('Quantity')}\n"
+                      f"Customer Name: {order.get('Customer Name')}\n"
+                      f"Address: {order.get('Address')}\n"
+                      f"Phone Number: {order.get('Phone Number')}\n"
+                      f"Payment Method: {order.get('Payment Method')}\n"
+                      f"Vehicle: {order.get('Vehicle')}\n"
+                      f"Special Request: {order.get('Special Request')}\n"
+                      f"Route: {order.get('Route')}\n"
+                      f"Route Price: {order.get('Route Price')}\n"
+                      f"Delivery status: {order.get('Delivery status')}\n"
+                      f"Status update date: {order.get('Status update date')}\n"
+                      f"Driver: {order.get('Driver')}\n"
+                      + "-" * 40 + "\n")
+            print_jobs_available += detail
+
+        return print_jobs_available if print_jobs_available else "No available orders found."
+
 
 # def delete_user()
 
