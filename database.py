@@ -147,8 +147,10 @@ def create_order(order_details):
         f"Payment Method: {order_details[6]}\n"
         f"Vehicle: {order_details[7]}\n"
         f"Special Request: {order_details[8]}\n"
-        f"Delivery status: {order_details[9]}\n"
-        f"Delivered date: {order_details[10]}\n"
+        f"Route: {order_details[9]}\n"
+        f"Route Price: RM{order_details[10]}\n"
+        f"Delivery status: {order_details[11]}\n"
+        f"Delivered date: {order_details[12]}\n"
         + "-" * 40 + "\n"
     )
 
