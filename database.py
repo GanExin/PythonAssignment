@@ -444,3 +444,56 @@ def display_order(order_id):
         return None
 
 # def delete_user()
+
+def display_vehicle_data(vehicle_data):
+    filename = "./database_admin/vehicle_data.txt"
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+
+        for line in lines:
+            vehicle_detail = line.strip().split(' | ')
+
+            if vehicle_detail[0] == vehicle_data[0]:
+                if len(vehicle_detail) > 5:
+                    maintenance_history = vehicle_detail[5].split('|')
+                    maintenance_details = "\n".join([f"  - {item}" for item in maintenance_history])
+                else:
+                    maintenance_details = "No maintenance history available."
+
+                detail = (f"Vehicle ID: {vehicle_detail[0]} \n"
+                          f"Model: {vehicle_detail[1]} \n"
+                          f"Last Inspection: {vehicle_detail[2]} \n"
+                          f"Next Inspection: {vehicle_detail[3]} \n"
+                          f"Performance: {vehicle_detail[4]} \n"
+                          f"Maintenance History: \n{maintenance_details} \n")
+                return detail
+    return "Vehicle not found in the database."
+
+
+def store_driver_comment(driver_email, comment):
+    filename = "./database_admin/driver_comment.txt"
+    new_comment = f"Email: {driver_email}\nComment: {comment}\n\n"
+
+    with open(filename, "a") as file:
+        file.write(new_comment)
+
+    print(f"Comment stored successfully")
+
+
+def display_fuel_data(vehicle):
+    filename = "./database_admin/fuel_data.txt"
+    with open(filename, 'r') as file:
+            lines = file.readlines()
+
+            for line in lines:
+                vehicle_detail = line.strip().split(' | ')
+                if vehicle_detail[0] == vehicle[0]:
+                    detail = (f"Vehicle ID: {vehicle_detail[0]} \n"
+                              f"Vehicle Model: {vehicle_detail[1]} \n"
+                              f"Fuel Level: {vehicle_detail[2]} \n"
+                              f"Mileage: {vehicle_detail[3]} km\n"
+                              f"Last Fuel Check: {vehicle_detail[4]} \n"
+                              f"Fuel Consumed: {vehicle_detail[5]} litres")
+
+                    return detail
+

@@ -116,7 +116,7 @@ def track_order(session):
     order_id = input("Please enter your Order ID: ")
 
     try:
-        with open("database_customer/orders.txt", "r") as file:
+        with open("./database_customer/orders.txt", "r") as file:
             found = False
             order_details = ""
             for line in file:
