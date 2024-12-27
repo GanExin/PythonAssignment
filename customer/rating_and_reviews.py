@@ -1,6 +1,5 @@
-# how to import user_order_management
 from PythonAssignment.database import store_rate_review
-
+from PythonAssignment.customer.user_order_management import place_order
 
 def rate_review(session):
     print("---------------------Ratings & Reviews---------------------")
@@ -10,7 +9,7 @@ def rate_review(session):
     while True:
         if order_made == "n": # if user has not made an order, bring them to place order menu
             print("Please ensure you have made an order to rate and review.")
-            #place_order()
+            place_order(session)
             break
         elif order_made == "y": # if user has placed an order, they can:
             user = input("Please enter your full name: ") # enter their name
