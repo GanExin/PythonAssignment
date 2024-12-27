@@ -1,7 +1,7 @@
 from PythonAssignment.auth.validation.driver_validation import validate_driver_availability_status, \
-    validate_driver_license, validate_driver_health_report, \
-    get_health_report_value, validate_driver_family_dependencies, validate_password, validate_first_name, \
-    validate_last_name, validate_phone_number, validate_address
+    validate_driver_health_report, \
+    get_health_report_value, validate_password, validate_first_name, \
+    validate_last_name, validate_number, validate_address
 from PythonAssignment.database import read_users, update_password_to_db, read_driver_details, \
     update_driver_first_name_to_db, update_driver_last_name_to_db, update_driver_phone_number_to_db, \
     update_driver_address_to_db, update_driver_availability_status_to_db, update_driver_license_to_db, \
@@ -61,7 +61,7 @@ def update_profile(session):
 
                 if choice == '3':
                     update_driver_phone_number = input(f"Your current phone number is {driver[3]}. Please enter new phone number: ")
-                    if validate_phone_number(update_driver_phone_number):
+                    if validate_number(update_driver_phone_number):
                         driver[3] = update_driver_phone_number
                         update_driver_phone_number_to_db(driver)
                         print(f"\n⭐{driver[3]} successfully updated for email: {user[0]} !⭐ \n")
@@ -85,7 +85,7 @@ def update_profile(session):
 
                 if choice == '6':
                     update_driver_license = input(f"Your current driver license is {driver[6]}. Please enter new driver license: ")
-                    if validate_driver_license(update_driver_license):
+                    if validate_number(update_driver_license):
                         driver[6] = update_driver_license
                         update_driver_license_to_db(driver)
                         print(f"\n⭐{driver[6]} successfully updated for email: {user[0]} !⭐ \n")
@@ -101,7 +101,7 @@ def update_profile(session):
 
                 if choice == '8':
                     update_driver_dependencies = input(f"Your current number of dependencies is/are {driver[8]}. Please enter new number: ")
-                    if validate_driver_family_dependencies(update_driver_dependencies):
+                    if validate_number(update_driver_dependencies):
                         driver[8] = update_driver_dependencies
                         update_driver_dependencies_to_db(driver)
                         print(f"\n⭐{driver[8]} successfully updated to email: {user[0]} !⭐ \n")

@@ -51,25 +51,29 @@ def read_customer_details(customer_email):
                 return profile
         return profile
 
+
 #read delivery details from driver_update_for_admin.txt
 def read_delivery_details(driver_email):
     details = []
     filename = "./database_driver/delivery_details_for_admin_report.txt"
-    with open(filename, 'r') as delivery:
-        col = delivery.strip().split( " | ")
-        email = col[0]
-        if driver_email == email:
-            details.append(col[0])
-            details.append(col[1])
-            details.append(col[2])
-            details.append(col[3])
-            details.append(col[4])
-            details.append(col[5])
-            details.append(col[6])
-            details.append(col[7])
-            details.append(col[8])
-            details.append(col[9])
-            return details
+    with open(filename, 'r') as deliveries:
+        for delivery in deliveries:
+            col = delivery.strip().split(" | ")
+            email = col[0]
+            if driver_email == email:
+                details.append(col[0])
+                details.append(col[1])
+                details.append(col[2])
+                details.append(col[3])
+                details.append(col[4])
+                details.append(col[5])
+                details.append(col[6])
+                details.append(col[7])
+                details.append(col[8])
+                details.append(col[9])
+                details.append(col[10])
+                details.append(col[11])
+                return details
         return details
 
 #create delivery_details
@@ -85,11 +89,14 @@ def create_delivery_details(delivery_detail):
             delivery_detail[6]+ ' | ' +
             delivery_detail[7]+ ' | ' +
             delivery_detail[8]+ ' | ' +
-            delivery_detail[9]+  '\n')
+            delivery_detail[9] + ' | ' +
+            delivery_detail[10] + ' | ' +
+            delivery_detail[11]+  '\n')
 
     with open(filename, 'a') as file:
         file.write(new_details)
-    print("⭐Details created successfully⭐ \n")
+    print("\n⭐Details created successfully⭐\n")
+    print(display_delivery_details(delivery_detail))
     return
 
 #create user to user.txt
@@ -393,6 +400,204 @@ def update_parcel_details(order_id, new_status, new_date, new_driver):
             print(f"Order ID {order_id} not found.")
     return
 
+#update vehicle_id to delivery_details_for_admin_report.txt
+def update_vehicle_id_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[1] = detail[1]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
+#update route to delivery_details_for_admin_report.txt
+def update_route_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[2] = detail[2]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
+#update s_journey_datetime to delivery_details_for_admin_report.txt
+def update_s_journey_date_time_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[3] = detail[3]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
+#update e_journey_datetime to delivery_details_for_admin_report.txt
+def update_e_journey_date_time_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[4] = detail[4]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
+#update turnaround_time to delivery_details_for_admin_report.txt
+def update_turnaround_time_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[5] = detail[5]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
+#update total_distances_travelled to delivery_details_for_admin_report.txt
+def update_total_distance_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[6] = detail[6]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
+#update total_refuels to delivery_details_for_admin_report.txt
+def update_total_refuel_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[7] = detail[7]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
+#update total_stopover to delivery_details_for_admin_report.txt
+def update_total_stopover_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[8] = detail[8]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
+#update current_fuel_level to delivery_details_for_admin_report.txt
+def update_current_fuel_level_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[9] = detail[9]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
+#update total_cost_of_refuel to delivery_details_for_admin_report.txt
+def update_total_cost_of_refuel_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[10] = detail[10]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
+#update safety_cleaning_status to delivery_details_for_admin_report.txt
+def update_safety_cleaning_status_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[11] = detail[11]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
 #display all driver details from driver_profile.txt
 def display_driver_details(driver):
     filename = "./database_driver/driver_profile.txt"
@@ -448,6 +653,29 @@ def display_customer_detail(customer):
                           f"Address: {customer[3]}")
                 return detail
 
+#display all delivery details from delivery_details_for_admin_report.txt
+def display_delivery_details(delivery):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+
+        for line in lines:
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0] == delivery[0]:
+                detail = (f"Driver email: {delivery[0]} \n"
+                          f"Vehicle ID: V{delivery[1]} \n"
+                          f"Route: {delivery[2]} \n"
+                          f"Start journey date; time: {delivery[3]} \n"
+                          f"End journey data; time: {delivery[4]} \n"
+                          f"Turnaround time: {delivery[5]} hours\n"
+                          f"Total distance travelled: {delivery[6]} km \n"
+                          f"Total refuels: {delivery[7]} \n"
+                          f"Total stopovers: {delivery[8]} \n"
+                          f"Current fuel level: {delivery[9]} % \n"
+                          f"Total cost of refuel: RM {delivery[10]} \n"
+                          f"Safety and cleaning check status: {delivery[11]}")
+                return detail
+
 #display order details from orders.txt
 def display_order(order_id):
     filename = "./database_customer/orders.txt"
@@ -479,6 +707,8 @@ def display_order(order_id):
                               f"Payment Method: {order.get('Payment Method')}\n"
                               f"Vehicle: {order.get('Vehicle')}\n"
                               f"Special Request: {order.get('Special Request')}\n"
+                              f"Route: {order.get('Route')}\n"
+                              f"Route Price: RM{order.get('Route Price')}\n"
                               f"Delivery status: {order.get('Delivery status')}\n"
                               f"Status update date: {order.get('Status update date')}\n"
                               f"Driver: {order.get('Driver')}")
@@ -507,11 +737,12 @@ def display_available_order():
         if current_order:
             orders.append(current_order)
 
-        #check is order is available
+        #Set requirements
         match_delivery_status = "Undelivered"
         match_status_update_date= "NIL"
         match_driver = "NIL"
 
+        #Check requirements
         available_jobs = [
             order for order in orders
             if order.get("Delivery status") == match_delivery_status and
@@ -540,8 +771,44 @@ def display_available_order():
 
         return print_jobs_available if print_jobs_available else "No available orders found."
 
+#display matching orders by driver email
+def display_driver_jobs(driver_email):
+    filename = "./database_customer/orders.txt"
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+        driver_orders = []
+        current_order = {}
 
-# def delete_user()
+        for line in lines:
+            line = line.strip()
+            if line == "----------------------------------------":
+                if current_order:
+                    if current_order.get("Driver") == driver_email:  #Match the driver email
+                        detail = (f"Order ID: {current_order.get('Order ID')}\n"
+                                  f"Product Name: {current_order.get('Product Name')}\n"
+                                  f"Quantity: {current_order.get('Quantity')}\n"
+                                  f"Customer Name: {current_order.get('Customer Name')}\n"
+                                  f"Address: {current_order.get('Address')}\n"
+                                  f"Phone Number: {current_order.get('Phone Number')}\n"
+                                  f"Payment Method: {current_order.get('Payment Method')}\n"
+                                  f"Vehicle: {current_order.get('Vehicle')}\n"
+                                  f"Special Request: {current_order.get('Special Request')}\n"
+                                  f"Route: {current_order.get('Route')}\n"
+                                  f"Route Price: RM{current_order.get('Route Price')}\n"
+                                  f"Delivery status: {current_order.get('Delivery status')}\n"
+                                  f"Status update date: {current_order.get('Status update date')}\n"
+                                  f"Driver: {current_order.get('Driver')}")
+                        driver_orders.append(detail)
+                    current_order = {}
+            elif ": " in line:
+                key, value = line.split(": ", 1)
+                current_order[key] = value
+
+        if driver_orders:
+            return "\n\n".join(driver_orders)
+        else:
+            return f"No jobs found for driver: {driver_email}"
+
 
 def display_vehicle_data(vehicle_data):
     filename = "./database_admin/vehicle_data.txt"

@@ -1,8 +1,8 @@
 from PythonAssignment.auth.validation.admin_validation import validate_date
 from PythonAssignment.auth.validation.customer_validation import validate_customer_fullname
-from PythonAssignment.auth.validation.driver_validation import validate_driver_availability_status, validate_driver_license, validate_driver_health_report, \
-    get_health_report_value, validate_driver_family_dependencies, validate_email, validate_password, \
-    validate_first_name, validate_last_name, validate_phone_number, validate_address
+from PythonAssignment.auth.validation.driver_validation import validate_driver_availability_status, validate_driver_health_report, \
+    get_health_report_value, validate_email, validate_password, \
+    validate_first_name, validate_last_name, validate_number, validate_address
 from PythonAssignment.database import create_user, create_driver, create_customer, create_admin
 
 #register users as their selected roles
@@ -53,7 +53,7 @@ def register_customer():
                 continue
         if phone_number is None:
             phone_number_input = input("Please enter phone number: ")
-            if validate_phone_number(phone_number_input):
+            if validate_number(phone_number_input):
                 phone_number = phone_number_input
             else:
                 continue
@@ -114,7 +114,7 @@ def register_driver():
                 continue
         if phone_number is None:
             phone_number_input = input("Please enter phone number: ")
-            if validate_phone_number(phone_number_input):
+            if validate_number(phone_number_input):
                 phone_number = phone_number_input
             else:
                 continue
@@ -132,7 +132,7 @@ def register_driver():
                 continue
         if driver_license is None:
             driver_license_input = input("Please enter driver license: ")
-            if validate_driver_license(driver_license_input):
+            if validate_number(driver_license_input):
                 driver_license = driver_license_input
             else:
                 continue
@@ -144,7 +144,7 @@ def register_driver():
                 continue
         if family_dependencies is None:
             family_dependencies_input = input("Please enter a number for you number of dependencies: ")
-            if validate_driver_family_dependencies(family_dependencies_input):
+            if validate_number(family_dependencies_input):
                 family_dependencies = family_dependencies_input
             else:
                 continue
@@ -155,7 +155,8 @@ def register_driver():
     user = [email, password, role]
     create_user(user) #store new details into txt file
 
-    driver_detail = [email, first_name, last_name, phone_number, address, availability_status, driver_license, health_report, family_dependencies]
+    driver_detail = [email, first_name, last_name, phone_number, address, availability_status, driver_license,
+                     health_report, family_dependencies]
     create_driver(driver_detail) #store new details into txt file
 
 
@@ -204,7 +205,7 @@ def register_admin():
                 continue
         if phone_number is None:
             phone_number_input = input("Please enter your phone number: ")
-            if validate_phone_number(phone_number_input):
+            if validate_number(phone_number_input):
                 phone_number = phone_number_input
             else:
                 continue

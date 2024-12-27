@@ -7,6 +7,8 @@ Phone Number: 016-9696969
 Payment Method: Credit Card
 Vehicle: Truck
 Special Request: roll it into a ball and flick it onto my doorstep
+Route: Route 1
+Route Price: RM35
 Delivery status: Delivered
 Status update date: 10/02/2022
 Driver: Fred@gmail.com
@@ -20,6 +22,8 @@ Phone Number: 014-5205200
 Payment Method: Debit Card
 Vehicle: Van
 Special Request: None
+Route: Route 1
+Route Price: RM35
 Delivery status: Delivered
 Status update date: 11/03/2022
 Driver: MKJ@gmail.com
@@ -33,6 +37,8 @@ Phone Number: 014-3920393
 Payment Method: Cash on Delivery
 Vehicle: Van
 Special Request: Please gently put my nutella in ur ass :)
+Route: Route 1
+Route Price: RM35
 Delivery status: Delivered
 Status update date: 12/06/2023
 Driver: Yula@gmail.com
@@ -46,6 +52,8 @@ Phone Number: 017-3930903
 Payment Method: Credit Card
 Vehicle: Specialized Carrier
 Special Request: None
+Route: Route 1
+Route Price: RM35
 Delivery status: Delivered
 Status update date: 20/11/2023
 Driver: MKJ@gmail.com
@@ -59,6 +67,8 @@ Phone Number: 367501614
 Payment Method: Cash on Delivery
 Vehicle: Truck
 Special Request: Make China pay for it. Im broke, ykwim?
+Route: Route 1
+Route Price: RM35
 Delivery status: Delivered
 Status update date: 20/12/2024
 Driver: Will@gmail.com
@@ -72,6 +82,8 @@ Phone Number: 095368907
 Payment Method: Credit Card
 Vehicle: Truck
 Special Request: Im broke, let my boy Donny pay hehe >//<
+Route: Route 1
+Route Price: RM35
 Delivery status: En route
 Status update date: 17/10/2024
 Driver: Tim@gmail.com
@@ -85,9 +97,11 @@ Phone Number: 367501614
 Payment Method: Bank Transfer
 Vehicle: Van
 Special Request: None
-Delivery status: Undelivered
-Status update date: NIL
-Driver: NIL
+Route: Route 1
+Route Price: RM35
+Delivery status: En route
+Status update date: 02/12/2024
+Driver: MKJ@gmail.com
 ----------------------------------------
 Order ID: 8
 Product Name: Chocolate Chip Cookies
@@ -98,6 +112,8 @@ Phone Number: 0129293388
 Payment Method: Cash on Delivery
 Vehicle: Van
 Special Request: None
+Route: Route 1
+Route Price: RM35
 Delivery status: Undelivered
 Status update date: NIL
 Driver: NIL
@@ -111,6 +127,8 @@ Phone Number: 0192092022
 Payment Method: Debit Card
 Vehicle: Specialized Carrier
 Special Request: None
+Route: Route 1
+Route Price: RM35
 Delivery status: Undelivered
 Status update date: NIL
 Driver: NIL
