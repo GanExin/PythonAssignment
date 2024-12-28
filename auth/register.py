@@ -65,11 +65,11 @@ def register_customer():
                 continue
         break
 
-    user = [email, password, role]
-    create_user(user) #store new details into txt file
+    user = [email, password, role] #store details as 'user'
+    create_user(user) #store new 'user' into txt file using predefined function
 
-    customer_detail = [email, fullname, phone_number, address]
-    create_customer(customer_detail) #store new details into txt file
+    customer_detail = [email, fullname, phone_number, address] #store details as 'customer_detail'
+    create_customer(customer_detail) #store new 'customer_detail' into txt file using predefined function
 
 
 def register_driver():
@@ -152,12 +152,12 @@ def register_driver():
         break
 
 
-    user = [email, password, role]
-    create_user(user) #store new details into txt file
+    user = [email, password, role] #store details as 'user'
+    create_user(user) #store new 'user' into txt file using predefined function
 
     driver_detail = [email, first_name, last_name, phone_number, address, availability_status, driver_license,
-                     health_report, family_dependencies]
-    create_driver(driver_detail) #store new details into txt file
+                     health_report, family_dependencies] #store details as 'driver_detail'
+    create_driver(driver_detail) #store new 'driver_detail' into txt file using predefined function
 
 
 def register_admin():
@@ -218,8 +218,8 @@ def register_admin():
 
         break
 
-    user = [email, password, role]
-    create_user(user) #store new details into txt file
+    user = [email, password, role] #store details as 'user'
+    create_user(user) #store new 'user' into txt file using predefined function
 
-    admin_detail = [email, first_name, last_name, date_of_birth, phone_number, address]
-    create_admin(admin_detail) #store new details into txt file
+    admin_detail = [email, first_name, last_name, date_of_birth, phone_number, address] #store details as 'user'
+    create_admin(admin_detail) #store new 'admin_detail' into txt file using predefined function

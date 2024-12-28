@@ -146,7 +146,7 @@ def validate_date_time(date_time):
         if not (1 <= month <= 12):
             print("Invalid month. Month should be between 1 and 12.")
             return False
-        if len(str(year)) != 4:
+        if len(str(year)) != 4: #validate 4-digit year length
             print("Invalid year. Year should be a 4-digit number.")
             return False
 
@@ -171,10 +171,10 @@ def validate_float_with_two_decimals(f_number):
         return False
 
     try:
-        # Check if it can be converted to a float
+        #check if it can be converted to a float
         float_number = float(f_number)
 
-        # Check if it matches the two-decimal format
+        #check if it matches the two-decimal format
         parts = f_number.split(".")
         if len(parts) == 2 and len(parts[1]) == 2:
             return True

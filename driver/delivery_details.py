@@ -18,11 +18,11 @@ def delivery_details(session):
                                                   "\n[4]exit: ")
             if view_jobs_or_update_input == "1":
                 view_driver_orders(session)
-            if view_jobs_or_update_input == "2":
+            elif view_jobs_or_update_input == "2":
                 update_delivery_details(session)
-            if view_jobs_or_update_input == "3":
+            elif view_jobs_or_update_input == "3":
                 create_new_delivery_detail(session)
-            if view_jobs_or_update_input == "4":
+            elif view_jobs_or_update_input == "4":
                 break
             else:
                 continue
@@ -170,7 +170,7 @@ def update_delivery_details(session):
                                     print(f"\n⭐V{detail[1]} successfully updated for email: {user[0]} !⭐ \n")
                                     print(display_delivery_details(detail))
 
-                            if choice == "2":
+                            elif choice == "2":
                                 update_route_chosen = input(f"Your current chosen route is route {detail[2]}. "
                                                             f"\nAvailable routes:"
                                                             f"\nRoute 1: Johor ➜ Kuala Lumpur ➜ Butterworth ➜ Kedah ➜ Perlis"
@@ -182,7 +182,7 @@ def update_delivery_details(session):
                                     print(f"\n⭐Route {detail[2]} successfully updated for email: {user[0]} !⭐ \n")
                                     print(display_delivery_details(detail))
 
-                            if choice == "3":
+                            elif choice == "3":
                                 update_s_journey_datetime = input(f"Your current START journey date; time is {detail[3]}."
                                                                   f"\nPlease enter new (dd/mm/yyyy; hh:mm) : ")
                                 if validate_date_time(update_s_journey_datetime):
@@ -191,7 +191,7 @@ def update_delivery_details(session):
                                     print(f"\n⭐{detail[3]} successfully updated for email: {user[0]} !⭐ \n")
                                     print(display_delivery_details(detail))
 
-                            if choice == "4":
+                            elif choice == "4":
                                 update_e_journey_datetime = input(f"Your current END journey date; time is {detail[4]}."
                                                                   f"\nPlease enter new (dd/mm/yyyy; hh:mm) : ")
                                 if validate_date_time(update_e_journey_datetime):
@@ -200,7 +200,7 @@ def update_delivery_details(session):
                                     print(f"\n⭐{detail[4]} successfully updated for email: {user[0]} !⭐ \n")
                                     print(display_delivery_details(detail))
 
-                            if choice == "5":
+                            elif choice == "5":
                                 update_turnaround_time = input(f"Your current turnaround time is {detail[5]} hours."
                                                                f"\nPlease enter new turnaround time (in hours): ")
                                 if validate_number(update_turnaround_time):
@@ -209,7 +209,7 @@ def update_delivery_details(session):
                                     print(f"\n⭐{detail[5]} hours successfully updated for email: {user[0]} !⭐ \n")
                                     print(display_delivery_details(detail))
 
-                            if choice == "6":
+                            elif choice == "6":
                                 update_total_distance_travelled = input(f"Your current distance travelled is {detail[6]} km."
                                                                         f"\nPlease enter new distance travelled (in km): ")
                                 if validate_number(update_total_distance_travelled):
@@ -218,7 +218,7 @@ def update_delivery_details(session):
                                     print(f"\n⭐{detail[6]} km successfully updated for email: {user[0]} !⭐ \n")
                                     print(display_delivery_details(detail))
 
-                            if choice == "7":
+                            elif choice == "7":
                                 update_total_refuels = input(f"Your current total refuel is {detail[7]}."
                                                              f"\nPlease enter new total refuel: ")
                                 if validate_number(update_total_refuels):
@@ -227,7 +227,7 @@ def update_delivery_details(session):
                                     print(f"\n⭐{detail[7]} successfully updated for email: {user[0]} !⭐ \n")
                                     print(display_delivery_details(detail))
 
-                            if choice == "8":
+                            elif choice == "8":
                                 update_total_stopovers = input(f"Your current total stopover is {detail[8]} times. "
                                                                f"\nPlease enter new total stopover: ")
                                 if validate_number(update_total_stopovers):
@@ -236,7 +236,7 @@ def update_delivery_details(session):
                                     print(f"\n⭐{detail[8]} times successfully updated for email: {user[0]} !⭐ \n")
                                     print(display_delivery_details(detail))
 
-                            if choice == "9":
+                            elif choice == "9":
                                 update_current_fuel_level = input(f"Your current fuel level is {detail[9]}%. "
                                                                   f"\nPlease enter new fuel level (in %): ")
                                 if validate_number(update_current_fuel_level):
@@ -245,7 +245,7 @@ def update_delivery_details(session):
                                     print(f"\n⭐{detail[9]}% successfully updated for email: {user[0]} !⭐ \n")
                                     print(display_delivery_details(detail))
 
-                            if choice == "10":
+                            elif choice == "10":
                                 update_total_cost_refuel = input(f"Your current cost of refuel is RM{detail[10]}. "
                                                                  f"\nPlease enter new cost of refuel [RM(2 decimal places)]: ")
                                 if validate_number(update_total_cost_refuel):
@@ -254,7 +254,7 @@ def update_delivery_details(session):
                                     print(f"\n⭐RM{detail[10]} successfully updated for email: {user[0]} !⭐ \n")
                                     print(display_delivery_details(detail))
 
-                            if choice == "11":
+                            elif choice == "11":
                                 update_safety_cleaning_check = input(f"Your current safety and cleaning check status is {detail[11]}."
                                                                      f"\nPlease enter new status [y/n]: ")
                                 if validate_yes_or_no(update_safety_cleaning_check):
@@ -263,7 +263,7 @@ def update_delivery_details(session):
                                     print(f"\n⭐{detail[11]} successfully updated for email: {user[0]} !⭐ \n")
                                     print(display_delivery_details(detail))
 
-                            if choice == "12":
+                            elif choice == "12":
                                 return
 
                         if choice_to_update == "n":
