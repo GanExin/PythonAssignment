@@ -1,4 +1,3 @@
-#read user details from user.txt
 def read_users():
     users = []
     filename = "./database_driver/user.txt"
@@ -73,6 +72,7 @@ def read_delivery_details(driver_email):
                 details.append(col[9])
                 details.append(col[10])
                 details.append(col[11])
+                details.append(col[12])
                 return details
         return details
 
@@ -91,7 +91,8 @@ def create_delivery_details(delivery_detail):
             delivery_detail[8]+ ' | ' +
             delivery_detail[9] + ' | ' +
             delivery_detail[10] + ' | ' +
-            delivery_detail[11]+  '\n')
+            delivery_detail[11] + ' | ' +
+            delivery_detail[12] +  '\n')
 
     with open(filename, 'a') as file:
         file.write(new_details)
@@ -400,24 +401,6 @@ def update_parcel_details(order_id, new_status, new_date, new_driver):
             print(f"Order ID {order_id} not found.")
     return
 
-#update vehicle_id to delivery_details_for_admin_report.txt
-def update_vehicle_id_to_db(detail):
-    filename = "./database_driver/delivery_details_for_admin_report.txt"
-    with open(filename, 'r+') as file:
-        lines = file.readlines()
-
-        for i, line in enumerate(lines):
-            delivery_detail = line.strip().split(' | ')
-            if delivery_detail[0] == detail[0]:
-                delivery_detail[1] = detail[1]
-                lines[i] = ' | '.join(delivery_detail)+ '\n'
-                break
-
-        file.seek(0)
-        file.writelines(lines)
-        file.truncate()
-    return
-
 #update route to delivery_details_for_admin_report.txt
 def update_route_to_db(detail):
     filename = "./database_driver/delivery_details_for_admin_report.txt"
@@ -427,7 +410,7 @@ def update_route_to_db(detail):
         for i, line in enumerate(lines):
             delivery_detail = line.strip().split(' | ')
             if delivery_detail[0] == detail[0]:
-                delivery_detail[2] = detail[2]
+                delivery_detail[1] = detail[1]
                 lines[i] = ' | '.join(delivery_detail)+ '\n'
                 break
 
@@ -445,7 +428,7 @@ def update_s_journey_date_time_to_db(detail):
         for i, line in enumerate(lines):
             delivery_detail = line.strip().split(' | ')
             if delivery_detail[0] == detail[0]:
-                delivery_detail[3] = detail[3]
+                delivery_detail[2] = detail[2]
                 lines[i] = ' | '.join(delivery_detail)+ '\n'
                 break
 
@@ -463,7 +446,7 @@ def update_e_journey_date_time_to_db(detail):
         for i, line in enumerate(lines):
             delivery_detail = line.strip().split(' | ')
             if delivery_detail[0] == detail[0]:
-                delivery_detail[4] = detail[4]
+                delivery_detail[3] = detail[3]
                 lines[i] = ' | '.join(delivery_detail)+ '\n'
                 break
 
@@ -481,10 +464,26 @@ def update_turnaround_time_to_db(detail):
         for i, line in enumerate(lines):
             delivery_detail = line.strip().split(' | ')
             if delivery_detail[0] == detail[0]:
-                delivery_detail[5] = detail[5]
+                delivery_detail[4] = detail[4]
                 lines[i] = ' | '.join(delivery_detail)+ '\n'
                 break
 
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
+def update_current_location_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[5] = detail[5]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
         file.seek(0)
         file.writelines(lines)
         file.truncate()
@@ -598,6 +597,24 @@ def update_safety_cleaning_status_to_db(detail):
         file.truncate()
     return
 
+#update total_fuel_consumption to delivery_details_for_admin_report.txt
+def update_total_fuel_consumption_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[12] = detail[12]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
 #display all driver details from driver_profile.txt
 def display_driver_details(driver):
     filename = "./database_driver/driver_profile.txt"
@@ -663,17 +680,19 @@ def display_delivery_details(delivery):
             driver_detail = line.strip().split(' | ')
             if driver_detail[0] == delivery[0]:
                 detail = (f"Driver email: {delivery[0]} \n"
-                          f"Vehicle ID: V{delivery[1]} \n"
-                          f"Route: {delivery[2]} \n"
-                          f"Start journey date; time: {delivery[3]} \n"
-                          f"End journey data; time: {delivery[4]} \n"
-                          f"Turnaround time: {delivery[5]} hours\n"
+                          # f"Vehicle ID: V{delivery[1]} \n"
+                          f"Route: {delivery[1]} \n"
+                          f"Start journey date; time: {delivery[2]} \n"
+                          f"End journey data; time: {delivery[3]} \n"
+                          f"Turnaround time: {delivery[4]} hours\n"
+                          f"Driver current location: {delivery[5]}\n"
                           f"Total distance travelled: {delivery[6]} km \n"
                           f"Total refuels: {delivery[7]} \n"
                           f"Total stopovers: {delivery[8]} \n"
                           f"Current fuel level: {delivery[9]} % \n"
                           f"Total cost of refuel: RM {delivery[10]} \n"
-                          f"Safety and cleaning check status: {delivery[11]}")
+                          f"Safety and cleaning check status: {delivery[11]}\n"
+                          f"Total fuel consumption: {delivery[12]} litres/km")
                 return detail
 
 #display order details from orders.txt

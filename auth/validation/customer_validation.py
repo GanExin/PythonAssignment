@@ -1,6 +1,4 @@
-from PythonAssignment.database import read_users
-
-
+#validate full name format
 def validate_customer_fullname(fullname):
     if fullname == "":
         print("Full name must not be empty")

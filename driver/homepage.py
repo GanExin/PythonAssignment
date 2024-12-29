@@ -21,13 +21,13 @@ def driver_homepage(session):
                        "\n[6] Exit: ")
         if choice == "1":
             update_password(session)
-        if choice == "2":
+        elif choice == "2":
             update_profile(session)
-        if choice == "3":
+        elif choice == "3":
             update_parcel_status(session)
-        if choice == "4":
+        elif choice == "4":
             delivery_details(session)
-        if choice == "5":
+        elif choice == "5":
             view_comment_for_drivers(session)
-        if choice == "6":
+        elif choice == "6":
             break
