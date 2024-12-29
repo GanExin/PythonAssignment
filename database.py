@@ -72,6 +72,7 @@ def read_delivery_details(driver_email):
                 details.append(col[9])
                 details.append(col[10])
                 details.append(col[11])
+                details.append(col[12])
                 return details
         return details
 
@@ -90,7 +91,8 @@ def create_delivery_details(delivery_detail):
             delivery_detail[8]+ ' | ' +
             delivery_detail[9] + ' | ' +
             delivery_detail[10] + ' | ' +
-            delivery_detail[11] +  '\n')
+            delivery_detail[11] + ' | ' +
+            delivery_detail[12] +  '\n')
 
     with open(filename, 'a') as file:
         file.write(new_details)
@@ -595,6 +597,24 @@ def update_safety_cleaning_status_to_db(detail):
         file.truncate()
     return
 
+#update total_fuel_consumption to delivery_details_for_admin_report.txt
+def update_total_fuel_consumption_to_db(detail):
+    filename = "./database_driver/delivery_details_for_admin_report.txt"
+    with open(filename, 'r+') as file:
+        lines = file.readlines()
+
+        for i, line in enumerate(lines):
+            delivery_detail = line.strip().split(' | ')
+            if delivery_detail[0] == detail[0]:
+                delivery_detail[12] = detail[12]
+                lines[i] = ' | '.join(delivery_detail)+ '\n'
+                break
+
+        file.seek(0)
+        file.writelines(lines)
+        file.truncate()
+    return
+
 #display all driver details from driver_profile.txt
 def display_driver_details(driver):
     filename = "./database_driver/driver_profile.txt"
@@ -671,7 +691,8 @@ def display_delivery_details(delivery):
                           f"Total stopovers: {delivery[8]} \n"
                           f"Current fuel level: {delivery[9]} % \n"
                           f"Total cost of refuel: RM {delivery[10]} \n"
-                          f"Safety and cleaning check status: {delivery[11]}")
+                          f"Safety and cleaning check status: {delivery[11]}\n"
+                          f"Total fuel consumption: {delivery[12]} litres/km")
                 return detail
 
 #display order details from orders.txt

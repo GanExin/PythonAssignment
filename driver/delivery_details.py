@@ -6,7 +6,7 @@ from PythonAssignment.database import read_users, read_driver_details, display_d
     update_route_to_db, update_s_journey_date_time_to_db, update_e_journey_date_time_to_db, \
     update_turnaround_time_to_db, update_total_distance_to_db, update_total_refuel_to_db, update_total_stopover_to_db, \
     update_current_fuel_level_to_db, update_total_cost_of_refuel_to_db, update_safety_cleaning_status_to_db, \
-    update_current_location_to_db
+    update_current_location_to_db, update_total_fuel_consumption_to_db
 
 
 def delivery_details(session):
@@ -61,6 +61,7 @@ def create_new_delivery_detail(session):
     current_fuel_level = None
     total_cost_of_fuel_refill = None
     safety_cleaning_check = None
+    fuel_consumption = None
     while True:
         if route is None:
             route_input = input("Available routes:"
@@ -133,12 +134,19 @@ def create_new_delivery_detail(session):
                 safety_cleaning_check = safety_cleaning_check_input
             else:
                 continue
+        if fuel_consumption is None:
+            fuel_consumption_input = input("Please enter how much fuel you have consumed (in litres): ")
+            if validate_number(fuel_consumption_input):
+                fuel_consumption_total = str(int(fuel_consumption_input)/ int(total_distance_travelled))
+                fuel_consumption = fuel_consumption_total
+            else:
+                continue
 
         break
 
     new_delivery_details = [email, route, s_journey_date_time, e_journey_date_time, turnaround_time,
                             current_location, total_distance_travelled, total_refuel, total_stopover, current_fuel_level,
-                            total_cost_of_fuel_refill, safety_cleaning_check]
+                            total_cost_of_fuel_refill, safety_cleaning_check, fuel_consumption]
     create_delivery_details(new_delivery_details)
 
 def update_delivery_details(session):
@@ -170,9 +178,10 @@ def update_delivery_details(session):
                         print("\n---------------------Update delivery details---------------------\n")
                         choice = input("Please select a number to update? "
                                        "\n[1]Route Chosen \n[2]Start journey details \n[3]End journey details"
-                                       "\n[4]Turnaround time \n[5]Driver current location \n[6]Total distance travelled "
-                                       "\n[7]Total refuels \n[8]Total stopovers \n[9]Current fuel level "
-                                       "\n[10]Total cost of fuel \n[11]Safety & cleaning status \n[12]exit: ")
+                                       "\n[4]Turnaround time \n[5]Driver current location \n[6]Total distance travelled"
+                                       " and fuel consumed \n[7]Total refuels \n[8]Total stopovers "
+                                       "\n[9]Current fuel level \n[10]Total cost of fuel "
+                                       "\n[11]Safety & cleaning status \n[12]exit: ")
 
                         if choice == "1":
                             update_route_chosen = input(f"Your current chosen route is route {detail[1]}. "
@@ -200,7 +209,7 @@ def update_delivery_details(session):
                                                               f"\nPlease enter new (dd/mm/yyyy; hh:mm) "
                                                               f"or 'NIL' (if driver is still 'en route'): ")
                             if validate_date_time(update_e_journey_datetime) or update_e_journey_datetime == "NIL":
-                                detail[4] = update_e_journey_datetime
+                                detail[3] = update_e_journey_datetime
                                 update_e_journey_date_time_to_db(detail)
                                 print(f"\n⭐{detail[3]} successfully updated for email: {user[0]} !⭐ \n")
                                 print(display_delivery_details(detail))
@@ -230,7 +239,17 @@ def update_delivery_details(session):
                             if validate_number(update_total_distance_travelled):
                                 detail[6] = update_total_distance_travelled
                                 update_total_distance_to_db(detail)
-                                print(f"\n⭐{detail[6]} km successfully updated for email: {user[0]} !⭐ \n")
+                                if update_total_distance_travelled:
+                                    fuel_consumption_input = input(
+                                        "Please enter how much fuel you have consumed (in litres): ")
+                                    if validate_number(fuel_consumption_input):
+                                        update_fuel_consumption_total = str(int(fuel_consumption_input) / int(
+                                            update_total_distance_travelled))
+                                        detail[12] = update_fuel_consumption_total
+                                        update_total_fuel_consumption_to_db(detail)
+
+                                print(f"\n⭐{detail[6]} km  and total fuel consumption of {detail[12]} litres"
+                                      f"successfully updated for email: {user[0]} !⭐ \n")
                                 print(display_delivery_details(detail))
 
                         elif choice == "7":
