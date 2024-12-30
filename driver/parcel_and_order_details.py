@@ -1,7 +1,7 @@
 from PythonAssignment.auth.validation.admin_validation import validate_date
 from PythonAssignment.database import display_order, update_parcel_details, display_available_order
 
-def update_parcel_status(session):
+def update_parcel_details(session):
     current_user = session[0] #match driver email with current user
 
     delivery_status_available = ["Undelivered", "En route", "Delivered"]

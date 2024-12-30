@@ -109,5 +109,3 @@ def update_profile(session):
 
                 elif choice == '9':
                     return
-        else:
-            return
