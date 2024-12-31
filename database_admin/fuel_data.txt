@@ -1,6 +1,6 @@
-V1 | Toyota Camry | Fuel Level: 80% | Mileage: 1200.0 km | Last Fuel Check: 2024-01-01 | Fuel Consumed: 25.0 liters
-V2 | Honda Civic | Fuel Level: 70% | Mileage: 800.0 km | Last Fuel Check: 2024-11-15 | Fuel Consumed: 30.0 litres
-V3 | Ford F-150 | Fuel Level: 50% | Mileage: 1000.0 km | Last Fuel Check: 2024-12-09 | Fuel consumed: 20.0 litres
-V4 | Chevrolet Malibu | Fuel Level: 60% | Mileage: 1000.0 km | Last Fuel Check: 2023-12-20 | Fuel consumed: 35.0 litres
-V5 | Nissan Altima | Fuel Level: 45% | Mileage: 950.0 km | Last Fuel Check: 2024-05-04 | Fuel consumed: 22.0 litres
-V6 | Toyota Hiace SLWB | Fuel Level: 90% | Mileage: 1100.0 km | Last Fuel Check: 2023-12-15 | Fuel consumed: 45.0 litres
+1 | Toyota Camry | 56% | 700 km | 2024-12-14 | 90.0 litres
+2 | Honda Civic | 56% | 400 km | 2025-01-01 | 67.0 litres
+3 | Ford F-150 | 67% | 300 km | 2025-01-12 | 67.0 litres
+4 | Chevrolet Malibu | 60% | 1000.0 km | 2023-12-20 | 35.0 litres
+5 | Nissan Altima | 45% | 950.0 km | 2024-05-04 | 22.0 litres
+6 | Toyota Hiace SLWB | 90% | 1100.0 km | 2023-12-15 | 45.0 litres

@@ -5,24 +5,61 @@ def vehicle_management_and_maintenance(session):
     print("------------------Vehicle Management and Maintenance------------------")
     # User selects a feature from the menu
     while True:
-        choice = input("[1] View Vehicle Detail \n[2] Schedule Inspection"
-                       "\n[3] Check Maintenance Alerts \n[4] Update Maintenance Record"
-                       "\n[5] Exit"
-                       "\nPlease choose a feature (1/2/3/4/5): ")
-        if choice == '1':
-            view_vehicle_detail(session)
+        choice = input("[1] Add New Vehicle \n[2] View Vehicle Detail"
+                       "\n[3] Schedule Inspection \n[4] Assign Vehicle to Driver"
+                       "\n[5] Check Maintenance Alerts \n[6] Update Maintenance Record "
+                       "\n[7] Exit"
+                       "\nPlease choose a feature (1/2/3/4/5/6/7): ")
+
+        if choice == "1":
+            add_new_vehicle(session)
         elif choice == '2':
-            schedule_inspection(session)
+            view_vehicle_detail(session)
         elif choice == '3':
-            check_maintenance_alerts(session)
+            schedule_inspection(session)
         elif choice == '4':
-            update_maintenance_record(session)
+            assign_vehicle_to_driver(session)
         elif choice == '5':
+            check_maintenance_alerts(session)
+        elif choice == '6':
+            update_maintenance_record(session)
+        elif choice == '7':
             print("Exiting Vehicle Management and Maintenance.")
             break
         else:
             print("Invalid input. Please enter a valid choice.")
 
+def add_new_vehicle(session):
+    print("---------------Add New Vehicle---------------")
+
+    try:
+        vehicle_id = input("Enter Vehicle ID (e.g., 7): ").strip()
+        vehicle_model = input("Enter Vehicle Model (e.g., Toyota Corolla): ").strip()
+        last_inspection = input("Enter Last Inspection Date (YYYY-MM-DD): ").strip()
+        next_inspection = input("Enter Next Inspection Date (YYYY-MM-DD): ").strip()
+        performance = input("Enter Vehicle Performance (e.g., Good, Excellent, Poor): ").strip()
+        maintenance_history = input("Enter Maintenance History (e.g., 2023-12-01:Oil Change|2023-11-01:Tire Rotation): ").strip()
+        cargo_suitability = input("Enter Suitable Cargo (e.g., Small Cargo, Heavy Cargo): ").strip()
+
+        # Validate that none of the fields are empty
+        if not (vehicle_id and vehicle_model and last_inspection and next_inspection and performance and maintenance_history and cargo_suitability):
+            print("All fields are required. Please fill in all details.")
+            return
+
+        new_vehicle_data = (f"{vehicle_id} | {vehicle_model} | {last_inspection} | {next_inspection} | {performance} | "
+                            f"{maintenance_history} | Suitable for Cargo: {cargo_suitability}\n")
+
+        # Append the new vehicle data to the file
+        with open("./database_admin/vehicle_data.txt", "a") as file:
+            file.write(new_vehicle_data)
+
+        print("\nNew vehicle added successfully!")
+        print(f"Details: {new_vehicle_data}")
+
+    except FileNotFoundError:
+        print("Vehicle data file not found. Please ensure the file exists.")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
 
 def view_vehicle_detail(session):
     print("---------------View Vehicle Detail---------------")
@@ -83,6 +120,42 @@ def schedule_inspection(session):
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
+def assign_vehicle_to_driver(session):
+    print("---------------Assign Vehicle to Driver---------------")
+
+    driver_email = input("Enter the Driver Email: ").strip()
+    vehicle_id = input("Enter the Vehicle ID: ").strip()
+
+    try:
+        with open("./database_admin/driver_vehicle_assigned_data.txt", "r") as driver_file:
+            driver_lines = driver_file.readlines()
+
+        driver_found = False
+        for i, driver_line in enumerate(driver_lines):
+            driver_detail = driver_line.strip().split(" | ")
+            if driver_detail[0].strip().lower() == driver_email.lower():
+                driver_found = True
+                if driver_detail[4].strip().lower() != "none":
+                    print(f"Driver with email {driver_email} is already assigned to Vehicle ID {driver_detail[4].strip()}.")
+                    return
+
+                driver_lines[i] = f"{driver_detail[0]} | {driver_detail[1]} | {driver_detail[2]} | {driver_detail[3]} | {vehicle_id}\n"
+                break
+
+        if not driver_found:
+            print(f"Driver with email {driver_email} not found.")
+            return
+
+        with open("./database_admin/driver_vehicle_assigned_data.txt", "w") as driver_file:
+            driver_file.writelines(driver_lines)
+
+        print(f"Successfully assigned Vehicle ID {vehicle_id} to Driver with email {driver_email}.")
+
+    except FileNotFoundError as e:
+        print(f"Error: {e.filename} not found. Please ensure the file exists.")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
 
 def check_maintenance_alerts(session):
     user_input_date = input("Enter the date to check maintenance alerts (YYYY-MM-DD): ")
@@ -94,23 +167,29 @@ def check_maintenance_alerts(session):
         alerts = []
         for line in lines:
             vehicle_detail = line.strip().split(' | ')
-            if len(vehicle_detail) > 3:
-                next_inspection_date = vehicle_detail[3]
-                if next_inspection_date:
 
-                    if next_inspection_date <= user_input_date:
-                        alerts.append(
-                            f"Vehicle ID: {vehicle_detail[0]} needs maintenance inspection by {next_inspection_date}.")
+            if len(vehicle_detail) >= 4:  # Check if the line has enough data
+                next_inspection_date = vehicle_detail[3]
+
+                # Check if the next inspection date is before or on the provided date
+                if next_inspection_date <= user_input_date:
+                    alerts.append(
+                        f"Vehicle ID: {vehicle_detail[0]} (Model: {vehicle_detail[1]}) "
+                        f"needs maintenance inspection by {next_inspection_date}."
+                    )
 
         if alerts:
-            return "\n".join(alerts)
+            print("\nMaintenance Alerts:")
+            for alert in alerts:
+                print(alert)
         else:
-            return "No maintenance inspections due on or before the provided date."
+            print("No maintenance inspections due on or before the provided date.")
 
     except FileNotFoundError:
-        return "Vehicle data file not found."
+        print("Vehicle data file not found.")
     except Exception as e:
-        return f"An error occurred: {e}"
+        print(f"An unexpected error occurred: {e}")
+
 
 def update_maintenance_record(session):
     vehicle_id = input("Enter the Vehicle ID: ")
