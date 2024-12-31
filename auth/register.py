@@ -1,3 +1,4 @@
+from PythonAssignment.admin.homepage import admin_homepage
 from PythonAssignment.auth.validation.admin_validation import validate_date
 from PythonAssignment.auth.validation.customer_validation import validate_customer_fullname
 from PythonAssignment.auth.validation.driver_validation import validate_driver_availability_status, validate_driver_health_report, \
@@ -5,6 +6,8 @@ from PythonAssignment.auth.validation.driver_validation import validate_driver_a
     validate_first_name, validate_last_name, validate_number, validate_address
 from PythonAssignment.customer.homepage import customer_homepage
 from PythonAssignment.database import create_user, create_driver, create_customer, create_admin
+from PythonAssignment.driver.homepage import driver_homepage
+
 
 #register users as their selected roles
 def register():
@@ -162,6 +165,8 @@ def register_driver():
     driver_detail = [email, first_name, last_name, phone_number, address, availability_status, driver_license,
                      health_report, family_dependencies] #store details as 'driver_detail'
     create_driver(driver_detail) #store new 'driver_detail' into txt file using predefined function
+    print("\nRedirecting you to your assigned user homepage...\n")
+    driver_homepage(user)
 
 
 def register_admin():
@@ -227,3 +232,5 @@ def register_admin():
 
     admin_detail = [email, first_name, last_name, date_of_birth, phone_number, address] #store details as 'user'
     create_admin(admin_detail) #store new 'admin_detail' into txt file using predefined function
+    print("\nRedirecting you to your assigned user homepage...\n")
+    admin_homepage(user)
