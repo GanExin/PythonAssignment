@@ -844,12 +844,18 @@ def display_vehicle_data(vehicle_data):
                 else:
                     maintenance_details = "No maintenance history available."
 
+                if len(vehicle_detail) > 6:
+                    cargo_suitability = vehicle_detail[6]
+                else:
+                    cargo_suitability = "Not specified."
+
                 detail = (f"Vehicle ID: {vehicle_detail[0]} \n"
                           f"Model: {vehicle_detail[1]} \n"
                           f"Last Inspection: {vehicle_detail[2]} \n"
                           f"Next Inspection: {vehicle_detail[3]} \n"
                           f"Performance: {vehicle_detail[4]} \n"
-                          f"Maintenance History: \n{maintenance_details} \n")
+                          f"Maintenance History: \n{maintenance_details} \n"
+                          f"Suitable for Cargo: {cargo_suitability} \n")
                 return detail
     return "Vehicle not found in the database."
 
@@ -875,9 +881,32 @@ def display_fuel_data(vehicle):
                     detail = (f"Vehicle ID: {vehicle_detail[0]} \n"
                               f"Vehicle Model: {vehicle_detail[1]} \n"
                               f"Fuel Level: {vehicle_detail[2]} \n"
-                              f"Mileage: {vehicle_detail[3]} km\n"
+                              f"Mileage: {vehicle_detail[3]} \n"
                               f"Last Fuel Check: {vehicle_detail[4]} \n"
-                              f"Fuel Consumed: {vehicle_detail[5]} litres")
+                              f"Fuel Consumed: {vehicle_detail[5]} ")
 
                     return detail
 
+def display_driver_assigned_vehicle(email):
+    filename = "./database_admin/driver_vehicle_assigned_data.txt"
+    try:
+        with open(filename, 'r') as file:
+            lines = file.readlines()
+
+        for line in lines:
+            driver_detail = line.strip().split(' | ')
+            if driver_detail[0].lower() == email.lower():
+                vehicle = driver_detail[4] if driver_detail[4] != "None" else "No vehicle assigned"
+                detail = (f"Driver Email: {driver_detail[0]} \n"
+                          f"First Name: {driver_detail[1]} \n"
+                          f"Last Name: {driver_detail[2]} \n"
+                          f"Phone Number: {driver_detail[3]} \n"
+                          f"Assigned Vehicle: {vehicle}")
+                return detail
+
+        return f"No driver found with email {email}."
+
+    except FileNotFoundError:
+        return "Driver data file not found. Please ensure the file exists."
+    except Exception as e:
+        return f"An error occurred: {e}"
