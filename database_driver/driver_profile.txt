@@ -1,6 +1,6 @@
-Fred@gmail.com | Frederick | Kim | 098765432 | California | available | 0989890 | fit to drive | 1
-Tim@gmail.com | Timothy | Chalamet | 089876543 | New York | available | 12343212 | not fit to drive  | 4
-Will@gmail.com | Will | Smith | 31977136 | Utah | available | 396184193 | fit to drive | 2
-Yula@gmail.com | Yuliana | Grey | 83652459 | Rhode Island | available | 351859 | fit to drive | 2
-MKJ@gmail.com | Michael | Jackson | 986548986 | The Cemetery | unavailable | 123432134 | not fit to drive | 5
-hawktim@gmail.com | Hawk | Tim | 09092920 | New York City, New York | available | 696969 | fit to drive | 1
+Fred@gmail.com | Frederick | Kim | 098765432 | California | available | 0989890 | fit to drive | 1 | 1
+Tim@gmail.com | Timothy | Chalamet | 089876543 | New York | available | 12343212 | not fit to drive  | 4 | None
+Will@gmail.com | Will | Smith | 31977136 | Utah | available | 396184193 | fit to drive | 2 | None
+Yula@gmail.com | Yuliana | Grey | 83652459 | Rhode Island | available | 351859 | fit to drive | 2 | 6
+MKJ@gmail.com | Michael | Jackson | 986548986 | The Cemetery | unavailable | 123432134 | not fit to drive | 5 | None
+hawktim@gmail.com | Hawk | Tim | 09092920 | New York City, New York | available | 696969 | fit to drive | 1 | 3

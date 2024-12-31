@@ -624,6 +624,7 @@ def display_driver_details(driver):
         for line in lines:
             driver_detail = line.strip().split(' | ')
             if driver_detail[0] == driver[0]:
+                vehicle = driver_detail[9] if driver_detail[9] != "None" else "No vehicle assigned"
                 detail = (f"Role: Driver \n"
                           f"Email: {driver[0]} \n"
                           f"First Name: {driver[1]} \n"
@@ -633,7 +634,8 @@ def display_driver_details(driver):
                           f"Availability Status: {driver[5]} \n"
                           f"Driver License: {driver[6]} \n"
                           f"Health Report: {driver[7]} \n"
-                          f"Number of Family Dependencies: {driver[8]}")
+                          f"Number of Family Dependencies: {driver[8]} \n"
+                          f"Assigned Vehicle ID: {vehicle}")
                 return detail
 
 #display all admin details from admin_profile.txt
@@ -887,26 +889,3 @@ def display_fuel_data(vehicle):
 
                     return detail
 
-def display_driver_assigned_vehicle(email):
-    filename = "./database_admin/driver_vehicle_assigned_data.txt"
-    try:
-        with open(filename, 'r') as file:
-            lines = file.readlines()
-
-        for line in lines:
-            driver_detail = line.strip().split(' | ')
-            if driver_detail[0].lower() == email.lower():
-                vehicle = driver_detail[4] if driver_detail[4] != "None" else "No vehicle assigned"
-                detail = (f"Driver Email: {driver_detail[0]} \n"
-                          f"First Name: {driver_detail[1]} \n"
-                          f"Last Name: {driver_detail[2]} \n"
-                          f"Phone Number: {driver_detail[3]} \n"
-                          f"Assigned Vehicle: {vehicle}")
-                return detail
-
-        return f"No driver found with email {email}."
-
-    except FileNotFoundError:
-        return "Driver data file not found. Please ensure the file exists."
-    except Exception as e:
-        return f"An error occurred: {e}"
