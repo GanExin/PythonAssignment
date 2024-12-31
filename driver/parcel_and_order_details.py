@@ -1,7 +1,7 @@
 from PythonAssignment.auth.validation.admin_validation import validate_date
 from PythonAssignment.database import display_order, update_parcel_details, display_available_order
 
-def update_parcel_details(session):
+def update_parcel_driver(session):
     current_user = session[0] #match driver email with current user
 
     delivery_status_available = ["Undelivered", "En route", "Delivered"]
@@ -10,7 +10,7 @@ def update_parcel_details(session):
             print("\n---------------------Available orders---------------------")
             print(display_available_order())
 
-            order_id_input = int(input("Enter Order ID: "))
+            order_id_input = int(input("Please enter the Order ID you want to book: "))
             order_found = display_order(order_id_input)  # check if order exist, if it does, print order details
             if order_found:
                 print("\n---------------------Order found---------------------")

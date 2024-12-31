@@ -15,7 +15,7 @@ def validate_email(email):
     for user in existing_users:
         existing_email = user[0]
         if email == existing_email: #find if email exist
-            print("Email already exists in database_driver, please try another email.")
+            print("Email already exists in database, please try another email.")
             return False
 
     return True
