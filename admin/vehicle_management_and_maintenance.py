@@ -34,7 +34,7 @@ def add_new_vehicle(session):
 
     try:
         vehicle_id = input("Enter Vehicle ID (e.g., 7): ").strip()
-        vehicle_model = input("Enter Vehicle Model (e.g., Toyota Corolla): ").strip()
+        vehicle_model = input("Enter Vehicle Model (e.g., Truck, Van, Specialized Carrier): ").strip()
         last_inspection = input("Enter Last Inspection Date (YYYY-MM-DD): ").strip()
         next_inspection = input("Enter Next Inspection Date (YYYY-MM-DD): ").strip()
         performance = input("Enter Vehicle Performance (e.g., Good, Excellent, Poor): ").strip()
@@ -127,29 +127,66 @@ def assign_vehicle_to_driver(session):
     vehicle_id = input("Enter the Vehicle ID: ").strip()
 
     try:
-        with open("./database_admin/driver_vehicle_assigned_data.txt", "r") as driver_file:
+        vehicle_details = display_vehicle_data(vehicle_id)
+        if vehicle_details == "Vehicle not found in the database.":
+            print(f"Vehicle ID {vehicle_id} does not exist in the vehicle database.")
+            return
+
+        with open("./database_admin/vehicle_data.txt", "r") as vehicle_file:
+            vehicle_lines = vehicle_file.readlines()
+
+        vehicle_performance = None
+        for vehicle_line in vehicle_lines:
+            vehicle_detail = vehicle_line.strip().split(' | ')
+            if vehicle_detail[0] == vehicle_id:
+                vehicle_performance = vehicle_detail[4]
+                break
+
+        if vehicle_performance and vehicle_performance.lower() == "poor":
+            print(f"Vehicle ID {vehicle_id} has poor performance and cannot be assigned.")
+            return
+
+        with open("./database_driver/driver_profile.txt", "r") as driver_file:
             driver_lines = driver_file.readlines()
+
+        for driver_line in driver_lines:
+            driver_detail = driver_line.strip().split(" | ")
+            assigned_vehicle_id = driver_detail[9].strip().lower() if len(driver_detail) > 9 else "none"
+            if assigned_vehicle_id == vehicle_id:
+                print(f"Vehicle ID {vehicle_id} is already assigned to driver {driver_detail[0]}.")
+                return
 
         driver_found = False
         for i, driver_line in enumerate(driver_lines):
             driver_detail = driver_line.strip().split(" | ")
             if driver_detail[0].strip().lower() == driver_email.lower():
                 driver_found = True
-                if driver_detail[4].strip().lower() != "none":
-                    print(f"Driver with email {driver_email} is already assigned to Vehicle ID {driver_detail[4].strip()}.")
+
+                health_report = driver_detail[7].strip().lower()
+                if health_report == "not fit to drive":
+                    print(f"Driver {driver_email} is not fit to drive.")
                     return
 
-                driver_lines[i] = f"{driver_detail[0]} | {driver_detail[1]} | {driver_detail[2]} | {driver_detail[3]} | {vehicle_id}\n"
+                if driver_detail[9].strip().lower() != "none":
+                    current_vehicle_id = driver_detail[9].strip()
+                    print(f"Driver {driver_email} is already assigned to Vehicle ID {current_vehicle_id}.")
+                    reassign = input("Do you want to reassign a new vehicle? (yes/no): ").strip().lower()
+                    if reassign != "yes":
+                        return
+
+                driver_lines[i] = f"{driver_detail[0]} | {driver_detail[1]} | {driver_detail[2]} | {driver_detail[3]} | {driver_detail[4]} | {driver_detail[5]} | {driver_detail[6]} | {driver_detail[7]} | {driver_detail[8]} | {vehicle_id}\n"
                 break
 
         if not driver_found:
             print(f"Driver with email {driver_email} not found.")
             return
 
-        with open("./database_admin/driver_vehicle_assigned_data.txt", "w") as driver_file:
+        with open("./database_driver/driver_profile.txt", "w") as driver_file:
             driver_file.writelines(driver_lines)
 
-        print(f"Successfully assigned Vehicle ID {vehicle_id} to Driver with email {driver_email}.")
+        print("\nVehicle Details:")
+        print(vehicle_details)
+        print(f"\nSuccessfully assigned Vehicle ID {vehicle_id} to Driver with email {driver_email}.")
 
     except FileNotFoundError as e:
         print(f"Error: {e.filename} not found. Please ensure the file exists.")

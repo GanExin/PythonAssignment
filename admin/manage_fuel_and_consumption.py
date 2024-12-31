@@ -1,4 +1,3 @@
-from PythonAssignment.database import display_fuel_data
 
 def manage_fuel_and_consumption(session):
     print("------------------Manage Fuel and Vehicle Consumption------------------")
@@ -23,69 +22,76 @@ def manage_fuel_and_consumption(session):
 
 def view_fuel_data(session):
     print("---------------View Fuel Data---------------")
-    vehicle_id = input("Please enter the vehicle ID:")
 
     try:
-        with open("./database_admin/fuel_data.txt", "r") as file:
-            found = False
-            for line in file:
-                fuel_data = line.strip().split(" | ")
-                if fuel_data[0] == vehicle_id:
-                    found = True
+        with open("./database_driver/delivery_details_for_admin_report.txt", 'r') as file:
+            lines = file.readlines()
 
-                    fuel_details = display_fuel_data(fuel_data)
-                    print("\nFuel Data:")
-                    print(fuel_details)
-                    break
-            if not found:
-                print("Vehicle not found. Please check the ID and try again.")
+            if not lines:
+                print("No fuel data found.")
+                return
+
+            print("Fuel Data for All Drivers:")
+            for line in lines:
+                driver_detail = line.strip().split(' | ')
+                fuel_data = (f"Driver email: {driver_detail[0]}\n"
+                             f"Route: {driver_detail[1]}\n"
+                             f"Current fuel level: {driver_detail[9]}%\n"
+                             f"Total cost of refuel: RM {driver_detail[10]}\n"
+                             f"Total fuel consumption: {driver_detail[12]} litres/km\n")
+                print(fuel_data)
+                print("-" * 50)
+
     except FileNotFoundError:
-        print("No fuel data found. Please ensure the fuel data file exists.")
+        print("No fuel data file found. Please ensure the delivery details file exists.")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
 
 def update_fuel_data(session):
-    print("---------------Update Vehicle Fuel Data---------------")
-    vehicle_id = input("Please enter the vehicle ID to update fuel data: ")
+    print("---------------Update Driver Fuel Data---------------")
+    driver_email = input("Please enter the driver email to update fuel data: ")
 
     try:
-        with open("./database_admin/fuel_data.txt", 'r') as file:
+        with open("./database_driver/delivery_details_for_admin_report.txt", 'r') as file:
             lines = file.readlines()
 
         updated = False
         for i, line in enumerate(lines):
-            vehicle_data = line.strip().split(" | ")
-            if vehicle_data[0] == vehicle_id:
+            driver_data = line.strip().split(" | ")
+            if driver_data[0] == driver_email:
                 updated = True
 
-                current_fuel_level = vehicle_data[2].strip()
-                current_mileage = vehicle_data[3].strip()
-                current_last_check = vehicle_data[4].strip()
-                current_fuel_consumed = vehicle_data[5].strip()
+                current_route = driver_data[1].strip()
+                current_fuel_level = driver_data[9].strip()
+                current_cost_of_refuel = driver_data[10].strip()
+                current_fuel_consumption = driver_data[12].strip()
+                current_distance_traveled = driver_data[6].strip()
 
-                fuel_level = input(f"Enter new Fuel Level (current: {current_fuel_level}): ")
-                mileage = input(f"Enter new Mileage (current: {current_mileage}): ")
-                last_fuel_check = input(f"Enter new fuel check (current: {current_last_check}): ")
-                fuel_consumed = input(f"Enter new Fuel Consumed (current: {current_fuel_consumed}): ")
+                route = input(f"Enter new Route (current: {current_route}): ")
+                fuel_level = input(f"Enter new Fuel Level (current: {current_fuel_level}%): ")
+                cost_of_refuel = input(f"Enter new Total Cost of Refuel (current: RM {current_cost_of_refuel}): ")
+                fuel_consumption = input(f"Enter new Fuel Consumption (current: {current_fuel_consumption} litres/km): ")
+                distance_traveled = input(f"Enter new Total Distance Traveled (current: {current_distance_traveled} km): ")
 
-                vehicle_data[2] = f"{fuel_level.strip()}%"
-                vehicle_data[3] = f"{mileage.strip()} km"
-                vehicle_data[4] = f"{last_fuel_check.strip()}"
-                vehicle_data[5] = f"{fuel_consumed.strip()} litres"
+                driver_data[1] = route.strip()
+                driver_data[9] = fuel_level.strip()
+                driver_data[10] = cost_of_refuel.strip()
+                driver_data[12] = fuel_consumption.strip()
+                driver_data[6] = distance_traveled.strip()
 
-                lines[i] = " | ".join(vehicle_data) + "\n"
+                lines[i] = " | ".join(driver_data) + "\n"
                 break
 
         if updated:
-            with open("./database_admin/fuel_data.txt", 'w') as file:
+            with open("./database_driver/delivery_details_for_admin_report.txt", 'w') as file:
                 file.writelines(lines)
-            print(f"Fuel data for Vehicle ID {vehicle_id} updated successfully.")
+            print(f"Fuel data for driver {driver_email} updated successfully.")
         else:
-            print(f"Vehicle with ID {vehicle_id} not found.")
+            print(f"Driver with email {driver_email} not found.")
 
     except FileNotFoundError:
-        print("Fuel data file not found. Please ensure the file exists.")
+        print("File not found. Please ensure the file exists.")
     except Exception as e:
         print(f"An error occurred: {e}")
 
@@ -95,7 +101,6 @@ def track_fuel_consumption(session):
 
     try:
         driver_email = input("Enter Driver's Email: ")
-        route_used = input("Enter the route used (Route 1 or Route 2): ")
 
         with open("./database_driver/delivery_details_for_admin_report.txt", "r") as file:
             found = False
@@ -105,6 +110,7 @@ def track_fuel_consumption(session):
                 if delivery_data[0] == driver_email:
                     found = True
 
+                    route_used = delivery_data[1].strip()
                     distance_traveled = float(delivery_data[6])
                     fuel_used = float(delivery_data[12])
 
@@ -126,12 +132,11 @@ def track_fuel_consumption(session):
                 print(f"Driver with email {driver_email} not found in the delivery data.")
 
     except FileNotFoundError:
-        print("The delivery data file was not found. Please ensure the file exists.")
+        print("File was not found. Please ensure the file exists.")
     except ValueError:
-        print("Invalid input. Please enter numeric values for distance and fuel.")
+        print("Invalid input. Please ensure numeric values for distance and fuel are correctly formatted.")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
-
 
 def check_low_fuel_alerts(session):
     try:
@@ -145,16 +150,17 @@ def check_low_fuel_alerts(session):
             except ValueError:
                 print("Invalid input. Please enter a valid number for the fuel level threshold.")
 
-        with open("./database_admin/fuel_data.txt", 'r') as file:
+        with open("./database_driver/delivery_details_for_admin_report.txt", 'r') as file:
             lines = file.readlines()
 
         alerts = []
 
         for line in lines:
-            vehicle_detail = line.strip().split(' | ')
+            driver_detail = line.strip().split(' | ')
 
             try:
-                fuel_level_str = vehicle_detail[2].strip()
+
+                fuel_level_str = driver_detail[9].strip()
 
                 if "%" in fuel_level_str:
                     fuel_level = float(fuel_level_str.strip('%'))
@@ -166,24 +172,20 @@ def check_low_fuel_alerts(session):
                 continue
 
             if fuel_level <= fuel_threshold:
-                alerts.append(
-                    f"Vehicle ID: {vehicle_detail[0]} (Model: {vehicle_detail[1]}) has low fuel: {fuel_level}%.")
+                alert = f"\nDriver email: {driver_detail[0]}\nVehicle has low fuel: {fuel_level}%"
+                alerts.append(alert)
 
         if alerts:
-            print("\nLow Fuel Alerts:\n")
+            print("Low Fuel Alerts:")
             for alert in alerts:
                 print(alert)
         else:
-            print(f"No vehicles with fuel levels below or equal to {fuel_threshold}%.")
+            print(f"No drivers with fuel levels below or equal to {fuel_threshold}%.")
 
     except FileNotFoundError:
-        print("Fuel data file not found.")
+        print("Delivery details file not found.")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
-
-
-
-
 
 
 
