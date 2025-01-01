@@ -10,7 +10,8 @@ def customer_homepage(session):
     print("Welcome back! " + profile[1] + "!")
 
     while True:
-        user_choice = input("[1] Manage orders \n[2] Rate and Review \n[3] Exit \nWhat would you like to do?: ")
+        user_choice = input("[1] Manage orders \n[2] Rate and Review \n"
+                            "[3] Exit \nWhat would you like to do?: ")
 
         if user_choice == "1":
             order_management(session)
