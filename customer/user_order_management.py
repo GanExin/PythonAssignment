@@ -42,7 +42,16 @@ def place_order(session):
         except ValueError:
             print("Invalid input. Please enter an integer.")
     customer_name = input("Full Name: ")
-    customer_address = input("Address: ")
+    addresses = ["Johor", "Kuala Lumpur", "Butterworth", "Kedah", "Perlis", "Kelantan", "Terengganu"]
+    while True:
+        customer_address = input("Please select an address (drop-off point)\n[Johor]\n[Kuala Lumpur]"
+                                 "\n[Butterworth]\n[Kedah]\n[Perlis]\n[Kelantan]\n[Terengganu]: ")
+        if customer_address not in addresses:
+            print("Invalid choice. Please try again.")
+        else:
+            print(f"You have chosen {customer_address}")
+            break
+
     while True:
         customer_phone_num = input("Phone Number: ")
         if customer_phone_num.isdigit():
