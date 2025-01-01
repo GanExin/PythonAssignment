@@ -171,44 +171,53 @@ def assign_vehicle_to_driver(session):
     print("---------------Assign Vehicle to Driver---------------")
 
     driver_email = input("Enter the Driver Email: ").strip()
-    vehicle_id = input("Enter the Vehicle ID: ").strip()
 
     try:
-        vehicle_details = display_vehicle_data(vehicle_id)
-        if vehicle_details == "Vehicle not found in the database.":
-            print(f"Vehicle ID {vehicle_id} does not exist in the vehicle database.")
+        driver_found = False
+        with open("./database_driver/driver_profile.txt", "r") as driver_file:
+            driver_lines = driver_file.readlines()
+            for driver_line in driver_lines:
+                driver_detail = driver_line.strip().split(" | ")
+                if driver_detail[0].strip().lower() == driver_email.lower():
+                    driver_found = True
+                    break
+
+        if not driver_found:
+            print(f"Driver with email {driver_email} not found.")
             return
 
+        vehicle_id = input("Enter the Vehicle ID: ").strip()
+
+        vehicle_exists = False
+        vehicle_performance = None
         with open("./database_admin/vehicle_data.txt", "r") as vehicle_file:
             vehicle_lines = vehicle_file.readlines()
+            for vehicle_line in vehicle_lines:
+                vehicle_detail = vehicle_line.strip().split(' | ')
+                if vehicle_detail[0] == vehicle_id:
+                    vehicle_exists = True
+                    vehicle_performance = vehicle_detail[4] if len(vehicle_detail) > 4 else None
+                    break
 
-        vehicle_performance = None
-        for vehicle_line in vehicle_lines:
-            vehicle_detail = vehicle_line.strip().split(' | ')
-            if vehicle_detail[0] == vehicle_id:
-                vehicle_performance = vehicle_detail[4]
-                break
+        if not vehicle_exists:
+            print(f"Vehicle ID {vehicle_id} does not exist in the vehicle database.")
+            return
 
         if vehicle_performance and vehicle_performance.lower() == "poor":
             print(f"Vehicle ID {vehicle_id} has poor performance and cannot be assigned.")
             return
 
-        with open("./database_driver/driver_profile.txt", "r") as driver_file:
-            driver_lines = driver_file.readlines()
-
         for driver_line in driver_lines:
             driver_detail = driver_line.strip().split(" | ")
             assigned_vehicle_id = driver_detail[9].strip().lower() if len(driver_detail) > 9 else "none"
-            if assigned_vehicle_id == vehicle_id:
+            if assigned_vehicle_id == vehicle_id.lower():
                 print(f"Vehicle ID {vehicle_id} is already assigned to driver {driver_detail[0]}.")
                 return
 
-        driver_found = False
+        # Assign the vehicle to the driver
         for i, driver_line in enumerate(driver_lines):
             driver_detail = driver_line.strip().split(" | ")
             if driver_detail[0].strip().lower() == driver_email.lower():
-                driver_found = True
-
                 health_report = driver_detail[7].strip().lower()
                 if health_report == "not fit to drive":
                     print(f"Driver {driver_email} is not fit to drive.")
@@ -224,15 +233,9 @@ def assign_vehicle_to_driver(session):
                 driver_lines[i] = f"{driver_detail[0]} | {driver_detail[1]} | {driver_detail[2]} | {driver_detail[3]} | {driver_detail[4]} | {driver_detail[5]} | {driver_detail[6]} | {driver_detail[7]} | {driver_detail[8]} | {vehicle_id}\n"
                 break
 
-        if not driver_found:
-            print(f"Driver with email {driver_email} not found.")
-            return
-
         with open("./database_driver/driver_profile.txt", "w") as driver_file:
             driver_file.writelines(driver_lines)
 
-        print("\nVehicle Details:")
-        print(vehicle_details)
         print(f"\nSuccessfully assigned Vehicle ID {vehicle_id} to Driver with email {driver_email}.")
 
     except FileNotFoundError as e:
@@ -295,41 +298,51 @@ def check_maintenance_alerts(session):
 
 
 def update_maintenance_record(session):
-    vehicle_id = input("Enter the Vehicle ID: ")
-    new_maintenance_date = input("Enter the new maintenance date (YYYY-MM-DD): ")
-    new_maintenance_action = input("Enter the new maintenance action (e.g., 'Oil Change', 'Tire Rotation', etc.): ")
-
-    def valid_date(date_str):
-        if len(date_str) != 10:
-            return False
-        year, month, day = date_str.split('-')
-
-        if len(year) != 4 or not year.isdigit():
-            return False
-
-        if len(month) != 2 or not month.isdigit():
-            return False
-
-        if len(day) != 2 or not day.isdigit():
-            return False
-
-        return True
-
-    if not valid_date(new_maintenance_date):
-        print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
-        return
+    vehicle_id = input("Enter the Vehicle ID: ").strip()
 
     try:
         with open("./database_admin/vehicle_data.txt", 'r') as file:
             lines = file.readlines()
 
-        updated = False
+        vehicle_exists = False
+        for line in lines:
+            vehicle_detail = line.strip().split(' | ')
+            if vehicle_detail[0] == vehicle_id:
+                vehicle_exists = True
+                break
+
+        if not vehicle_exists:
+            print(f"Vehicle ID {vehicle_id} does not exist in the vehicle database.")
+            return
+
+        new_maintenance_date = input("Enter the new maintenance date (YYYY-MM-DD): ").strip()
+        new_maintenance_action = input("Enter the new maintenance action (e.g., 'Oil Change', 'Tire Rotation', etc.): ").strip()
+
+        def valid_date(date_str):
+            if len(date_str) != 10:
+                return False
+            parts = date_str.split('-')
+            if len(parts) != 3:
+                return False
+
+            year, month, day = parts
+            if len(year) != 4 or not year.isdigit():
+                return False
+            if len(month) != 2 or not month.isdigit():
+                return False
+            if len(day) != 2 or not day.isdigit():
+                return False
+
+            return True
+
+        if not valid_date(new_maintenance_date):
+            print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
+            return
+
         for i, line in enumerate(lines):
             vehicle_detail = line.strip().split(' | ')
 
             if vehicle_detail[0] == vehicle_id:
-                updated = True
-
                 if len(vehicle_detail) > 5:
                     maintenance_history = vehicle_detail[5].split('|')
                 else:
@@ -347,12 +360,10 @@ def update_maintenance_record(session):
                 lines[i] = " | ".join(vehicle_detail) + "\n"
                 break
 
-        if updated:
-            with open("./database_admin/vehicle_data.txt", 'w') as file:
-                file.writelines(lines)
-            print(f"Maintenance record for Vehicle ID {vehicle_id} updated with action: {new_maintenance_action} on {new_maintenance_date}.")
-        else:
-            print("Vehicle ID not found.")
+        with open("./database_admin/vehicle_data.txt", 'w') as file:
+            file.writelines(lines)
+
+        print(f"Maintenance record for Vehicle ID {vehicle_id} updated with action: {new_maintenance_action} on {new_maintenance_date}.")
 
     except FileNotFoundError:
         print("Vehicle data file not found.")

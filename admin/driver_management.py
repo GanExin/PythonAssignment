@@ -80,13 +80,12 @@ def view_driver_details(session):
 
 def add_comment_to_driver(session):
     print("---------------Add Comment to Driver---------------")
-    driver_email = input("Please enter the driver's email: ")
-    comment = input("Please enter your comment: ")
+    driver_email = input("Please enter the driver's email: ").strip()
 
     try:
-
         with open("./database_driver/driver_profile.txt", "r") as file:
             driver_found = False
+            driver_name = ""
             for line in file:
                 driver_data = line.strip().split(" | ")
                 if driver_data[0] == driver_email:
@@ -97,6 +96,8 @@ def add_comment_to_driver(session):
             if not driver_found:
                 print("Driver not found. Please check the email and try again.")
                 return
+
+        comment = input("Please enter your comment: ").strip()
 
         with open("./database_admin/driver_comment.txt", "a") as file:
             file.write(f"Name: {driver_name}\n")

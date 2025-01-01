@@ -183,7 +183,7 @@ def check_low_fuel_alerts(session):
             print(f"No drivers with fuel levels below or equal to {fuel_threshold}%.")
 
     except FileNotFoundError:
-        print("Delivery details file not found.")
+        print("Details file not found.")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
