@@ -1,6 +1,0 @@
-Fred@gmail.com | Frederick | Kim | 098765432 | None
-Tim@gmail.com | Timothy | Chalamet | 089876543 | None
-Will@gmail.com | Will | Smith | 31977136 | None
-Yula@gmail.com | Yuliana | Grey | 83652459 | None
-MKJ@gmail.com | Michael | Jackson | 986548986 | None
-hawktim@gmail.com | Hawk | Tim | 09092920 | None
