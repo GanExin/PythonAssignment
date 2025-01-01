@@ -3,6 +3,8 @@ from PythonAssignment.database import read_driver_details, read_users
 from PythonAssignment.driver.delivery_details import view_driver_orders, delivery_details
 from PythonAssignment.driver.parcel_and_order_details import update_parcel_driver
 from PythonAssignment.driver.manage_driver_profile import update_password, update_profile
+from PythonAssignment.driver.view_vehicle import view_assign_vehicle
+
 
 #homepage for drivers
 def driver_homepage(session):
@@ -18,7 +20,8 @@ def driver_homepage(session):
                        "\n[3] View/book available parcels"
                        "\n[4] View/update delivery details"
                        "\n[5] View all comments by admins"
-                       "\n[6] Exit: ")
+                       "\n[6] View assigned vehicle"
+                       "\n[7] Exit: ")
         if choice == "1":
             update_password(session)
         elif choice == "2":
@@ -30,4 +33,6 @@ def driver_homepage(session):
         elif choice == "5":
             view_comment_for_drivers(session)
         elif choice == "6":
+            view_assign_vehicle(session)
+        elif choice == "7":
             break

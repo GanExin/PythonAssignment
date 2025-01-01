@@ -6,33 +6,33 @@ from PythonAssignment.database import read_users, read_driver_details, display_d
     update_route_to_db, update_s_journey_date_time_to_db, update_e_journey_date_time_to_db, \
     update_turnaround_time_to_db, update_total_distance_to_db, update_total_refuel_to_db, update_total_stopover_to_db, \
     update_current_fuel_level_to_db, update_total_cost_of_refuel_to_db, update_safety_cleaning_status_to_db, \
-    update_current_location_to_db, update_total_fuel_consumption_to_db
+    update_current_location_to_db, update_total_fuel_consumption_to_db, check_driver_parcel
 
 
 def delivery_details(session):
+    users = read_users()
+    current_user = session[0]  # match driver email with current user
+
+    if not check_driver_parcel(current_user):
+        print("You have not booked a parcel yet. Please book a parcel first.")
+        return
+
     while True:
-        choice = input("\nHave you booked a parcel/job? (y/n): ").lower()
-        if choice == "y":
-            view_jobs_or_update_input = input("\nWould you like to: \n[1]view all your booked jobs"
+        view_jobs_or_update_input = input("\nWould you like to: \n[1]view all your booked jobs"
                                                   "\n[2]update current delivery details"
                                                   "\n[3]create new delivery details"
                                                   "\n[4]exit: ")
-            if view_jobs_or_update_input == "1":
-                view_driver_orders(session)
-            elif view_jobs_or_update_input == "2":
-                update_delivery_details(session)
-            elif view_jobs_or_update_input == "3":
-                create_new_delivery_detail(session)
-            elif view_jobs_or_update_input == "4":
-                break
-            else:
-                continue
-        elif choice == "n":
-            print("Please book a parcel first. Returning to homepage...")
-            return
+        if view_jobs_or_update_input == "1":
+            view_driver_orders(session)
+        elif view_jobs_or_update_input == "2":
+            update_delivery_details(session)
+        elif view_jobs_or_update_input == "3":
+            create_new_delivery_detail(session)
+        elif view_jobs_or_update_input == "4":
+            break
         else:
             continue
-
+        break
 
 
 def view_driver_orders(session):
@@ -43,111 +43,123 @@ def view_driver_orders(session):
     print(orders)
 
 def create_new_delivery_detail(session):
+    users = read_users()
     current_user = session[0]
-    print("\n---------------------New delivery details---------------------\n")
-    print("Welcome, please enter the details below to create new delivery details.\n")
 
-    current_location_choices = ["Johor","Kuala Lumpur", "Butterworth", "Terengganu", "Kelantan", "Perlis"]
+    for user in users:
+        db_email = user[0]
+        if current_user == db_email:
+            detail = read_delivery_details(current_user)
 
-    email = current_user
-    route = None
-    s_journey_date_time = None
-    e_journey_date_time = None
-    turnaround_time = None
-    current_location = None
-    total_distance_travelled = None
-    total_refuel = None
-    total_stopover = None
-    current_fuel_level = None
-    total_cost_of_fuel_refill = None
-    safety_cleaning_check = None
-    fuel_consumption = None
-    while True:
-        if route is None:
-            route_input = input("Available routes:"
-                                "\nRoute 1: Johor ➜ Kuala Lumpur ➜ Butterworth ➜ Kedah ➜ Perlis"
-                                "\nRoute 2: Johor ➜ Kuala Lumpur ➜ Terengganu ➜ Kelantan"
-                                "\nPlease enter chosen route [1/2]: ")
-            if validate_route_chosen(route_input):
-                route = route_input
-            else:
-                continue
-        if s_journey_date_time is None:
-            s_journey_date_time_input = input("Please START of journey date and time (dd/mm/yyy; hh:mm) : ")
-            if validate_date_time(s_journey_date_time_input):
-                s_journey_date_time = s_journey_date_time_input
-            else:
-                continue
-        if e_journey_date_time is None:
-            e_journey_date_time_input = input("Please END of journey date and time (dd/mm/yyy; hh:mm) "
-                                              "or 'NIL' (if driver is still 'en route'): ")
-            if validate_date_time(e_journey_date_time_input) or e_journey_date_time_input == "NIL":
-                e_journey_date_time = e_journey_date_time_input
-            else:
-                continue
-        if turnaround_time is None:
-            turnaround_time_input = input("Please total turnaround time (total duration of trip in hours): ")
-            if validate_number(turnaround_time_input):
-                turnaround_time = turnaround_time_input
-            else:
-                continue
-        if current_location is None:
-            current_location_input = input("Choice = [Johor], [Kuala Lumpur], [Butterworth], [Terengganu], [Kelantan], [Perlis]"
-                                           "\nPlease enter your current location: ")
-            if current_location_input in current_location_choices:
-                current_location = current_location_input
-            else:
-                continue
-        if total_distance_travelled is None:
-            total_distance_travelled_input =input("Please enter total distance travelled (in km): ")
-            if validate_number(total_distance_travelled_input):
-                total_distance_travelled = total_distance_travelled_input
-            else:
-                continue
-        if total_refuel is None:
-            total_refuel_input = input("Please enter total number of refuels you had from the whole journey: ")
-            if validate_number(total_refuel_input):
-                total_refuel = total_refuel_input
-            else:
-                continue
-        if total_stopover is None:
-            total_stopover_input = input("Please enter total stopovers you had from the whole journey: ")
-            if validate_number(total_stopover_input):
-                total_stopover = total_stopover_input
-            else:
-                continue
-        if current_fuel_level is None:
-            current_fuel_level_input = input("Please enter current fuel level (%): ")
-            if validate_number(current_fuel_level_input):
-                current_fuel_level = current_fuel_level_input
-            else:
-                continue
-        if total_cost_of_fuel_refill is None:
-            total_cost_of_fuel_refill_input = input("Please enter total cost of fuel refills in RM(2 decimal places): ")
-            if validate_float_with_two_decimals(total_cost_of_fuel_refill_input):
-                total_cost_of_fuel_refill = total_cost_of_fuel_refill_input
-            else:
-                continue
-        if safety_cleaning_check is None:
-            safety_cleaning_check_input = input("Have you conduct safety and cleaning check on your journey? (y/n): ").lower()
-            if validate_yes_or_no(safety_cleaning_check_input):
-                safety_cleaning_check = safety_cleaning_check_input
-            else:
-                continue
-        if fuel_consumption is None:
-            fuel_consumption_input = input("Please enter how much fuel you have consumed (in litres): ")
-            if validate_number(fuel_consumption_input):
-                fuel_consumption_total = str(int(fuel_consumption_input)/ int(total_distance_travelled))
-                fuel_consumption = fuel_consumption_total
-            else:
-                continue
+            if detail:
+                print(f"{current_user} already created details. Please update instead.")
+                return
 
-        break
+            if not detail:
+                print("\n---------------------New delivery details---------------------\n")
+                print("Welcome, please enter the details below to create new delivery details.\n")
 
-    new_delivery_details = [email, route, s_journey_date_time, e_journey_date_time, turnaround_time,
-                            current_location, total_distance_travelled, total_refuel, total_stopover, current_fuel_level,
-                            total_cost_of_fuel_refill, safety_cleaning_check, fuel_consumption]
-    create_delivery_details(new_delivery_details)
+                current_location_choices = ["Johor","Kuala Lumpur", "Butterworth", "Terengganu", "Kelantan", "Perlis"]
+
+                email = current_user
+                route = None
+                s_journey_date_time = None
+                e_journey_date_time = None
+                turnaround_time = None
+                current_location = None
+                total_distance_travelled = None
+                total_refuel = None
+                total_stopover = None
+                current_fuel_level = None
+                total_cost_of_fuel_refill = None
+                safety_cleaning_check = None
+                fuel_consumption = None
+                while True:
+                    if route is None:
+                        route_input = input("Available routes:"
+                                            "\nRoute 1: Johor ➜ Kuala Lumpur ➜ Butterworth ➜ Kedah ➜ Perlis"
+                                            "\nRoute 2: Johor ➜ Kuala Lumpur ➜ Terengganu ➜ Kelantan"
+                                            "\nPlease enter chosen route [1/2]: ")
+                        if validate_route_chosen(route_input):
+                            route = route_input
+                        else:
+                            continue
+                    if s_journey_date_time is None:
+                        s_journey_date_time_input = input("Please START of journey date and time (dd/mm/yyy; hh:mm) : ")
+                        if validate_date_time(s_journey_date_time_input):
+                            s_journey_date_time = s_journey_date_time_input
+                        else:
+                            continue
+                    if e_journey_date_time is None:
+                        e_journey_date_time_input = input("Please END of journey date and time (dd/mm/yyy; hh:mm) "
+                                                          "or 'NIL' (if driver is still 'en route'): ")
+                        if validate_date_time(e_journey_date_time_input) or e_journey_date_time_input == "NIL":
+                            e_journey_date_time = e_journey_date_time_input
+                        else:
+                            continue
+                    if turnaround_time is None:
+                        turnaround_time_input = input("Please total turnaround time (total duration of trip in hours): ")
+                        if validate_number(turnaround_time_input):
+                            turnaround_time = turnaround_time_input
+                        else:
+                            continue
+                    if current_location is None:
+                        current_location_input = input("Choice = [Johor], [Kuala Lumpur], [Butterworth], [Terengganu], [Kelantan], [Perlis]"
+                                                       "\nPlease enter your current location: ")
+                        if current_location_input in current_location_choices:
+                            current_location = current_location_input
+                        else:
+                            continue
+                    if total_distance_travelled is None:
+                        total_distance_travelled_input =input("Please enter total distance travelled (in km): ")
+                        if validate_number(total_distance_travelled_input):
+                            total_distance_travelled = total_distance_travelled_input
+                        else:
+                            continue
+                    if total_refuel is None:
+                        total_refuel_input = input("Please enter total number of refuels you had from the whole journey: ")
+                        if validate_number(total_refuel_input):
+                            total_refuel = total_refuel_input
+                        else:
+                            continue
+                    if total_stopover is None:
+                        total_stopover_input = input("Please enter total stopovers you had from the whole journey: ")
+                        if validate_number(total_stopover_input):
+                            total_stopover = total_stopover_input
+                        else:
+                            continue
+                    if current_fuel_level is None:
+                        current_fuel_level_input = input("Please enter current fuel level (%): ")
+                        if validate_number(current_fuel_level_input):
+                            current_fuel_level = current_fuel_level_input
+                        else:
+                            continue
+                    if total_cost_of_fuel_refill is None:
+                        total_cost_of_fuel_refill_input = input("Please enter total cost of fuel refills in RM(2 decimal places): ")
+                        if validate_float_with_two_decimals(total_cost_of_fuel_refill_input):
+                            total_cost_of_fuel_refill = total_cost_of_fuel_refill_input
+                        else:
+                            continue
+                    if safety_cleaning_check is None:
+                        safety_cleaning_check_input = input("Have you conduct safety and cleaning check on your journey? (y/n): ").lower()
+                        if validate_yes_or_no(safety_cleaning_check_input):
+                            safety_cleaning_check = safety_cleaning_check_input
+                        else:
+                            continue
+                    if fuel_consumption is None:
+                        fuel_consumption_input = input("Please enter how much fuel you have consumed (in litres): ")
+                        if validate_number(fuel_consumption_input):
+                            fuel_consumption_total = str(int(fuel_consumption_input)/ int(total_distance_travelled))
+                            fuel_consumption = fuel_consumption_total
+                        else:
+                            continue
+
+                    break
+
+                new_delivery_details = [email, route, s_journey_date_time, e_journey_date_time, turnaround_time,
+                                        current_location, total_distance_travelled, total_refuel, total_stopover, current_fuel_level,
+                                        total_cost_of_fuel_refill, safety_cleaning_check, fuel_consumption]
+                create_delivery_details(new_delivery_details)
 
 def update_delivery_details(session):
     users = read_users()

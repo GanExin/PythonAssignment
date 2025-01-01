@@ -832,6 +832,21 @@ def display_driver_jobs(driver_email):
         else:
             return f"No jobs found for driver: {driver_email}"
 
+#Check if driver booked a parcel from orders.txt
+def check_driver_parcel(current_user):
+    filename = "./database_customer/orders.txt"
+    try:
+        with open(filename, 'r') as file:
+            lines = file.readlines()
+    except FileNotFoundError:
+        print("Error: Unable to find orders in Orders database.")
+        return False
+    for i in range(len(lines)):
+        if lines[i].startswith("Driver:"): #check only if line starts with "Driver: "
+            driver_email = lines[i].split("Driver:")[1].strip()
+            if driver_email == current_user: #check if driver is same as current user
+                return True
+    return False
 
 def display_vehicle_data(vehicle_data):
     filename = "./database_admin/vehicle_data.txt"
