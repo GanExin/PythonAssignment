@@ -30,6 +30,7 @@ def read_driver_details(driver_email):
                 profile.append(col[6])
                 profile.append(col[7])
                 profile.append(col[8])
+                profile.append(col[9])
                 return profile
 
     return profile
@@ -138,7 +139,8 @@ def create_driver(driver_detail):
             driver_detail[5]+' | '+
             driver_detail[6]+' | '+
             driver_detail[7] +' | '+
-            driver_detail[8] + '\n')
+            driver_detail[8] + ' | ' +
+            driver_detail[9] + '\n')
 
     with open(filename, 'a') as file:
         file.write(new_driver)
