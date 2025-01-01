@@ -27,6 +27,15 @@ def add_new_driver(session):
     print("---------------Add New Driver---------------")
     try:
         email = input("Enter the driver's email: ").strip()
+
+        with open("./database_driver/driver_profile.txt", "r") as file:
+            lines = file.readlines()
+            for line in lines:
+                driver_data = line.strip().split(" | ")
+                if driver_data[0] == email:
+                    print(f"The email {email} is already in use. Please enter a different email.")
+                    return
+
         first_name = input("Enter the driver's first name: ").strip()
         last_name = input("Enter the driver's last name: ").strip()
         phone_number = input("Enter the driver's phone number: ").strip()
@@ -38,8 +47,8 @@ def add_new_driver(session):
 
         new_driver = f"{email} | {first_name} | {last_name} | {phone_number} | {address} | {availability_status} | {driver_license} | {health_report} | {family_dependencies} | None\n"
 
-        filename = "./database_driver/driver_profile.txt"
-        with open(filename, "a") as file:
+
+        with open("./database_driver/driver_profile.txt", "a") as file:
             file.write(new_driver)
 
         print(f"New driver with email {email} added successfully.")
@@ -49,21 +58,20 @@ def add_new_driver(session):
 
 def view_driver_details(session):
     print("---------------View Driver Details---------------")
-    driver_email = input("Please enter the driver's email: ")
 
     try:
         with open("./database_driver/driver_profile.txt", "r") as file:
             found = False
             for line in file:
                 driver_data = line.strip().split(" | ")
-                if driver_data[0] == driver_email:
-                    found = True
-                    driver_details = display_driver_details(driver_data)
-                    print("\nDriver Details:")
-                    print(driver_details)
-                    break
+                driver_details = display_driver_details(driver_data)
+                print("\nDriver Details:")
+                print(driver_details)
+                print("----------------------------------------")
+                found = True
+
             if not found:
-                print("Driver not found. Please check the email and try again.")
+                print("No driver profiles found.")
     except FileNotFoundError:
         print("No driver profile found. Please ensure the driver profile exists.")
     except Exception as e:
