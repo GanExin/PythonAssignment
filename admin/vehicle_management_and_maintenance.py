@@ -33,33 +33,69 @@ def add_new_vehicle(session):
     print("---------------Add New Vehicle---------------")
 
     try:
-        vehicle_id = input("Enter Vehicle ID (e.g., 7): ").strip()
+        with open("./database_admin/vehicle_data.txt", "r") as file:
+            lines = file.readlines()
+
+        if lines:
+            last_line = lines[-1]
+            last_vehicle_id = last_line.strip().split(" | ")[0]
+            next_vehicle_id = str(int(last_vehicle_id) + 1)
+        else:
+            next_vehicle_id = "1"
+
+        print(f"Assigned Vehicle ID: {next_vehicle_id}")
+
         vehicle_model = input("Enter Vehicle Model (e.g., Truck, Van, Specialized Carrier): ").strip()
         last_inspection = input("Enter Last Inspection Date (YYYY-MM-DD): ").strip()
         next_inspection = input("Enter Next Inspection Date (YYYY-MM-DD): ").strip()
         performance = input("Enter Vehicle Performance (e.g., Good, Excellent, Poor): ").strip()
-        maintenance_history = input("Enter Maintenance History (e.g., 2023-12-01:Oil Change|2023-11-01:Tire Rotation): ").strip()
+        maintenance_history = input("Enter Maintenance History (e.g., 2024-12-15: Tire Rotation|2024-12-31: Oil Change or type 'no maintenance record'): ").strip()
         cargo_suitability = input("Enter Suitable Cargo (e.g., Small Cargo, Heavy Cargo): ").strip()
 
-        # Validate that none of the fields are empty
-        if not (vehicle_id and vehicle_model and last_inspection and next_inspection and performance and maintenance_history and cargo_suitability):
-            print("All fields are required. Please fill in all details.")
+        def valid_date(date_text):
+            if len(date_text) != 10:
+                return False
+            year, month, day = date_text.split('-')
+            return len(year) == 4 and year.isdigit() and len(month) == 2 and month.isdigit() and len(day) == 2 and day.isdigit()
+
+        if not valid_date(last_inspection):
+            print("Error: Invalid Last Inspection Date format. Please use YYYY-MM-DD.")
+            return
+        if not valid_date(next_inspection):
+            print("Error: Invalid Next Inspection Date format. Please use YYYY-MM-DD.")
             return
 
-        new_vehicle_data = (f"{vehicle_id} | {vehicle_model} | {last_inspection} | {next_inspection} | {performance} | "
-                            f"{maintenance_history} | Suitable for Cargo: {cargo_suitability}\n")
+        def valid_maintenance(maintenance_text):
+            if maintenance_text.lower() == "no maintenance record" or not maintenance_text.strip():
+                return True
+            entries = maintenance_text.split("|")
+            for entry in entries:
+                if ":" not in entry:
+                    return False
+                date, task = entry.split(":", 1)
+                if not valid_date(date) or not task.strip():
+                    return False
+            return True
 
-        # Append the new vehicle data to the file
+        if not valid_maintenance(maintenance_history):
+            print("Error: Invalid Maintenance History format. Please use YYYY-MM-DD:Task|YYYY-MM-DD:Task.")
+            return
+
+        if not maintenance_history.strip() or maintenance_history.lower() == "no maintenance record":
+            maintenance_history = "No maintenance record"
+
+        new_vehicle_data = (f"{next_vehicle_id} | {vehicle_model} | {last_inspection} | {next_inspection} | {performance} | "
+                            f"{maintenance_history} | Suitable for {cargo_suitability}\n")
+
         with open("./database_admin/vehicle_data.txt", "a") as file:
             file.write(new_vehicle_data)
 
         print("\nNew vehicle added successfully!")
         print(f"Details: {new_vehicle_data}")
 
-    except FileNotFoundError:
-        print("Vehicle data file not found. Please ensure the file exists.")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
+
 
 def view_vehicle_detail(session):
     print("---------------View Vehicle Detail---------------")
@@ -85,40 +121,51 @@ def view_vehicle_detail(session):
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
-
 def schedule_inspection(session):
-    print("---------------Schedule Vehicle Inspection---------------")
-    vehicle_id = input("Please enter the vehicle ID: ")
-    new_inspection_date = input("Please enter the new inspection date (YYYY-MM-DD): ")
+            print("---------------Schedule Vehicle Inspection---------------")
+            vehicle_id = input("Please enter the vehicle ID: ")
 
-    try:
-        with open("./database_admin/vehicle_data.txt", "r") as file:
-            lines = file.readlines()
+            try:
+                with open("./database_admin/vehicle_data.txt", "r") as file:
+                    lines = file.readlines()
 
-        found = False
-        for i, line in enumerate(lines):
-            vehicle_detail = line.strip().split(" | ")
+                found = False
+                for i, line in enumerate(lines):
+                    vehicle_detail = line.strip().split(" | ")
 
-            if vehicle_detail[0] == vehicle_id:
-                found = True
+                    if vehicle_detail[0] == vehicle_id:
+                        found = True
 
-                vehicle_detail[3] = new_inspection_date
-                updated_line = " | ".join(vehicle_detail) + "\n"
-                lines[i] = updated_line
-                break
+                        current_inspection_date = vehicle_detail[3]
+                        print(f"Current inspection date: {current_inspection_date}")
 
-        if found:
-            with open("./database_admin/vehicle_data.txt", "w") as file:
-                file.writelines(lines)
+                        last_inspection_date = current_inspection_date
 
-            print(f"Inspection date for Vehicle ID {vehicle_id} was successfully updated to {new_inspection_date}.")
-        else:
-            print("Vehicle not found. Please check the ID and try again.")
+                        new_inspection_date = input("Please enter the new inspection date (YYYY-MM-DD): ")
 
-    except FileNotFoundError:
-        print("No vehicle data found. Please ensure the vehicle data file exists.")
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+                        vehicle_detail[2] = last_inspection_date
+
+                        vehicle_detail[3] = new_inspection_date
+
+                        updated_line = " | ".join(vehicle_detail) + "\n"
+                        lines[i] = updated_line
+                        break
+
+                if found:
+                    with open("./database_admin/vehicle_data.txt", "w") as file:
+                        file.writelines(lines)
+
+                    print(
+                        f"Inspection date for Vehicle ID {vehicle_id} was successfully updated to {new_inspection_date}.")
+                    print(f"Last inspection date for Vehicle ID {vehicle_id} was updated to {last_inspection_date}.")
+                else:
+                    print("Vehicle not found. Please check the ID and try again.")
+
+            except FileNotFoundError:
+                print("No vehicle data found. Please ensure the vehicle data file exists.")
+            except Exception as e:
+                print(f"An unexpected error occurred: {e}")
+
 
 def assign_vehicle_to_driver(session):
     print("---------------Assign Vehicle to Driver---------------")
@@ -197,6 +244,26 @@ def assign_vehicle_to_driver(session):
 def check_maintenance_alerts(session):
     user_input_date = input("Enter the date to check maintenance alerts (YYYY-MM-DD): ")
 
+    def valid_date(date_str):
+        if len(date_str) != 10:
+            return False
+        year, month, day = date_str.split('-')
+
+        if len(year) != 4 or not year.isdigit():
+            return False
+
+        if len(month) != 2 or not month.isdigit():
+            return False
+
+        if len(day) != 2 or not day.isdigit():
+            return False
+
+        return True
+
+    if not valid_date(user_input_date):
+        print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
+        return
+
     try:
         with open("./database_admin/vehicle_data.txt", 'r') as file:
             lines = file.readlines()
@@ -205,10 +272,9 @@ def check_maintenance_alerts(session):
         for line in lines:
             vehicle_detail = line.strip().split(' | ')
 
-            if len(vehicle_detail) >= 4:  # Check if the line has enough data
+            if len(vehicle_detail) >= 4:
                 next_inspection_date = vehicle_detail[3]
 
-                # Check if the next inspection date is before or on the provided date
                 if next_inspection_date <= user_input_date:
                     alerts.append(
                         f"Vehicle ID: {vehicle_detail[0]} (Model: {vehicle_detail[1]}) "
@@ -232,6 +298,26 @@ def update_maintenance_record(session):
     vehicle_id = input("Enter the Vehicle ID: ")
     new_maintenance_date = input("Enter the new maintenance date (YYYY-MM-DD): ")
     new_maintenance_action = input("Enter the new maintenance action (e.g., 'Oil Change', 'Tire Rotation', etc.): ")
+
+    def valid_date(date_str):
+        if len(date_str) != 10:
+            return False
+        year, month, day = date_str.split('-')
+
+        if len(year) != 4 or not year.isdigit():
+            return False
+
+        if len(month) != 2 or not month.isdigit():
+            return False
+
+        if len(day) != 2 or not day.isdigit():
+            return False
+
+        return True
+
+    if not valid_date(new_maintenance_date):
+        print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
+        return
 
     try:
         with open("./database_admin/vehicle_data.txt", 'r') as file:
