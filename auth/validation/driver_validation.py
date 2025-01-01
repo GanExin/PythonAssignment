@@ -166,10 +166,6 @@ def validate_date_time(date_time):
 
 
 def validate_float_with_two_decimals(f_number):
-    if ' | ' in f_number: #ensure delimiter is not disturbed
-        print("Input cannot contain "|" ")
-        return False
-
     try:
         #check if it can be converted to a float
         float_number = float(f_number)
@@ -185,11 +181,35 @@ def validate_float_with_two_decimals(f_number):
         print("Input must be a valid floating-point number.")
         return False
 
-def validate_yes_or_no(y_n):
-    if y_n not in ['y','n']:
-        print("Please enter either (y/n)")
+
+def validate_float_with_one_decimal(f_number):
+    try:
+        #check if it can be converted to a float
+        float_number = float(f_number)
+
+        #check if it matches the two-decimal format
+        parts = f_number.split(".")
+        if len(parts) == 2 and len(parts[1]) == 1:
+            return True
+        else:
+            print("Input must be a number with exactly one decimal place.")
+            return False
+    except ValueError:
+        print("Input must be a valid floating-point number.")
         return False
-    if ' | ' in y_n: #ensure delimiter is not disturbed
-        print("Input cannot contain "|" ")
+
+
+def validate_percentage(percent):
+    try:
+        #converted to a float
+        percent = float(percent)
+
+        # Check if percent is within the valid range (1-100)
+        if 1 <= percent <= 100:
+            return True
+        else:
+            print("Invalid percentage value. Must be between 1 and 100.")
+            return False
+    except ValueError:
+        print("Input must be a valid number.")
         return False
-    return True

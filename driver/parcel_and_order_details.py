@@ -18,9 +18,18 @@ def update_parcel_driver(session):
                 while True:
                     try:
                         print("\n---------------------Available orders---------------------")
-                        print(display_available_order())
+                        available_orders, order_ids = display_available_order()
+                        if available_orders == "No available orders found.":
+                            print(available_orders)
+                            break #if no available orders, break
+
+                        print(available_orders) #if orders are available, print details
 
                         order_id_input = int(input("Please enter the Order ID you want to book: "))
+                        if order_id_input not in order_ids:
+                            print("Invalid Order ID. Please choose valid Order IDs from the displayed list.")
+                            continue #prompt user to try again when order ID is invalid
+
                         order_found = display_order(order_id_input)  # check if order exist, if it does, print order details
                         if order_found:
                             print("\n---------------------Order found---------------------")
