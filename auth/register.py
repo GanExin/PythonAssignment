@@ -84,6 +84,7 @@ def register_driver():
     print("Welcome, please enter the details below and register as a driver to Ship2GO.\n")
 
     role = 'driver'
+    vehicle_id = "None"
     email = None
     password = None
     first_name = None
@@ -163,7 +164,7 @@ def register_driver():
     create_user(user) #store new 'user' into txt file using predefined function
 
     driver_detail = [email, first_name, last_name, phone_number, address, availability_status, driver_license,
-                     health_report, family_dependencies] #store details as 'driver_detail'
+                     health_report, family_dependencies, vehicle_id] #store details as 'driver_detail'
     create_driver(driver_detail) #store new 'driver_detail' into txt file using predefined function
     print("\nRedirecting you to your assigned user homepage...\n")
     driver_homepage(user)

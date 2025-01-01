@@ -1,6 +1,0 @@
-1 | Toyota Camry | 56% | 700 km | 2024-12-14 | 90.0 litres
-2 | Honda Civic | 56% | 400 km | 2025-01-01 | 67.0 litres
-3 | Ford F-150 | 67% | 300 km | 2025-01-12 | 67.0 litres
-4 | Chevrolet Malibu | 60% | 1000.0 km | 2023-12-20 | 35.0 litres
-5 | Nissan Altima | 45% | 950.0 km | 2024-05-04 | 22.0 litres
-6 | Toyota Hiace SLWB | 90% | 1100.0 km | 2023-12-15 | 45.0 litres
