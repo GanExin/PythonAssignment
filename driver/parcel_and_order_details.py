@@ -25,7 +25,7 @@ def update_parcel_driver(session):
 
                         print(available_orders) #if orders are available, print details
 
-                        order_id_input = int(input("Please enter the Order ID you want to book: "))
+                        order_id_input = str(input("Please enter the Order ID you want to book: "))
                         if order_id_input not in order_ids:
                             print("Invalid Order ID. Please choose valid Order IDs from the displayed list.")
                             continue #prompt user to try again when order ID is invalid
@@ -46,7 +46,7 @@ def update_parcel_driver(session):
                                 if not validate_date(new_date):
                                     continue
 
-                                update_parcel_details(order_id_input, new_status, new_date, new_driver)
+                                update_parcel_details(str(order_id_input), new_status, new_date, new_driver)
 
                                 updated_order = display_order(order_id_input)
                                 print("\n---------------------Updated Order---------------------")

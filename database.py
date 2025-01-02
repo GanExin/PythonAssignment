@@ -384,11 +384,11 @@ def update_parcel_details(order_id, new_status, new_date, new_driver):
                 for details in range(orders, len(lines)):
                     if "Delivery status: " in lines[details]:
                         lines[details] = f"Delivery status: {new_status}\n"
-                    if "Status update date: " in lines[details]:
+                    elif "Status update date: " in lines[details]:
                         lines[details] = f"Status update date: {new_date}\n"
-                    if "Driver: " in lines[details]:
+                    elif "Driver: " in lines[details]:
                         lines[details] = f"Driver: {new_driver}\n"
-                    if "----------------------------------------" in lines[details]:
+                    elif "----------------------------------------" in lines[details]:
                         updated = True
                         break
             if updated:
@@ -802,40 +802,33 @@ def display_available_order():
 #display matching orders by driver email
 def display_driver_jobs(driver_email):
     filename = "./database_customer/orders.txt"
-    with open(filename, 'r') as file:
-        lines = file.readlines()
-        driver_orders = []
-        current_order = {}
+    try:
+        with open(filename, 'r') as file:
+            lines = file.readlines()
+            driver_orders = []
+            current_order = {}
 
-        for line in lines:
-            line = line.strip()
-            if line == "----------------------------------------":
-                if current_order:
-                    if current_order.get("Driver") == driver_email:  #Match the driver email
-                        detail = (f"Order ID: {current_order.get('Order ID')}\n"
-                                  f"Product Name: {current_order.get('Product Name')}\n"
-                                  f"Quantity: {current_order.get('Quantity')}\n"
-                                  f"Customer Name: {current_order.get('Customer Name')}\n"
-                                  f"Address: {current_order.get('Address')}\n"
-                                  f"Phone Number: {current_order.get('Phone Number')}\n"
-                                  f"Payment Method: {current_order.get('Payment Method')}\n"
-                                  f"Vehicle: {current_order.get('Vehicle')}\n"
-                                  f"Special Request: {current_order.get('Special Request')}\n"
-                                  f"Route: {current_order.get('Route')}\n"
-                                  f"Route Price: RM{current_order.get('Route Price')}\n"
-                                  f"Delivery status: {current_order.get('Delivery status')}\n"
-                                  f"Status update date: {current_order.get('Status update date')}\n"
-                                  f"Driver: {current_order.get('Driver')}")
+            for line in lines:
+                line = line.strip()
+                if line == "----------------------------------------":
+                    if current_order and current_order.get("Driver") == driver_email:  #Match the driver email
+                        detail = format_order_details(current_order)
                         driver_orders.append(detail)
                     current_order = {}
-            elif ": " in line:
-                key, value = line.split(": ", 1)
-                current_order[key] = value
+                elif ": " in line:
+                    key, value = line.split(": ", 1)
+                    current_order[key] = value
+            if driver_orders:
+                return "\n\n".join(driver_orders)
+            else:
+                return f"No jobs found for driver: {driver_email}"
+    except FileNotFoundError:
+        print("Order file not found.")
+        return None
 
-        if driver_orders:
-            return "\n\n".join(driver_orders)
-        else:
-            return f"No jobs found for driver: {driver_email}"
+#return dictionary as key-value pair separated by newlines
+def format_order_details(order):
+    return "\n".join([f"{key}: {value}" for key, value in order.items()])
 
 #Check if driver booked a parcel from orders.txt
 def check_driver_parcel(current_user):
