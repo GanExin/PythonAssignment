@@ -821,7 +821,7 @@ def display_driver_jobs(driver_email):
             if driver_orders:
                 return "\n\n".join(driver_orders)
             else:
-                return f"No jobs found for driver: {driver_email}"
+                return f"No jobs found for driver: {driver_email}, please book parcels first."
     except FileNotFoundError:
         print("Order file not found.")
         return None

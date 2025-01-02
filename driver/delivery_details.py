@@ -83,7 +83,7 @@ def create_new_delivery_detail(session):
                             safety_cleaning_check = safety_cleaning_check_input
                         elif safety_cleaning_check_input == "n":
                             print("Please complete the safety and cleaning check before proceeding.")
-                            break
+                            return
                         else:
                             print("Invalid input. Please enter 'y' or 'n'.")
                             continue
