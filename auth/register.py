@@ -139,7 +139,7 @@ def register_driver():
             else:
                 continue
         if driver_license is None:
-            driver_license_input = input("Please enter driver license: ")
+            driver_license_input = input("Please enter driver license number: ")
             if validate_number(driver_license_input):
                 driver_license = driver_license_input
             else:
@@ -151,7 +151,7 @@ def register_driver():
             else:
                 continue
         if family_dependencies is None:
-            family_dependencies_input = input("Please enter a number for you number of dependencies: ")
+            family_dependencies_input = input("Please enter your number of family dependencies: ")
             if validate_number(family_dependencies_input):
                 family_dependencies = family_dependencies_input
             else:
@@ -208,7 +208,7 @@ def register_admin():
             else:
                 continue
         if date_of_birth is None:
-            date_of_birth_input = input("Please enter your date of birth (dd/mm/yyy): ")
+            date_of_birth_input = input("Please enter your date of birth (dd/mm/yyyy): ")
             if validate_date(date_of_birth_input):
                 date_of_birth = date_of_birth_input
             else:

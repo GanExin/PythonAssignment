@@ -684,7 +684,6 @@ def display_delivery_details(delivery):
             driver_detail = line.strip().split(' | ')
             if driver_detail[0] == delivery[0]:
                 detail = (f"Driver email: {delivery[0]} \n"
-                          # f"Vehicle ID: V{delivery[1]} \n"
                           f"Route: {delivery[1]} \n"
                           f"Start journey date; time: {delivery[2]} \n"
                           f"End journey data; time: {delivery[3]} \n"
@@ -695,7 +694,7 @@ def display_delivery_details(delivery):
                           f"Total stopovers: {delivery[8]} \n"
                           f"Current fuel level: {delivery[9]} % \n"
                           f"Total cost of refuel: RM {delivery[10]} \n"
-                          f"Safety and cleaning check status: {delivery[11]}\n"
+                          f"Safety, cleaning and fuel check status: {delivery[11]}\n"
                           f"Total fuel consumption: {delivery[12]} litres/km")
                 return detail
 
@@ -773,9 +772,15 @@ def display_available_order():
                order.get("Driver") == match_driver
         ]
 
+        if not available_jobs:
+            return "No available orders found.", []
+
         print_jobs_available = ""
+        order_ids = []
         for order in available_jobs:
-            detail = (f"Order ID: {order.get('Order ID')}\n"
+            order_id = order.get('Order ID')
+            order_ids.append(order_id)
+            detail = (f"Order ID: {order_id}\n"
                       f"Product Name: {order.get('Product Name')}\n"
                       f"Quantity: {order.get('Quantity')}\n"
                       f"Customer Name: {order.get('Customer Name')}\n"
@@ -792,7 +797,7 @@ def display_available_order():
                       + "-" * 40 + "\n")
             print_jobs_available += detail
 
-        return print_jobs_available if print_jobs_available else "No available orders found."
+        return print_jobs_available, order_ids
 
 #display matching orders by driver email
 def display_driver_jobs(driver_email):
@@ -832,6 +837,21 @@ def display_driver_jobs(driver_email):
         else:
             return f"No jobs found for driver: {driver_email}"
 
+#Check if driver booked a parcel from orders.txt
+def check_driver_parcel(current_user):
+    filename = "./database_customer/orders.txt"
+    try:
+        with open(filename, 'r') as file:
+            lines = file.readlines()
+    except FileNotFoundError:
+        print("Error: Unable to find orders in Orders database.")
+        return False
+    for i in range(len(lines)):
+        if lines[i].startswith("Driver:"): #check only if line starts with "Driver: "
+            driver_email = lines[i].split("Driver:")[1].strip()
+            if driver_email == current_user: #check if driver is same as current user
+                return True
+    return False
 
 def display_vehicle_data(vehicle_data):
     filename = "./database_admin/vehicle_data.txt"
