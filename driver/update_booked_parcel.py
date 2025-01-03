@@ -19,36 +19,42 @@ def update_booked_parcel_details(session):
 
         choice = input("Would you like to update a parcel?(y/n): ").lower()
         if choice == "y":
-            order_id_input = input("Please enter the Order ID you want to update: ")
-            order_found = display_order(order_id_input)
-            if order_found :
-                if f"Driver: {current_user}" in order_found:
-                    print("\n---------------------Order found---------------------")
-                    print(order_found)
+            while True:
+                order_id_input = input("Please enter the Order ID you want to update: ")
+                order_found = display_order(order_id_input)
+                if order_found :
+                    if f"Driver: {current_user}" in order_found:
+                        print("\n---------------------Order found---------------------")
+                        print(order_found)
 
-                    choice_to_update_order = input("\nWould you like to update this order? (y/n): ").lower()
-                    if choice_to_update_order == "y":
-                        new_status = input("Enter new delivery status [Undelivered/En route/Delivered]: ").capitalize()
-                        if new_status not in delivery_status_available:
-                            print("Invalid input. Please try again.")
-                            continue
-                        new_date = input("Enter new date(dd/mm/yyyy): ")
-                        if not validate_date(new_date):
-                            continue
+                        while True:
+                            choice_to_update_order = input("\nWould you like to update this order? (y/n): ").lower()
+                            if choice_to_update_order == "y":
+                                while True:
+                                    new_status = input("Enter new delivery status [Undelivered/En route/Delivered]: ").capitalize()
+                                    if new_status not in delivery_status_available:
+                                        print("Invalid input. Please try again.")
+                                        continue
+                                    while True:
+                                        new_date = input("Enter new date(dd/mm/yyyy): ")
+                                        if not validate_date(new_date):
+                                            continue
+                                        break
+                                    break
 
-                        update_parcel_details(order_id_input, new_status, new_date, current_user)
+                                update_parcel_details(order_id_input, new_status, new_date, current_user)
 
-                        updated_order = display_order(order_id_input)
-                        print("\n---------------------Updated Order---------------------")
-                        print(updated_order)
-                        break
+                                updated_order = display_order(order_id_input)
+                                print("\n---------------------Updated Order---------------------")
+                                print(updated_order)
+                                return
 
-                    if choice_to_update_order == "n":
-                        break
+                            elif choice_to_update_order == "n":
+                                break
+                    else:
+                        print(f"Order ID {order_id_input} is booked by another driver.")
                 else:
-                    print(f"Order ID {order_id_input} is booked by another driver.")
-            else:
-                print("Order ID not found.")
+                    print("Order ID not found.")
 
         elif choice == "n":
             break
