@@ -12,7 +12,7 @@ from PythonAssignment.driver.homepage import driver_homepage
 #register users as their selected roles
 def register():
     while True:
-        choice = input("Which role would you like to register as? [customer/admin/driver] or [exit]: ").lower()
+        choice = input("Which role would you like to register as? [customer/admin/driver] or [exit]: ").islower()
         if choice == "customer":
             register_customer()
         elif choice == "driver":
