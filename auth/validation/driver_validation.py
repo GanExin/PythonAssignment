@@ -15,7 +15,7 @@ def validate_email(email):
     for user in existing_users:
         existing_email = user[0]
         if email == existing_email: #find if email exist
-            print("Email already exists in database_driver, please try another email.")
+            print("Email already exists in database, please try another email.")
             return False
 
     return True
@@ -72,12 +72,12 @@ def validate_last_name(last_name):
     return True
 
 
-def validate_phone_number(phone_number):
-    if not all (char.isdigit() for char in phone_number):
-        print("Phone number should only contain numbers")
+def validate_number(number):
+    if not all (char.isdigit() for char in number):
+        print("Input should only contain numbers")
         return False
-    if '|' in phone_number: #ensure delimiter is not disturbed
-        print("Phone number must not contain '|'")
+    if '|' in number: #ensure delimiter is not disturbed
+        print("Input must not contain '|'")
         return False
 
     return True
@@ -101,18 +101,6 @@ def validate_driver_availability_status(availability_status):
 
     return True
 
-
-def validate_driver_license(driver_license):
-    if not any (char.isdigit() for char in driver_license):
-        print("Your driver license should contain numbers")
-        return False
-    if '|' in driver_license: #ensure delimiter is not disturbed
-        print("Driver license should not contain '|'")
-        return False
-
-    return True
-
-
 def validate_driver_health_report(health_report):
     if health_report not in ['1', '2']:
         print("Please select a number: [1]Fit to drive, [2]Not fit to drive")
@@ -127,11 +115,105 @@ def get_health_report_value(health_report):
         return "not fit to drive"
 
 
-def validate_driver_family_dependencies(family_dependencies):
-    if not any (char.isdigit() for char in family_dependencies):
-        print("Please enter only numbers")
+def validate_route_chosen(route):
+    if route not in ['1','2']:
+        print("Please select a number")
         return False
-    if ' | ' in family_dependencies: #ensure delimiter is not disturbed
+    if ' | ' in route: #ensure delimiter is not disturbed
         print("Input cannot contain "|" ")
         return False
     return True
+
+
+def validate_date_time(date_time):
+    #Ensure format to separate date and time is correct
+    if ' | ' in date_time:  # ensure delimiter is not disturbed
+        print("Input cannot contain " | " ")
+        return False
+    if not date_time or ";" not in date_time:
+        print("Invalid format. Use 'DD/MM/YYYY; HH:MM'.")
+        return False
+
+    try:
+        # Split into date and time
+        date_part, time_part = date_time.split("; ")
+
+        # Validate date part (DD/MM/YYYY)
+        day, month, year = map(int, date_part.split("/"))
+        if not (1 <= day <= 31):
+            print("Invalid day. Day should be between 1 and 31.")
+            return False
+        if not (1 <= month <= 12):
+            print("Invalid month. Month should be between 1 and 12.")
+            return False
+        if len(str(year)) != 4: #validate 4-digit year length
+            print("Invalid year. Year should be a 4-digit number.")
+            return False
+
+        # Validate time part (HH:MM)
+        hour, minute = map(int, time_part.split(":"))
+        if not (00 <= hour <= 23):
+            print("Invalid hour. Hour should be between 00 and 23.")
+            return False
+        if not (00 <= minute <= 59):
+            print("Invalid minute. Minute should be between 00 and 59.")
+            return False
+
+        return True
+    except ValueError:
+        print("Invalid format. Use 'DD/MM/YYYY; HH:MM'.")
+        return False
+
+
+def validate_float_with_two_decimals(f_number):
+    try:
+        #check if it can be converted to a float
+        float_number = float(f_number)
+
+        #check if it matches the two-decimal format
+        parts = f_number.split(".")
+        if len(parts) == 2 and len(parts[1]) == 2:
+            return True
+        else:
+            print("Input must be a number with exactly two decimal places.")
+            return False
+    except ValueError:
+        print("Input must be a valid floating-point number.")
+        return False
+
+
+def validate_float_with_one_decimal(f_number):
+    try:
+        #check if it can be converted to a float
+        float_number = float(f_number)
+
+        if float_number <= 0:
+            print("Input cannot be 0 and must be a positive number.")
+            return False
+
+        #check if it matches the two-decimal format
+        parts = f_number.split(".")
+        if len(parts) == 2 and len(parts[1]) == 1:
+            return True
+        else:
+            print("Input must be a number with exactly one decimal place.")
+            return False
+    except ValueError:
+        print("Input must be a valid floating-point number.")
+        return False
+
+
+def validate_percentage(percent):
+    try:
+        #converted to a float
+        percent = float(percent)
+
+        # Check if percent is within the valid range (1-100)
+        if 1 <= percent <= 100:
+            return True
+        else:
+            print("Invalid percentage value. Must be between 1 and 100.")
+            return False
+    except ValueError:
+        print("Input must be a valid number.")
+        return False

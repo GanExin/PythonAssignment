@@ -4,7 +4,8 @@ from PythonAssignment.auth.register import register
 #Start page for users
 def main():
     while True:
-        choice = input("Welcome to Ship2Go, please select the following option: [1] Login, [2] Register, [3] Exit: ")
+        print("\n#GROUP 20 \n#TP080733, TP080993, TP081103")
+        choice = input("\nWelcome to Ship2Go, please select the following option: \n[1] Login \n[2] Register \n[3] Exit: ")
         if choice == "1":
             success = login() #bring users to login()
             if not success:
