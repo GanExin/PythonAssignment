@@ -787,22 +787,22 @@ def display_driver_jobs(driver_email):
     try:
         with open(filename, 'r') as file:
             lines = file.readlines()
-            driver_orders = []
-            current_order = {}
+            driver_orders = [] #set as empty list
+            current_order = {} #set as empty dictionary
 
             for line in lines:
                 line = line.strip()
                 if line == "----------------------------------------":
                     if current_order and current_order.get("Driver") == driver_email:  #Match the driver email
                         detail = format_order_details(current_order)
-                        driver_orders.append(detail)
-                    current_order = {}
+                        driver_orders.append(detail) #append details to empty list
+                    current_order = {} #reset empty dictionary for next order
                 elif ": " in line:
                     key, value = line.split(": ", 1)
                     current_order[key] = value
-            if driver_orders:
+            if driver_orders: #if driver list not empty, return driver_orders
                 return "\n\n".join(driver_orders)
-            else:
+            else: #retrun if no orders match driver email
                 return f"No jobs found for driver: {driver_email}, please book parcels first."
     except FileNotFoundError:
         print("Order file not found.")
