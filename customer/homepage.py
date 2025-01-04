@@ -7,15 +7,15 @@ def customer_homepage(session):
     profile = read_customer_details(session[0])
     users = read_users()
 
-    print("Welcome back! " + profile[1] + "!")
+    print("Welcome back! " + profile[1] + "!") #prints welcome back message
 
     while True:
         user_choice = input("[1] Manage orders \n[2] Rate and Review \n"
                             "[3] Exit \nWhat would you like to do?: ")
 
         if user_choice == "1":
-            order_management(session)
+            order_management(session) #direct user to order_management(session)
         if user_choice == "2":
-            rate_review(session)
+            rate_review(session) #direct user to rate_review(session)
         if user_choice == "3":
-            break
+            break #exit program
