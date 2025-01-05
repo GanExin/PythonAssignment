@@ -173,6 +173,10 @@ def validate_float_with_two_decimals(f_number):
         #check if it can be converted to a float
         float_number = float(f_number)
 
+        if float_number <= 0:
+            print("Input cannot be 0 and must be a positive number.")
+            return False
+
         #check if it matches the two-decimal format
         parts = f_number.split(".")
         if len(parts) == 2 and len(parts[1]) == 2:
