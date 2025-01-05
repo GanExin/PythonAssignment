@@ -139,6 +139,7 @@ def track_fuel_consumption(session):
         print(f"An unexpected error occurred: {e}")
 
 def check_low_fuel_alerts(session):
+    print("---------------Check Low Fuel Alerts---------------")
     try:
         while True:
             try:

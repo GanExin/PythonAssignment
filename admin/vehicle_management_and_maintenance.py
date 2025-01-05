@@ -310,6 +310,7 @@ def check_maintenance_alerts(session):
 
 
 def update_maintenance_record(session):
+    print("---------------Update Maintenance Record---------------")
     vehicle_id = input("Enter the Vehicle ID: ").strip()
 
     try:
