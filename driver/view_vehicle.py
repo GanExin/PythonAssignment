@@ -1,5 +1,4 @@
-from PythonAssignment.admin.vehicle_management_and_maintenance import view_vehicle_detail
-from PythonAssignment.database import read_users, read_driver_details, display_driver_details, display_vehicle_data
+from PythonAssignment.database import read_users, read_driver_details, display_vehicle_data
 
 
 def view_assign_vehicle(session):

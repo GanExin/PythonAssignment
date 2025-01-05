@@ -57,7 +57,7 @@ def update_parcel_driver(session):
                                 break
 
                     except ValueError:
-                        print("Invalid input. Please enter valid Order ID")
+                        print("\nInvalid input. Please enter valid Order ID")
 
             else:
                 print("Unable to book parcels due to user not assigned a vehicle.")

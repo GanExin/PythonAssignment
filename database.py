@@ -581,24 +581,6 @@ def update_total_cost_of_refuel_to_db(detail):
         file.truncate()
     return
 
-#update safety_cleaning_status to delivery_details_for_admin_report.txt
-def update_safety_cleaning_status_to_db(detail):
-    filename = "./database_driver/delivery_details_for_admin_report.txt"
-    with open(filename, 'r+') as file:
-        lines = file.readlines()
-
-        for i, line in enumerate(lines):
-            delivery_detail = line.strip().split(' | ')
-            if delivery_detail[0] == detail[0]:
-                delivery_detail[11] = detail[11]
-                lines[i] = ' | '.join(delivery_detail)+ '\n'
-                break
-
-        file.seek(0)
-        file.writelines(lines)
-        file.truncate()
-    return
-
 #update total_fuel_consumption to delivery_details_for_admin_report.txt
 def update_total_fuel_consumption_to_db(detail):
     filename = "./database_driver/delivery_details_for_admin_report.txt"
@@ -695,7 +677,7 @@ def display_delivery_details(delivery):
                           f"Current fuel level: {delivery[9]} % \n"
                           f"Total cost of refuel: RM {delivery[10]} \n"
                           f"Safety, cleaning and fuel check status: {delivery[11]}\n"
-                          f"Total fuel consumption: {delivery[12]} litres/km")
+                          f"Fuel consumption: {delivery[12]} litres/km")
                 return detail
 
 #display order details from orders.txt
@@ -805,22 +787,22 @@ def display_driver_jobs(driver_email):
     try:
         with open(filename, 'r') as file:
             lines = file.readlines()
-            driver_orders = []
-            current_order = {}
+            driver_orders = [] #set as empty list
+            current_order = {} #set as empty dictionary
 
             for line in lines:
                 line = line.strip()
                 if line == "----------------------------------------":
                     if current_order and current_order.get("Driver") == driver_email:  #Match the driver email
                         detail = format_order_details(current_order)
-                        driver_orders.append(detail)
-                    current_order = {}
+                        driver_orders.append(detail) #append details to empty list
+                    current_order = {} #reset empty dictionary for next order
                 elif ": " in line:
                     key, value = line.split(": ", 1)
                     current_order[key] = value
-            if driver_orders:
+            if driver_orders: #if driver list not empty, return driver_orders
                 return "\n\n".join(driver_orders)
-            else:
+            else: #retrun if no orders match driver email
                 return f"No jobs found for driver: {driver_email}, please book parcels first."
     except FileNotFoundError:
         print("Order file not found.")

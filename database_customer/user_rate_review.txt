@@ -2,43 +2,43 @@ Name: John Cena
 Rating: 4
 Review: Top notch service. Keep it up!
 ----------------------------------------
-Name: TJ
+Name: Cherry Berry
 Rating: 3
 Review: Delivery is slow.
 ----------------------------------------
 Name: Olivia Lee
 Rating: 3
-Review: Roll it into a ball and flick it
+Review: It was alright :/
 ----------------------------------------
 Name: Gallahang
 Rating: 5
 Review: I received my delivery within a week and the quality is amazing. Will order again!
 ----------------------------------------
-Name: boo!
+Name: Mirabelle
 Rating: 4
-Review: i dont wanna roll it and flick it
+Review: good.
 ----------------------------------------
 Name: Sasha A.C
 Rating: 5
 Review: I didn't get my delivery but I'm too scared to report so I'll leave a review instead LOL >//<
 ________________________________________
-Name: Donald John Trump
-Rating: 1
-Review: I told you to make China pay the tariffs. Why am I paying it isntead??
-________________________________________
-Name: Sasha
+Name: Sasha A.C
 Rating: 5
 Review: The chocolate chip cookie was delish and was delivered in a jiffy HOPPITY!! <3
 ________________________________________
-Name: Sasha
+Name: Sasha A.C
 Rating: 5
 Review: Im making another review because i love your service HOPPITY :)
 ________________________________________
-Name: Donald Trump
+Name: Donald Johnson
 Rating: 1
 Review: I know u guys are just a shipping company or whatever but the sun tan lotion i ordered was too orange >:[
 ________________________________________
-Name: Donald Trump
+Name: Donald Johnson
+Rating: 2
+Review: delivered to the wrong location
+________________________________________
+Name: Fiyero
 Rating: 4
-Review: delivered to the wrong location dude
+Review: The service was superb!
 ________________________________________
