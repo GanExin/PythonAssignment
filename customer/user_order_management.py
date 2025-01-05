@@ -4,27 +4,27 @@ from PythonAssignment.database import next_order_id, create_order
 
 def order_management(session):
     print("---------------------Order Management---------------------")
-    # user enters a number (1-7) to choose what feature they want
+    # user enters a number (1-6) to choose what feature they want
     while True:
         choice = input("[1] Place Order \n[2] Track Order "
                        "\n[3] Cancel Order \n[4] Reorder \n[5] View Order History"
                        "\n[6] Exit"
                        "\nPlease choose a feature (1/2/3/4/5/6): ")
         if choice == '1':
-            place_order(session)
+            place_order(session) #direct user to place_order(session)
         elif choice == '2':
-            track_order(session)
+            track_order(session) #direct user to track_order(session)
         elif choice == '3':
-            cancel_order(session)
+            cancel_order(session) #direct user to cancel_order(session)
         elif choice == '4':
-            reorder(session)
+            reorder(session) #direct user to reorder(session)
         elif choice == '5':
-            view_order_history(session)
+            view_order_history(session) #direct user to view_order_history(session)
         elif choice == '6':
-            print("Thank you for using Ship2Go.")
+            print("Thank you for using Ship2Go.") #exit program
             break
         else:
-            print("Invalid input")
+            print("Invalid input") #prompt user again
 
 
 # Place order
@@ -34,18 +34,27 @@ def place_order(session):
 
     print("-----------------------Place Order-----------------------")
     print("Please enter the following details.") # user enters the following details for the order
-    product_name = input("Product Name: ")
+    product_name = input("Product Name: ") # enter product name
     while True:
         try:
-            product_quantity = int(input("Quantity: "))
+            product_quantity = int(input("Quantity: ")) #enter quantity of product
             break
         except ValueError:
-            print("Invalid input. Please enter an integer.")
-    customer_name = input("Full Name: ")
-    customer_address = input("Address: ")
+            print("Invalid input. Please enter an integer.") # validates quantity
+    customer_name = input("Full Name: ") # enter full name
+    addresses = ["Johor", "Kuala Lumpur", "Butterworth", "Kedah", "Perlis", "Kelantan", "Terengganu"]
     while True:
-        customer_phone_num = input("Phone Number: ")
-        if customer_phone_num.isdigit():
+        customer_address = input("Please select an address (drop-off point)\n[Johor]\n[Kuala Lumpur]"
+                                 "\n[Butterworth]\n[Kedah]\n[Perlis]\n[Kelantan]\n[Terengganu]: ") # enter address
+        if customer_address not in addresses:
+            print("Invalid choice. Please try again.") # validates address
+        else:
+            print(f"You have chosen {customer_address}")
+            break
+
+    while True:
+        customer_phone_num = input("Phone Number: ") # enter phone number
+        if customer_phone_num.isdigit(): # validates phone number
             break
         else:
             print("Invalid input. Please enter your phone number.")
@@ -77,8 +86,8 @@ def place_order(session):
         user_consignment_sizes = input("Enter the consignment size of your delivery"
                                        " (small parcel/bulk order/special cargo): ").strip().lower()
         if user_consignment_sizes not in consignment_sizes:
-            print("Invalid Choice. Please try again.")
-        else:
+            print("Invalid Choice. Please try again.") # validates consignment size
+        else: # assign vehicles based on entered consignment size
             if user_consignment_sizes == "small parcel":
                 vehicle = vehicle_choices[0]
             elif user_consignment_sizes == "bulk order":
@@ -89,7 +98,7 @@ def place_order(session):
     print(f"Your assigned vehicle is: {vehicle}")
 
     user_special_request = None
-    while True:
+    while True: #prompts users if they have any special requests
         special_requests = input("Would you like to make any special requests for your order? (y/n): ")
         if special_requests == "n":
             print("No special requests made.")
@@ -105,7 +114,7 @@ def place_order(session):
     route_descriptions = {
         "Route 1": "Johor ➜ Kuala Lumpur ➜ Butterworth ➜ Kedah ➜ Perlis",
         "Route 2": "Johor ➜ Kuala Lumpur ➜ Terengganu ➜ Kelantan"}
-    while True:
+    while True: #prompt users to choose a route
         print("Available Routes:")
         for route, description in route_descriptions.items():
             print(f"{route}: {description} (Price: RM{route_prices[route]})")
@@ -225,13 +234,13 @@ def cancel_order(session):
             if found:
                 delivery_status = ""
                 for detail_line in order_details.split("\n"):
-                    if "Delivery status:" in detail_line:
+                    if "Delivery status:" in detail_line: #checks delivery status of each order
                         delivery_status = detail_line.split("Delivery status:")[1].strip()
                         print(f"Delivery Status: {delivery_status}")
                         break
-                if delivery_status == "Delivered":
+                if delivery_status == "Delivered": #if delivery status is delivered, cannot cancel
                     print("Cannot cancel delivered orders. Cancellation unsuccessful.")
-                elif delivery_status in ["En route", "Undelivered"]:
+                elif delivery_status in ["En route", "Undelivered"]: #if not delivered, can cancel
                     cancel_confirmation = input("Order cancellation confirmed? (y/n): ").lower()
                     while True:
                         if cancel_confirmation == "":

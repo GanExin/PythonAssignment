@@ -2,11 +2,26 @@ Order ID: 10
 Product Name: Boots
 Quantity: 1
 Customer Name: Fiyero
-Address: Winkie Country
+Address: Perlis
 Phone Number: 0192092022
 Payment Method: Credit Card
 Vehicle: Specialized Carrier
 Special Request: None
+Delivery status: Undelivered
+Status update date: NIL
+Driver: NIL
+----------------------------------------
+Order ID: 11
+Product Name: Waterbottle
+Quantity: 1
+Customer Name: Fiyero
+Address: Perlis
+Phone Number: 0192092022
+Payment Method: Credit Card
+Vehicle: Van
+Special Request: Use the back entrance when delivering my package.
+Route: Route 2
+Route Price: RM20
 Delivery status: Undelivered
 Status update date: NIL
 Driver: NIL
