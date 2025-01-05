@@ -1,12 +1,12 @@
 Order ID: 1
-Product Name: Baby Oil
-Quantity: 1000
-Customer Name: Did He?
-Address: Los Angeles, California, USA
-Phone Number: 016-9696969
+Product Name: Baby Powder
+Quantity: 1
+Customer Name: Mirabelle
+Address: Kelantan
+Phone Number: 016-9689389
 Payment Method: Credit Card
 Vehicle: Truck
-Special Request: roll it into a ball and flick it onto my doorstep
+Special Request: put it on my doorstep
 Route: Route 1
 Route Price: RM35
 Delivery status: Delivered
@@ -14,10 +14,10 @@ Status update date: 10/03/2023
 Driver: Fred@gmail.com
 ----------------------------------------
 Order ID: 2
-Product Name: Bing Chilling
+Product Name: Ice cream
 Quantity: 1
 Customer Name: John Cena
-Address: Miami, Florida, USA
+Address: Kuala Lumpur
 Phone Number: 014-5205200
 Payment Method: Debit Card
 Vehicle: Van
@@ -32,11 +32,11 @@ Order ID: 3
 Product Name: Nutella
 Quantity: 1
 Customer Name: Cherry Berry
-Address: Narnia
+Address: Kuala Lumpur
 Phone Number: 014-3920393
 Payment Method: Cash on Delivery
 Vehicle: Van
-Special Request: Please gently put my nutella in ur ass :)
+Special Request: None
 Route: Route 1
 Route Price: RM35
 Delivery status: Delivered
@@ -47,7 +47,7 @@ Order ID: 4
 Product Name: Bus
 Quantity: 1
 Customer Name: Gallahang
-Address: Starbucks's office
+Address: Kedah
 Phone Number: 017-3930903
 Payment Method: Credit Card
 Vehicle: Specialized Carrier
@@ -59,14 +59,14 @@ Status update date: 20/11/2023
 Driver: MKJ@gmail.com
 ----------------------------------------
 Order ID: 5
-Product Name: Tariffs
+Product Name: Candy
 Quantity: 25
-Customer Name: Donald John Trump
-Address: Whitehouse, Washington DC
+Customer Name: Donald Johnson
+Address: Terrengganu
 Phone Number: 367501614
 Payment Method: Cash on Delivery
 Vehicle: Truck
-Special Request: Make China pay for it. Im broke, ykwim?
+Special Request: Don't eat my candy
 Route: Route 1
 Route Price: RM35
 Delivery status: Delivered
@@ -74,14 +74,14 @@ Status update date: 20/12/2024
 Driver: Will@gmail.com
 ----------------------------------------
 Order ID: 6
-Product Name: Bombs
+Product Name: Jackets
 Quantity: 100
-Customer Name: Joe Biden
-Address: Whitehouse basement, Washington DC
+Customer Name: Joe Simpson
+Address: Terengganu
 Phone Number: 095368907
 Payment Method: Credit Card
 Vehicle: Truck
-Special Request: Im broke, let my boy Donny pay hehe >//<
+Special Request: None
 Route: Route 1
 Route Price: RM35
 Delivery status: En route
@@ -91,8 +91,8 @@ Driver: hawktim@gmail.com
 Order ID: 7
 Product Name: Sun Tan
 Quantity: 1
-Customer Name: Donald Trump
-Address: Whitehouse, Washington DC
+Customer Name: Donald Johnson
+Address: Terengganu
 Phone Number: 367501614
 Payment Method: Bank Transfer
 Vehicle: Van
@@ -106,8 +106,8 @@ Driver: MKJ@gmail.com
 Order ID: 8
 Product Name: Chocolate Chip Cookies
 Quantity: 1
-Customer Name: Sasha
-Address: Wonderland, Animal Crossing
+Customer Name: Sasha A.C
+Address: Kelantan
 Phone Number: 0129293388
 Payment Method: Cash on Delivery
 Vehicle: Van
@@ -122,7 +122,7 @@ Order ID: 9
 Product Name: Horse
 Quantity: 1
 Customer Name: Fiyero
-Address: Winkie Country
+Address: Perlis
 Phone Number: 0192092022
 Payment Method: Debit Card
 Vehicle: Specialized Carrier
@@ -137,15 +137,44 @@ Order ID: 10
 Product Name: Boots
 Quantity: 1
 Customer Name: Fiyero
-Address: Winkie Country
+Address: Perlis
 Phone Number: 0192092022
 Payment Method: Credit Card
 Vehicle: Van
-Special Request: Do not wear my special boots. My feet must be the first to touch it >:[
+Special Request: Do not wear my special boots.
 Route: Route 1
 Route Price: RM35
 Delivery status: Undelivered
 Status update date: NIL
 Driver: NIL
 ----------------------------------------
-
+Order ID: 12
+Product Name: Pink Boots
+Quantity: 1
+Customer Name: Barbie
+Address: Kuala Lumpur
+Phone Number: 34567975
+Payment Method: Debit Card
+Vehicle: Van
+Special Request: None
+Route: Route 2
+Route Price: RM20
+Delivery status: Undelivered
+Status update date: NIL
+Driver: NIL
+----------------------------------------
+Order ID: 13
+Product Name: Horse
+Quantity: 1
+Customer Name: Fiyero
+Address: Perlis
+Phone Number: 0192092022
+Payment Method: Debit Card
+Vehicle: Specialized Carrier
+Special Request: None
+Route: Route 1
+Route Price: RM35
+Delivery status: Undelivered
+Status update date: NIL
+Driver: NIL
+----------------------------------------
