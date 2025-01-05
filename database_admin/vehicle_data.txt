@@ -1,6 +1,6 @@
-1 | Toyota Camry | 2023-11-01 | 2024-02-12 | Good | 2023-12-01:Oil Change|2023-11-01:Tire Rotation
-2 | Honda Civic | 2023-10-15 | 2024-03-14 | Excellent | 2023-12-10:Battery Check|2023-10-01:Brake Pads
-3 | Ford F-150 | 2023-12-20 | 2024-01-20 | Average | 2023-09-01:Coolant Flush|2023-06-01:Engine Check
-4 | Chevrolet Malibu | 2023-12-05 | 2024-03-15 | Good | 2023-11-15:Oil Change|2023-10-01:Transmission Fluid Check
-5 | Nissan Altima | 2023-12-12 | 2024-03-01 | Poor | 2023-11-20:Brake Fluid Change|2023-09-10:Oil Change
-6 | Toyota Hiace SLWB | 2024-01-10 | 2024-10-12 | Excellent | 2023-12-25:Tire Check|2023-11-12:Oil Change
+1 | Truck | 2023-11-01 | 2024-12-01 | Good | 2023-12-01:Oil Change|2023-11-01:Tire Rotation | Suitable for Small Cargo
+2 | Van | 2023-10-15 | 2024-12-14 | Excellent | 2023-12-10:Battery Check|2023-10-01:Brake Pads | Suitable for Medium Cargo
+3 | Truck | 2023-12-20 | 2025-01-01 | Average | 2023-09-01:Coolant Flush|2023-06-01:Engine Check | Suitable for Heavy Cargo
+4 | Van | 2023-12-05 | 2024-12-01 | Good | 2023-11-15:Oil Change|2023-10-01:Transmission Fluid Check | Suitable for Medium Cargo
+5 | Specialized Carrier | 2023-12-12 | 2024-03-01 | Poor | 2023-11-20:Brake Fluid Change|2023-09-10:Oil Change | Suitable for Large Cargo
+6 | Specialized Carrier | 2024-01-10 | 2024-10-02 | Excellent | 2023-12-25:Tire Check|2023-11-12:Oil Change| Suitable for Large Cargo

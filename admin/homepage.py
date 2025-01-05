@@ -1,7 +1,7 @@
 from PythonAssignment.admin.driver_management import driver_management
 from PythonAssignment.admin.manage_fuel_and_consumption import manage_fuel_and_consumption
 from PythonAssignment.admin.vehicle_management_and_maintenance import vehicle_management_and_maintenance
-
+from PythonAssignment.admin.view_reports import reports
 
 def admin_homepage(session):
     print("Admin homepage")
@@ -16,7 +16,7 @@ def admin_homepage(session):
             elif user_choice == 3:
                 manage_fuel_and_consumption(session)
             elif user_choice == 4:
-                pass #view_reports(session)
+                reports(session)
             elif user_choice == 5:
                 print("Logging out...")
                 break

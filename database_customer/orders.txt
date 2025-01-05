@@ -10,7 +10,7 @@ Special Request: put it on my doorstep
 Route: Route 1
 Route Price: RM35
 Delivery status: Delivered
-Status update date: 10/02/2022
+Status update date: 10/03/2023
 Driver: Fred@gmail.com
 ----------------------------------------
 Order ID: 2
@@ -86,7 +86,7 @@ Route: Route 1
 Route Price: RM35
 Delivery status: En route
 Status update date: 17/10/2024
-Driver: Tim@gmail.com
+Driver: hawktim@gmail.com
 ----------------------------------------
 Order ID: 7
 Product Name: Sun Tan
@@ -114,9 +114,9 @@ Vehicle: Van
 Special Request: None
 Route: Route 1
 Route Price: RM35
-Delivery status: Undelivered
-Status update date: NIL
-Driver: NIL
+Delivery status: En route
+Status update date: 06/10/2023
+Driver: hawktim@gmail.com
 ----------------------------------------
 Order ID: 9
 Product Name: Horse
