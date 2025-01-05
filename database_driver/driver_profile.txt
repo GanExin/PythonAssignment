@@ -1,6 +1,7 @@
-Fred@gmail.com | Frederick | Kim | 098765432 | California | available | 0989890 | fit to drive | 1 | 1
-Tim@gmail.com | Timothy | Chalamet | 089876543 | New York | available | 12343212 | not fit to drive  | 4 | None
-Will@gmail.com | Will | Smith | 31977136 | Utah | available | 396184193 | fit to drive | 2 | 2
-Yula@gmail.com | Yuliana | Grey | 83652459 | Rhode Island | available | 351859 | fit to drive | 2 | 6
-MKJ@gmail.com | Michael | Jackson | 986548986 | The Cemetery | unavailable | 123432134 | not fit to drive | 5 | None
-hawktim@gmail.com | Hawk | Tim | 09092920 | New York City, New York | available | 696969 | fit to drive | 1 | 3
+Fred@gmail.com | Frederick | Kim | 098765432 | No.03, Jln 1/3, Taman Puteri | available | 0989890 | fit to drive | 1 | 1
+Tim@gmail.com | Timothy | Chalamet | 089876543 | No.55, Jln 2/3, Taman Kesian | available | 12343212 | not fit to drive  | 4 | None
+Will@gmail.com | Will | Smith | 31977136 | Utah | No.04, Jln PP , Taman Coconut | 396184193 | fit to drive | 2 | 2
+Yula@gmail.com | Yuliana | Grey | 83652459 | No.20, Jln 2/2, Taman Orangutan | available | 351859 | fit to drive | 2 | 6
+MKJ@gmail.com | Michael | Jackson | 986548986 | No.32, Jln 1/2, Taman Gaigai | unavailable | 123432134 | not fit to drive | 5 | None
+hawktim@gmail.com | Hawk | Tim | 09092920 | No.21, Jln 1/3, Taman Pemandu | available | 696969 | fit to drive | 1 | 3
+Driver.1@gmail.com | Jannet | Danslief | 0234567891 | No.23, Jln 2/3, Taman Pemandu | available | 09080706 | fit to drive | 3 | None

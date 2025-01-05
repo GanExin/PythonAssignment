@@ -9,11 +9,11 @@ def login():
     email_input = str(input("Please enter email: "))
     password_input = input("Please enter password: ")
     for user in users:
-        email = user[0]
-        password = user[1]
-        if email_input == email and password_input == password: #ensure password and email match
+        email = user[0] #email = the 1st index of "user"
+        password = user[1] #password = the 2nd index of "user"
+        if email_input == email and password_input == password: #ensure password and email input match database records
             role = user[2] #find role of user
-            session = [email, role] #identify existing user based on email and role
+            session = [email, role] #store matching email and role as "session"
             if role == 'customer':
                 customer_homepage(session)
                 return True
@@ -24,3 +24,4 @@ def login():
                 admin_homepage(session)
                 return True
     return False
+    #return false if email and password does not match

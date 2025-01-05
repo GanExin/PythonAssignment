@@ -212,7 +212,7 @@ def update_delivery_details(session):
                             else:
                                 print("Invalid input. Please enter 'y' or 'n'.")
                                 continue
-
+                        #route location constraints
                         current_location_choices_r1 = ["Johor", "Kuala Lumpur", "Butterworth", "Kedah", "Perlis"]
                         current_location_choices_r2 = ["Johor", "Kuala Lumpur", "Terengganu", "Kelantan"]
 
