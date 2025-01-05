@@ -11,3 +11,6 @@ Barbie@gmail.com | BarTh3Bie | customer
 Jean@gmail.com | JeanTh3GuildMaster | admin
 hawktim@gmail.com | Hawkgivest1mthetuah | driver
 fiyero@gmail.com | therea1Fiyero | customer
+Driver.1@gmail.com | Dr1verPass | driver
+Admin.1@gmail.com | AdminPassw0rd | admin
+customer.1@gmail.com | Cust0mPass | customer

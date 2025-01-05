@@ -1,12 +1,12 @@
 Order ID: 1
 Product Name: Baby Oil
-Quantity: 1000
-Customer Name: Did He?
-Address: Los Angeles, California, USA
+Quantity: 10
+Customer Name: Karen Simones
+Address: Johor
 Phone Number: 016-9696969
 Payment Method: Credit Card
 Vehicle: Truck
-Special Request: roll it into a ball and flick it onto my doorstep
+Special Request: None
 Route: Route 1
 Route Price: RM35
 Delivery status: Delivered
@@ -122,26 +122,26 @@ Order ID: 9
 Product Name: Horse
 Quantity: 1
 Customer Name: Fiyero
-Address: Winkie Country
+Address: Kuala Lumpur
 Phone Number: 0192092022
 Payment Method: Debit Card
 Vehicle: Specialized Carrier
 Special Request: None
 Route: Route 1
 Route Price: RM35
-Delivery status: Undelivered
-Status update date: NIL
-Driver: NIL
+Delivery status: Delivered
+Status update date: 04/02/2024
+Driver: Fred@gmail.com
 ----------------------------------------
 Order ID: 10
 Product Name: Boots
 Quantity: 1
 Customer Name: Fiyero
-Address: Winkie Country
+Address: Kuala Lumpur
 Phone Number: 0192092022
 Payment Method: Credit Card
 Vehicle: Van
-Special Request: Do not wear my special boots. My feet must be the first to touch it >:[
+Special Request: None
 Route: Route 1
 Route Price: RM35
 Delivery status: Undelivered

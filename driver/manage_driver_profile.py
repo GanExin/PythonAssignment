@@ -7,22 +7,22 @@ from PythonAssignment.database import read_users, update_password_to_db, read_dr
     update_driver_address_to_db, update_driver_availability_status_to_db, update_driver_license_to_db, \
     update_driver_health_report_to_db, update_driver_dependencies_to_db, display_driver_details
 
-
+#function to update user's password
 def update_password(session):
-    users = read_users()
+    users = read_users() #set all lines in user.txt as users
     current_user = session[0] #check if current user match email aka session[0]
 
     for user in users:
         db_email = user[0]
-        if current_user == db_email:
+        if current_user == db_email: #ensure current_user match database email
             while True:
                 print("\n---------------------Update New Password---------------------\n")
-                new_password = input(f"Your current password is {user[1]}. Please input new password: ")
+                new_password = input(f"Your current password is {user[1]}. Please input new password: ") #user[1] == database password
 
                 if validate_password(new_password):
-                    user[1] = new_password
-                    update_password_to_db(users)
-                    print(f"{user[1]} updated for email: {user[0]} !")
+                    user[1] = new_password #set new password as database password
+                    update_password_to_db(users) #update new password to database
+                    print(f"Password updated for email: {user[0]} !")
                     return
 
     print("User email does not match.")

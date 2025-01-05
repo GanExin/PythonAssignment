@@ -7,15 +7,15 @@ def update_booked_parcel_details(session):
     print(f"Fetching orders for driver: {current_user}...\n")
     orders = display_driver_jobs(current_user)
 
-    if orders == f"No jobs found for driver: {current_user}": #check if user booked orders
+    if orders == f"No jobs found for driver: {current_user}, please book parcels first.": #check if user booked orders
         print("No orders found. Please book available parcels first.")
         return
-
+    #if user booked, display all of user's booked orders.
     print("\n---------------------Driver Orders---------------------")
     print(orders)
 
     while True:
-        delivery_status_available = ["Undelivered", "En route", "Delivered"]
+        delivery_status_available = ["Undelivered", "En route", "Delivered"] #constraints for status
 
         choice = input("Would you like to update a parcel?(y/n): ").lower()
         if choice == "y":
@@ -23,19 +23,19 @@ def update_booked_parcel_details(session):
                 order_id_input = input("Please enter the Order ID you want to update: ")
                 order_found = display_order(order_id_input)
                 if order_found :
-                    if f"Driver: {current_user}" in order_found:
+                    if f"Driver: {current_user}" in order_found: #print if driver email match
                         print("\n---------------------Order found---------------------")
                         print(order_found)
 
-                        while True:
+                        while True: #confirm if user wants to update the selected order
                             choice_to_update_order = input("\nWould you like to update this order? (y/n): ").lower()
                             if choice_to_update_order == "y":
-                                while True:
+                                while True: #loop until valid input
                                     new_status = input("Enter new delivery status [Undelivered/En route/Delivered]: ").capitalize()
                                     if new_status not in delivery_status_available:
                                         print("Invalid input. Please try again.")
                                         continue
-                                    while True:
+                                    while True: #loop until valid input
                                         new_date = input("Enter new date(dd/mm/yyyy): ")
                                         if not validate_date(new_date):
                                             continue
@@ -43,7 +43,7 @@ def update_booked_parcel_details(session):
                                     break
 
                                 update_parcel_details(order_id_input, new_status, new_date, current_user)
-
+                                #save details and print updated order
                                 updated_order = display_order(order_id_input)
                                 print("\n---------------------Updated Order---------------------")
                                 print(updated_order)

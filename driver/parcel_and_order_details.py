@@ -21,7 +21,8 @@ def update_parcel_driver(session):
                         available_orders, order_ids = display_available_order()
                         if available_orders == "No available orders found.":
                             print(available_orders)
-                            break #if no available orders, break
+                            break
+                            #if no available orders, break
 
                         print(available_orders) #if orders are available, print details
 
@@ -37,14 +38,18 @@ def update_parcel_driver(session):
 
                             choice_to_deliver_order = input("\nWould you like to take deliver this order? (y/n): ").lower()
                             if choice_to_deliver_order == "y":
-                                new_driver = current_user
-                                new_status = input("Enter new delivery status [Undelivered/En route/Delivered]: ").capitalize()
-                                if new_status not in delivery_status_available:
-                                    print("Invalid input. Please try again.")
-                                    continue
-                                new_date = input("Enter new date(dd/mm/yyyy): ")
-                                if not validate_date(new_date):
-                                    continue
+                                while True:
+                                    new_driver = current_user
+                                    new_status = input("Enter new delivery status [Undelivered/En route/Delivered]: ").capitalize()
+                                    if new_status not in delivery_status_available:
+                                        print("Invalid input. Please try again.")
+                                        continue
+                                    while True:
+                                        new_date = input("Enter new date(dd/mm/yyyy): ")
+                                        if not validate_date(new_date):
+                                            continue
+                                        break
+                                    break
 
                                 update_parcel_details(str(order_id_input), new_status, new_date, new_driver)
 

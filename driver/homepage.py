@@ -9,9 +9,9 @@ from PythonAssignment.driver.view_vehicle import view_assign_vehicle
 
 #homepage for drivers
 def driver_homepage(session):
-    profile = read_driver_details(session[0])
+    profile = read_driver_details(session[0]) #read driver's profile details as "profile". Identify line by user email(session[0])
 
-    print("Welcome back! " + profile[1] + "!")
+    print("Welcome back! " + profile[1] + "!") #profile[1] = user first name
 
     while True:
         choice = input("\nWhat would you like to do?(Please select number) "

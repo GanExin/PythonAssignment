@@ -73,6 +73,9 @@ def validate_last_name(last_name):
 
 
 def validate_number(number):
+    if not number:
+        print("Input cannot be empty")
+        return False
     if not all (char.isdigit() for char in number):
         print("Input should only contain numbers")
         return False
