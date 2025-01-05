@@ -106,8 +106,8 @@ Driver: MKJ@gmail.com
 Order ID: 8
 Product Name: Chocolate Chip Cookies
 Quantity: 1
-Customer Name: Kelantan
-Address: Wonderland, Animal Crossing
+Customer Name: Sasha A.C
+Address: Kelantan
 Phone Number: 0129293388
 Payment Method: Cash on Delivery
 Vehicle: Van
