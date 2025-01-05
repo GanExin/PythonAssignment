@@ -95,12 +95,12 @@ def calculate_average_transportation_cost():
             for line in lines:
                 driver_detail = line.strip().split(' | ')
                 total_fuel_cost += float(driver_detail[10].strip())
-                total_trips += 1
+                total_trips += 1  # Increment the trip count
 
         if total_trips == 0:
             return "Error: No trips found."
 
-        average_transportation_cost = total_fuel_cost / total_trips
+        average_transportation_cost = total_fuel_cost / total_trips  # Calculate the average transportation cost (fuel cost per trip)
         return f"Average Transportation Cost: RM {average_transportation_cost:.2f}"
 
     except FileNotFoundError:
@@ -118,12 +118,13 @@ def calculate_operating_ratio():
             lines = file.readlines()
             for line in lines:
                 driver_detail = line.strip().split(' | ')
-                total_cost_of_refuel += float(driver_detail[10].strip())
-                total_distance_travelled += float(driver_detail[6].strip())
+                total_cost_of_refuel += float(driver_detail[10].strip()) # Add the refuel cost
+                total_distance_travelled += float(driver_detail[6].strip()) # Add the distance traveled
 
         if total_distance_travelled == 0:
             return "Error: No distance travelled data found."
 
+        # Calculate the operating ratio
         operating_ratio = (total_cost_of_refuel / total_distance_travelled) * 100
         return f"Operating Ratio: {operating_ratio:.2f}%"
 

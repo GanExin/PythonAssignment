@@ -2,19 +2,16 @@
 def manage_fuel_and_consumption(session):
     print("------------------Manage Fuel and Vehicle Consumption------------------")
     while True:
-        choice = input("[1] View Fuel Data \n[2] Update Fuel Data"
-                       "\n[3] Track Fuel Consumption \n[4] Check Low Fuel Alert"
-                       "\n[5] Exit"
-                       "\nPlease choose a feature (1/2/3/4/5): ")
+        choice = input("[1] View Fuel Data \n[2] Track Fuel Consumption "
+                       "\n[3] Check Low Fuel Alert \n[4] Exit"
+                       "\nPlease choose a feature (1/2/3/4): ")
         if choice == '1':
             view_fuel_data(session)
         elif choice == '2':
-            update_fuel_data(session)
-        elif choice == '3':
             track_fuel_consumption(session)
-        elif choice == '4':
+        elif choice == '3':
             check_low_fuel_alerts(session)
-        elif choice == '5':
+        elif choice == '4':
             print("Exiting Manage Fuel and Vehicle Consumption.")
             break
         else:
@@ -46,54 +43,6 @@ def view_fuel_data(session):
         print("No fuel data file found. Please ensure the delivery details file exists.")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
-
-
-def update_fuel_data(session):
-    print("---------------Update Driver Fuel Data---------------")
-    driver_email = input("Please enter the driver email to update fuel data: ")
-
-    try:
-        with open("./database_driver/delivery_details_for_admin_report.txt", 'r') as file:
-            lines = file.readlines()
-
-        updated = False
-        for i, line in enumerate(lines):
-            driver_data = line.strip().split(" | ")
-            if driver_data[0] == driver_email:
-                updated = True
-
-                current_route = driver_data[1].strip()
-                current_fuel_level = driver_data[9].strip()
-                current_cost_of_refuel = driver_data[10].strip()
-                current_fuel_consumption = driver_data[12].strip()
-                current_distance_traveled = driver_data[6].strip()
-
-                route = input(f"Enter new Route (current: {current_route}): ")
-                fuel_level = input(f"Enter new Fuel Level (current: {current_fuel_level}%): ")
-                cost_of_refuel = input(f"Enter new Total Cost of Refuel (current: RM {current_cost_of_refuel}): ")
-                fuel_consumption = input(f"Enter new Fuel Consumption (current: {current_fuel_consumption} litres/km): ")
-                distance_traveled = input(f"Enter new Total Distance Traveled (current: {current_distance_traveled} km): ")
-
-                driver_data[1] = route.strip()
-                driver_data[9] = fuel_level.strip()
-                driver_data[10] = cost_of_refuel.strip()
-                driver_data[12] = fuel_consumption.strip()
-                driver_data[6] = distance_traveled.strip()
-
-                lines[i] = " | ".join(driver_data) + "\n"
-                break
-
-        if updated:
-            with open("./database_driver/delivery_details_for_admin_report.txt", 'w') as file:
-                file.writelines(lines)
-            print(f"Fuel data for driver {driver_email} updated successfully.")
-        else:
-            print(f"Driver with email {driver_email} not found.")
-
-    except FileNotFoundError:
-        print("File not found. Please ensure the file exists.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
 
 
 def track_fuel_consumption(session):
@@ -139,6 +88,7 @@ def track_fuel_consumption(session):
         print(f"An unexpected error occurred: {e}")
 
 def check_low_fuel_alerts(session):
+    print("---------------Check Low Fuel Alerts---------------")
     try:
         while True:
             try:
@@ -183,7 +133,7 @@ def check_low_fuel_alerts(session):
             print(f"No drivers with fuel levels below or equal to {fuel_threshold}%.")
 
     except FileNotFoundError:
-        print("Delivery details file not found.")
+        print("Details file not found.")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 

@@ -869,20 +869,5 @@ def store_driver_comment(driver_email, comment):
     print(f"Comment stored successfully")
 
 
-def display_fuel_data(vehicle):
-    filename = "./database_admin/fuel_data.txt"
-    with open(filename, 'r') as file:
-            lines = file.readlines()
 
-            for line in lines:
-                vehicle_detail = line.strip().split(' | ')
-                if vehicle_detail[0] == vehicle[0]:
-                    detail = (f"Vehicle ID: {vehicle_detail[0]} \n"
-                              f"Vehicle Model: {vehicle_detail[1]} \n"
-                              f"Fuel Level: {vehicle_detail[2]} \n"
-                              f"Mileage: {vehicle_detail[3]} \n"
-                              f"Last Fuel Check: {vehicle_detail[4]} \n"
-                              f"Fuel Consumed: {vehicle_detail[5]} ")
-
-                    return detail
 
