@@ -25,14 +25,14 @@ def view_driver_details(session):
 
     try:
         with open("./database_driver/driver_profile.txt", "r") as file:
-            found = False
+            found = False #To check if we find any driver details
             for line in file:
-                driver_data = line.strip().split(" | ")
-                driver_details = display_driver_details(driver_data)
+                driver_data = line.strip().split(" | ") #remove extra spaces and split the line by " | "
+                driver_details = display_driver_details(driver_data) # Call the function
                 print("\nDriver Details:")
                 print(driver_details)
                 print("----------------------------------------")
-                found = True
+                found = True #set the found flag to true after driver details found
 
             if not found:
                 print("No driver profiles found.")
@@ -44,24 +44,24 @@ def view_driver_details(session):
 
 def add_comment_to_driver(session):
     print("---------------Add Comment to Driver---------------")
-    driver_email = input("Please enter the driver's email: ").strip()
+    driver_email = input("Please enter the driver's email: ").strip() #Ask user to enter driver's email and remove extra space
 
     try:
-        with open("./database_driver/driver_profile.txt", "r") as file:
-            driver_found = False
-            driver_name = ""
+        with open("./database_driver/driver_profile.txt", "r") as file: #open driver profile in read mode
+            driver_found = False # To check if driver is found
+            driver_name = "" # Placeholder to store driver's name
             for line in file:
                 driver_data = line.strip().split(" | ")
-                if driver_data[0] == driver_email:
+                if driver_data[0] == driver_email: #check if driver's email matches the one user input
                     driver_name = f"{driver_data[1]} {driver_data[2]}"
-                    driver_found = True
-                    break
+                    driver_found = True # Set to true after driver is found
+                    break #Exit loop
 
             if not driver_found:
                 print("Driver not found. Please check the email and try again.")
                 return
 
-        comment = input("Please enter your comment: ").strip()
+        comment = input("Please enter your comment: ").strip() #Add comment to driver
 
         with open("./database_admin/driver_comment.txt", "a") as file:
             file.write(f"Name: {driver_name}\n")
@@ -81,7 +81,7 @@ def view_comment_for_drivers(session):
     try:
         with open("./database_admin/driver_comment.txt", "r") as file:
             content = file.read()
-            if content:
+            if content: #check if file have content
                 print("\n---------------All Driver Comments---------------")
                 print(content)
             else:
